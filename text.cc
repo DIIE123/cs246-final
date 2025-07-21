@@ -8,7 +8,7 @@
 const size_t cardWidth = 33;
 const size_t minionMax = 5;
 const size_t boardWidth = minionMax * cardWidth;
-const size_t boardHeight = 11;
+const size_t rowHeight = 11;
 
 
 Text::Text(Game &game): Display{game} {}
@@ -36,12 +36,22 @@ static void printBottomBorder() {
 }
 
 static void displayRowWithBorder(std::vector<card_template_t> row) {
-  for (size_t i = 0; i < boardHeight; i++) {
+  for (size_t i = 0; i < rowHeight; i++) {
     std::string line;
     line += EXTERNAL_BORDER_CHAR_UP_DOWN;
     for (size_t j = 0; j < row.size(); j++) {
       line += row[j][i];
     }
+    line += EXTERNAL_BORDER_CHAR_UP_DOWN;
+    std::cout << line << std::endl;
+  }
+}
+
+static void printCentreGraphic() {
+  for (auto it = CENTRE_GRAPHIC.begin(); it != CENTRE_GRAPHIC.end(); it++) {
+    std::string line;
+    line += EXTERNAL_BORDER_CHAR_UP_DOWN;
+    line += *it;
     line += EXTERNAL_BORDER_CHAR_UP_DOWN;
     std::cout << line << std::endl;
   }
@@ -76,7 +86,9 @@ void Text::displayBoard() {
     // }
     playerOneMinions.emplace_back(CARD_TEMPLATE_EMPTY);
   }
-
+  // Print middle
+  printCentreGraphic();
+  
   // Print bottom player minions
   
   // Print bottom player
@@ -84,3 +96,4 @@ void Text::displayBoard() {
   // Print bottom border
   printBottomBorder();
 }
+
