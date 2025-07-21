@@ -12,17 +12,18 @@ Input::Input(Game &game, bool isTesting): game{game}, isTesting{isTesting}
 
 Input::~Input() {}
 
-void Input::handleCommand(istream &istr) {
+bool Input::handleCommand(istream &istr) {
   string s;
   if (!getline(istr, s)) {
     // No more arguments
-    return;
+    return true;
+    // Empty command
   }
   istringstream iss{s};
   string command;
   if (!(iss >> command)) {
     // Ignore empty line
-    return;
+    return true;
   }
   if (command == "help") {
     cout << "Commands:" << endl;
@@ -38,43 +39,45 @@ void Input::handleCommand(istream &istr) {
     cout << "inspect minion -- View a minion’s card and all enchantments on that minion." << endl;
     cout << "hand -- Describe all cards in your hand." << endl;
     cout << "board -- Describe all cards on the board." << endl;
+    return true;
   }
   if (command == "end"){
-    
+    return true;
   }
   if (command == "quit") {
-    // game.quit();
+    return false;
   }
   if (command == "draw") {
     if (isTesting) {
       //game.draw();
     }
-    return;
+    return true;
   }
   if (command == "discard") {
     if (isTesting) {
       //game.discard();
     }
-    return;
+    
+    return true;
   }
   if (command == "attack") {
     size_t i = 0;
     size_t j = 0;
     if (!(iss >> i)) {
       // Invalid
-      return;
+      return true;
     }
     // Checks bound
     // if (i >= game.current.getSize());
     if (!(iss >> j)) {
       
       // attack opposing player
-
+      return true;
     }
     // Checks bound
     // if (j >= game.current.getSize());
     // attack jth minion
-    return;
+    return true;
   }
   // Remember to check bounds!
   if (command == "play") {
@@ -83,17 +86,17 @@ void Input::handleCommand(istream &istr) {
     size_t t = 0;
     if (!(iss >> i)) {
       // Invalid
-      return;
+      return true;
     }
     if (!(iss >> p)) {
       // Play without target
     }
     if (!(iss >> t)) {
       // Invalid
-      return;
+      return true;
     }
     // Play with target
-    return;
+    return true;
   }
   if (command == "use") {
     size_t i = 0;
@@ -101,32 +104,34 @@ void Input::handleCommand(istream &istr) {
     size_t t = 0;
     if (!(iss >> i)) {
       // Invalid
-      return;
+      return true;
     }
     if (!(iss >> p)) {
       // Play without target
+      return true;
     }
     if (!(iss >> t)) {
       // Invalid
-      return;
+      return true;
     }
     // Play with target
-    return;
+    return true;
   }
   if (command == "inspect") {
     size_t i = 0;
     if (!(iss >> i)) {
       // Invalid
       cout << "'inspect' expects [int]. Type 'help' for more details" << endl;
-      return;
+      return true;
     }
   }
   if (command == "hand") {
-    
+    return true;
   }
   if (command == "board") {
-    
+    return true;
   }
   // Invalid Command
   cout << "Invalid command. Type 'help' for a list of available commands." << endl;
+  return true;
 }
