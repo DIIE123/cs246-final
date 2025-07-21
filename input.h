@@ -1,4 +1,6 @@
-#include <iostream>;
+#ifndef INPUT_H
+#define INPUT_H
+#include <iostream>
 #include <string>
 
 class Game;
@@ -9,6 +11,9 @@ class Input {
 public:
   Input(Game &game, bool isTesting);
   ~Input();
-  void handleCommand(istream &istr = std::cin);
+  bool handleCommand(istream &istr = std::cin);
 };
+
+#endif
+
 

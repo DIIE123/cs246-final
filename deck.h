@@ -1,3 +1,5 @@
+#ifndef DECK_H
+#define DECK_H
 #include "collection.cc"
 
 class Deck: public Collection{
@@ -10,3 +12,5 @@ public:
   Deck& operator=(Deck&&);
   void shuffle();
 };
+
+#endif

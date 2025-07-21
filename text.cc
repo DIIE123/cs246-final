@@ -1,3 +1,5 @@
+#ifndef TEXT_H
+#define TEXT_H
 #include "text.h"
 #include "ascii_graphics.h"
 #include <iostream>
@@ -88,7 +90,7 @@ void Text::displayBoard() {
   }
   // Print middle
   printCentreGraphic();
-  
+
   // Print bottom player minions
   
   // Print bottom player
@@ -97,3 +99,4 @@ void Text::displayBoard() {
   printBottomBorder();
 }
 
+#endif

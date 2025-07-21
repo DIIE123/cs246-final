@@ -1,3 +1,5 @@
+#ifndef DISPLAY_H
+#define DISPLAY_H
 #include <string>
 
 class Game;
@@ -11,3 +13,5 @@ public:
   virtual void displayHand() = 0;
   virtual void inspect() = 0;
 };
+
+#endif
