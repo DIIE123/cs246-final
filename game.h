@@ -1,24 +1,23 @@
 #ifndef GAME_H
 #define GAME_H
-//#include "display.h"
+#include "display.h"
 #include "player.h"
-//#include "subject.h"
+#include "subject.h"
 
 class Game {
-
+    Player p1;
+    Player p2;
 public:
 
-    void playGame() {}
+    Game() = default;
 
-    void doCommand(char a, char b, int c) {}
+    ~Game() = default;
 
     Player getActivePlayer() {}
 
     void drawCard() {}
 
     void discard(int i) {}
-
-    void quit() {}
 
 };
 
