@@ -6,6 +6,7 @@
 class Game;
 
 class Display {
+protected:
   Game &game;
 public:
   Display(Game &game);

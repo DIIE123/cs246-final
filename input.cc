@@ -42,6 +42,7 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "end"){
+    // game.endTurn();
     return true;
   }
   if (command == "quit") {

@@ -11,7 +11,7 @@ class Input {
 public:
   Input(Game &game, bool isTesting);
   ~Input();
-  bool handleCommand(istream &istr = std::cin);
+  bool handleCommand(std::istream &istr = std::cin);
 };
 
 #endif
