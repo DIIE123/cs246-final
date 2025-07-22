@@ -1,11 +1,12 @@
 #include "minion.h"
 #include <fstream>
 
+const std::string DIRECTORY = "./minions/";
+const std::string EXTENSION = ".txt";
+
 Minion::Minion(std::string name) {
     readInfo(name);
 }
-
-Minion::~Minion() {}
 
 void Minion::readInfo(std::string name) {
     // INPUT FORMAT:
@@ -16,19 +17,26 @@ void Minion::readInfo(std::string name) {
     // OPTIONAL:
     // ability keyword (triggered or activated)
     // ability description
-    // ability cost (if activated)
+    // ability cost (if activated) or type of trigger (if triggered)
 
-    std::string file{"./minions/" + name + ".txt"};
+    std::string file{DIRECTORY + name + EXTENSION};
     std::ifstream in{file};
 
     this->name = name;
-    in >> cost;
-    in >> attack;
-    in >> defense;
+    if (!(in >> cost >> attack >> defense)) return;
+
+    // std::string temp;
+    // in >> temp;
+    // if (temp == "triggered") {
+
+    // }
+    // else if (temp == "activated") {
+
+    // }
 }
 
-void Minion::doDamage(Minion &m) {
-    m.takeDamage(attack);
+void Minion::doDamage(Minion &other) {
+    other.takeDamage(attack);
 }
 
 void Minion::takeDamage(int damage) {

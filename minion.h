@@ -10,12 +10,11 @@ class Minion: public Card {
     int maxActions = 1;
     int actions = 0;
 
-    void readInfo(std::string name);
+    void readInfo(std::string name) override;
 
 public:
     Minion(std::string name);
-    ~Minion();
-    void doDamage(Minion &m);
+    void doDamage(Minion &other);
     // void doDamage(Player &p);
     void takeDamage(int damage);
     void decreaseActions();
