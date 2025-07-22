@@ -22,11 +22,11 @@ int main (int argc, char *argv[]) {
             } else if (argv[i] == "-testing") {
                 testing = true;
             } else if (argv[i] == "-deck1") {
-                deck1 = argv[i + 1];
                 i++;
+                deck1 = argv[i];
             } else if (argv[i] == "-deck2") {
-                deck2 = argv[i + 2];
                 i++;
+                deck2 = argv[i];
             } else if (argv[i] == "-graphics") {
                 graphics = true;
             }
