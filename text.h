@@ -1,4 +1,5 @@
 #include "display.h"
+#include "minion.h"
 
 extern const size_t cardWidth;
 extern const size_t minionMax;
@@ -11,6 +12,6 @@ public:
   ~Text();
   void displayBoard() override;
   void displayHand() override;
-  void inspect() override;
+  void inspect(Minion &m) override;
 };
 

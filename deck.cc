@@ -1,4 +1,7 @@
 #include "deck.h"
+#include "minion.h"
+#include <fstream>
+#include <memory>
 #include <algorithm>
 #include <random>
 #include <chrono>
@@ -14,3 +17,16 @@ void Deck::shuffle() {
   std::default_random_engine rng{seed};
   std::shuffle(cards.begin(), cards.end(), rng);
 }
+
+void Deck::createDeck(std::string deckfile){
+  std::ifstream deck{deckfile};
+  while (1) {
+    std::string line;
+    if (!(deck >> line)) {
+      break;
+    }
+    this->addCard(std::make_unique<Minion>(line));
+  }
+}
+
+
