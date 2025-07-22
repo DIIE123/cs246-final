@@ -13,6 +13,8 @@ public:
 
     ~Game() = default;
 
+    void setup() {}
+
     Player getActivePlayer() {}
 
     void drawCard() {}

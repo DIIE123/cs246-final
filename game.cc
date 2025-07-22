@@ -1,8 +1,11 @@
 #include "game.h"
 
+void Game::setup() {
+    //p1 = unique_ptr<Player> play1{100, 100};
+}
 
 Player Game::getActivePlayer() {
-    
+    // work on this next
 }
 
 void drawCard() {
