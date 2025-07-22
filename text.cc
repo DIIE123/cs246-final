@@ -95,7 +95,7 @@ void Text::displayBoard() {
   // Print top player minions
   std::vector<card_template_t> playerOneMinions;
   for (size_t i = 0; i < minionMax; i++) {
-    if(i < game.getPlayerOne().getHandSize()) {
+    if(i < game.getPlayerOne().getActiveMinions()) {
       playerOneMinions.emplace_back(display_minion_no_ability("MinionX", 1, 1, 1));
        continue;
     }
@@ -108,7 +108,7 @@ void Text::displayBoard() {
   // Print bottom player minions
   std::vector<card_template_t> playerTwoMinions;
   for (size_t i = 0; i < minionMax; i++) {
-    if(i < game.getPlayerTwo().getActiveSize()) {
+    if(i < game.getPlayerTwo().getActiveMinions()) {
       playerTwoMinions.emplace_back(display_minion_no_ability("MinionX", 1, 1, 1));
        continue;
     }
