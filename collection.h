@@ -1,3 +1,5 @@
+#ifndef COLLECTION_H
+#define COLLECTION_H
 #include <vector>
 #include <memory>
 
@@ -14,3 +16,6 @@ public:
   virtual void addCard(std::unique_ptr<Card> c);
   virtual std::unique_ptr<Card> removeCard(size_t index);
 };
+
+#endif
+
