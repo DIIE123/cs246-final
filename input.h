@@ -1,15 +1,16 @@
 #ifndef INPUT_H
 #define INPUT_H
+#include "game.h"
+#include "text.h"
 #include <iostream>
 #include <string>
 
-class Game;
-
 class Input {
   Game &game;
+  Text &text;
   bool isTesting;
 public:
-  Input(Game &game, bool isTesting);
+  Input(Game &game, Text& text, bool isTesting);
   ~Input();
   bool handleCommand(std::istream &istr = std::cin);
 };

@@ -15,18 +15,18 @@ public:
 
     ~Game() = default;
 
-    Player &getActivePlayer() {}
+    Player &getActivePlayer();
 
-    Player &getPlayerOne() {}
+    Player &getPlayerOne();
 
-    Player &getPlayerTwo() {}
+    Player &getPlayerTwo();
 
-    void drawCard() {}
+    void drawCard();
 
-    void discard(int i) {}
+    void discard(int i);
 
     // end the current player's turn
-    void endTurn() {}
+    void endTurn();
 
 };
 

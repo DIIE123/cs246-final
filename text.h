@@ -1,3 +1,5 @@
+#ifndef TEXT_H
+#define TEXT_H
 #include "display.h"
 #include "minion.h"
 
@@ -15,3 +17,4 @@ public:
   void inspect(Minion &m) override;
 };
 
+#endif
