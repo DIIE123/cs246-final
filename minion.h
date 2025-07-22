@@ -4,15 +4,15 @@
 #include <string>
 #include "card.h"
 
-class Minion: public Card {
-    enum TriggerType {
-        NONE,
-        START,
-        END,
-        ENTER,
-        LEAVE
-    };
+enum TriggerType {
+    NONE,
+    START,
+    END,
+    ENTER,
+    LEAVE
+};
 
+class Minion: public Card {
     int attack;
     int defense;
     int maxActions = 1;

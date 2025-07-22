@@ -5,7 +5,7 @@
 #include "card.h"
 
 class Spell: public Card {
-    void readInfo(std::string name);
+    void readInfo(std::string name) override;
 
 public:
     Spell(std::string name);

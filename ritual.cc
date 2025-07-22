@@ -1,25 +1,29 @@
-#include "spell.h"
+#include "ritual.h"
 #include <fstream>
 
-const std::string DIRECTORY = "./spells/";
+const std::string DIRECTORY = "./rituals/";
 const std::string EXTENSION = ".txt";
 
-Spell::Spell(std::string name) {
+Ritual::Ritual(std::string name) {
     readInfo(name);
 }
 
-void Spell::readInfo(std::string name) {
+void Ritual::readInfo(std::string name) {
     // INPUT FORMAT:
     // cost
+    // charges
     // ability description
+    // ability cost
 
     std::string file{DIRECTORY + name + EXTENSION};
     std::ifstream in{file};
 
     this->name = name;
     in >> cost;
+    in >> charges;
     std::string abilityDesc;
     in >> abilityDesc;
+    in >> abilityCost;
 
     // TODO: Set Ability using abilityDesc 
 }

@@ -1,0 +1,2 @@
+3
+Deal 2 damage to all minions
