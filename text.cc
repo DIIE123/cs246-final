@@ -37,14 +37,18 @@ static void printBottomBorder() {
   std::cout << bottomBorder << std::endl;
 }
 
-static void displayRowWithBorder(std::vector<card_template_t> row) {
+static void displayRow(std::vector<card_template_t> row, bool Withborder) {
   for (size_t i = 0; i < rowHeight; i++) {
     std::string line;
-    line += EXTERNAL_BORDER_CHAR_UP_DOWN;
+    if (Withborder) {
+      line += EXTERNAL_BORDER_CHAR_UP_DOWN;
+    }
     for (size_t j = 0; j < row.size(); j++) {
       line += row[j][i];
     }
-    line += EXTERNAL_BORDER_CHAR_UP_DOWN;
+    if (Withborder) {
+      line += EXTERNAL_BORDER_CHAR_UP_DOWN;
+    }
     std::cout << line << std::endl;
   }
 }
@@ -97,6 +101,18 @@ void Text::displayBoard() {
 
   // Print bottom border
   printBottomBorder();
+}
+
+void Text::displayHand() {
+  // displayRow(deck, false);
+}
+
+void Text::inspect(Minion &m) {
+  // Print Minion
+  
+  // Print Enchantments
+  
+
 }
 
 #endif
