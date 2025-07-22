@@ -1,9 +1,8 @@
 #ifndef COLLECTION_H
 #define COLLECTION_H
+#include "card.h"
 #include <vector>
 #include <memory>
-
-class Card;
 
 class Collection {
 protected: 

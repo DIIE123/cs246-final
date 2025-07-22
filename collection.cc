@@ -13,7 +13,7 @@ size_t Collection::getSize () {
 }
 
 void Collection::addCard(std::unique_ptr<Card> c) {
-  cards.emplace_back(c);
+  cards.emplace_back(std::move(c));
 }
 
 std::unique_ptr<Card> Collection::removeCard(size_t index) {
