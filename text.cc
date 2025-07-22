@@ -54,11 +54,7 @@ static void displayRow(std::vector<card_template_t> row, bool Withborder) {
 
 static void printCentreGraphic() {
   for (auto it = CENTRE_GRAPHIC.begin(); it != CENTRE_GRAPHIC.end(); it++) {
-    std::string line;
-    line += EXTERNAL_BORDER_CHAR_UP_DOWN;
-    line += *it;
-    line += EXTERNAL_BORDER_CHAR_UP_DOWN;
-    std::cout << line << std::endl;
+    std::cout << *it << std::endl;
   }
 }
 
@@ -82,12 +78,13 @@ void Text::displayBoard() {
   //  }
   // playerOneRow.emplace_back(ritual1);
   // temporary!!
-  playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
+  playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
   card_template_t playerOne = display_player_card(1, "Player1", 20, 3);
   playerOneRow.emplace_back(playerOne);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
-
+  playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
+  displayRow(playerOneRow, true);
 
 
   // Print top player minions
@@ -116,11 +113,13 @@ void Text::displayBoard() {
 
   // Print bottom player
   std::vector<card_template_t> playerTwoRow;
-  playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
+  playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
   card_template_t playerTwo = display_player_card(2, "Player2", 20, 3);
   playerTwoRow.emplace_back(playerOne);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
+  playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
+  displayRow(playerTwoRow, true);
   // Print bottom border
   printBottomBorder();
 }
