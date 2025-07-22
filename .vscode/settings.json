@@ -41,6 +41,12 @@
         "cmath": "cpp",
         "cstdio": "cpp",
         "numbers": "cpp",
-        "text_encoding": "cpp"
+        "text_encoding": "cpp",
+        "atomic": "cpp",
+        "functional": "cpp",
+        "memory": "cpp",
+        "random": "cpp",
+        "vector": "cpp",
+        "iostream": "cpp"
     }
 }

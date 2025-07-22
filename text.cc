@@ -2,6 +2,7 @@
 #define TEXT_H
 #include "text.h"
 #include "ascii_graphics.h"
+#include "game.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -63,6 +64,12 @@ static void printCentreGraphic() {
   }
 }
 
+static void printCard(card_template_t c) {
+  for (auto it = c.begin(); it != c.end(); it++) {
+    std::cout << *it << std::endl;
+  }
+}
+
 void Text::displayBoard() {
   // Print top border
   printTopBorder();
@@ -76,9 +83,11 @@ void Text::displayBoard() {
   //   ritual1 = CARD_TEMPLATE_EMPTY;
   //  }
   // playerOneRow.emplace_back(ritual1);
+  // temporary!!
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
-  // card_template_t playerOne = display_player_card(etc);
-  // playerOneRow.emplace_back(playerOne);
+  playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
+  card_template_t playerOne = display_player_card(1, "Player1", 20, 3);
+  playerOneRow.emplace_back(playerOne);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
 
 
@@ -86,29 +95,50 @@ void Text::displayBoard() {
   // Print top player minions
   std::vector<card_template_t> playerOneMinions;
   for (size_t i = 0; i < minionMax; i++) {
-    // if(i < minions.size()) {
-    //   
-    //   continue;
-    // }
+    if(i < game.getPlayerOne().getHandSize()) {
+      playerOneMinions.emplace_back(display_minion_no_ability("MinionX", 1, 1, 1));
+       continue;
+    }
     playerOneMinions.emplace_back(CARD_TEMPLATE_EMPTY);
   }
+  displayRow(playerOneMinions, true);
   // Print middle
   printCentreGraphic();
 
   // Print bottom player minions
-  
-  // Print bottom player
+  std::vector<card_template_t> playerTwoMinions;
+  for (size_t i = 0; i < minionMax; i++) {
+    if(i < game.getPlayerTwo().getActiveSize()) {
+      playerTwoMinions.emplace_back(display_minion_no_ability("MinionX", 1, 1, 1));
+       continue;
+    }
+    playerTwoMinions.emplace_back(CARD_TEMPLATE_EMPTY);
+  }
+  displayRow(playerTwoMinions, true);
 
+  // Print bottom player
+  std::vector<card_template_t> playerTwoRow;
+  playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
+  playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
+  card_template_t playerOne = display_player_card(2, "Player2", 20, 3);
+  playerTwoRow.emplace_back(playerOne);
+  playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
   // Print bottom border
   printBottomBorder();
 }
 
 void Text::displayHand() {
-  // displayRow(deck, false);
+  std::vector<card_template_t> currentHand;
+  size_t limit = game.getActivePlayer().getHandSize();
+  for (size_t i = 0; i < limit; i++) {
+    currentHand.emplace_back(display_minion_no_ability("MinionX", 1, 1, 1));
+  }
+  displayRow(currentHand, false);
 }
 
 void Text::inspect(Minion &m) {
   // Print Minion
+  //printCard(display_minion_no_ability(m));
   
   // Print Enchantments
   
