@@ -11,7 +11,7 @@ class Game {
     Player p2;
 public:
 
-    Game(std::string deck1, std::string deck2);
+    Game(std::string name1, std::string name2, std::string deck1, std::string deck2);
 
     ~Game() = default;
 

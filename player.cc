@@ -1,5 +1,7 @@
 #include "player.h"
 
+// CONSTANTS
+const int MAX_HAND = 5;
 
 Player::Player(std::string name, int hp, int mp, std::string deckFile): 
     name{name}, health{hp}, mana{mp}, deck{} {
@@ -17,6 +19,18 @@ bool Player::takeDamage(int dmg) {
 
 void Player::playCard(size_t i) {
     activeMinions.emplace_back(hand.removeCard(i));
+}
+
+void Player::drawCard() {
+    if (getHandSize() >= MAX_HAND) {
+        // Can't draw anymore cards; no space
+        return;
+    }
+    if (deck.getSize() == 0) {
+        // No more cards in deck
+        return;
+    }
+    hand.addCard(deck.removeCard(0));
 }
 
 size_t Player::getActiveMinions() {

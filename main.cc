@@ -6,6 +6,8 @@ int main (int argc, char *argv[]) {
     bool ongoing = true; // false when we want to quit game
 
     // Defaults and Files
+    std::string name1 = "player1";
+    std::string name2 = "player2";
     std::string deck1 = "default.deck";
     std::string deck2 = "default.deck";
     
@@ -15,15 +17,15 @@ int main (int argc, char *argv[]) {
     if (argc > 1) {
         for (int i = 2; i < argc; i++) {
             if (argv[i] == "-init") {
-                // do this later
+                // add init later
                 i++;
             } else if (argv[i] == "-testing") {
                 testing = true;
             } else if (argv[i] == "-deck1") {
-                // do this later
+                deck1 = argv[i + 1];
                 i++;
             } else if (argv[i] == "-deck2") {
-                // do this later
+                deck2 = argv[i + 2];
                 i++;
             } else if (argv[i] == "-graphics") {
                 graphics = true;
@@ -31,7 +33,7 @@ int main (int argc, char *argv[]) {
         }
     }
 
-    Game game{deck1, deck2};
+    Game game{name1, name2, deck1, deck2};
 
     Input input{game, testing}; // true is testing mode, false is normal
 
