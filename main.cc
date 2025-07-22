@@ -31,7 +31,7 @@ int main (int argc, char *argv[]) {
         }
     }
 
-    Game game;
+    Game game{deck1, deck2};
 
     Input input{game, testing}; // true is testing mode, false is normal
 
