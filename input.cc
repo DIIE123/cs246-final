@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Input::Input(Game &game, bool isTesting): game{game}, isTesting{isTesting}
+Input::Input(Game &game, Text &text, bool isTesting): game{game}, text{text}, isTesting{isTesting}
 {}
 
 Input::~Input() {}
@@ -42,7 +42,7 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "end"){
-    // game.endTurn();
+    game.endTurn();
     return true;
   }
   if (command == "quit") {
@@ -127,9 +127,11 @@ bool Input::handleCommand(istream &istr) {
     }
   }
   if (command == "hand") {
+    text.displayHand();
     return true;
   }
   if (command == "board") {
+    text.displayBoard();
     return true;
   }
   // Invalid Command

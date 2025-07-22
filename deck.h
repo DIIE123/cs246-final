@@ -1,6 +1,6 @@
 #ifndef DECK_H
 #define DECK_H
-#include "collection.cc"
+#include "collection.h"
 #include <string>
 
 class Deck: public Collection{

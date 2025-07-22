@@ -1,5 +1,3 @@
-#ifndef TEXT_H
-#define TEXT_H
 #include "text.h"
 #include "ascii_graphics.h"
 #include "game.h"
@@ -56,11 +54,7 @@ static void displayRow(std::vector<card_template_t> row, bool Withborder) {
 
 static void printCentreGraphic() {
   for (auto it = CENTRE_GRAPHIC.begin(); it != CENTRE_GRAPHIC.end(); it++) {
-    std::string line;
-    line += EXTERNAL_BORDER_CHAR_UP_DOWN;
-    line += *it;
-    line += EXTERNAL_BORDER_CHAR_UP_DOWN;
-    std::cout << line << std::endl;
+    std::cout << *it << std::endl;
   }
 }
 
@@ -84,22 +78,23 @@ void Text::displayBoard() {
   //  }
   // playerOneRow.emplace_back(ritual1);
   // temporary!!
-  playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
+  playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
   card_template_t playerOne = display_player_card(1, "Player1", 20, 3);
   playerOneRow.emplace_back(playerOne);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
-
+  playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
+  displayRow(playerOneRow, true);
 
 
   // Print top player minions
   std::vector<card_template_t> playerOneMinions;
   for (size_t i = 0; i < minionMax; i++) {
-    if(i < game.getPlayerOne().getActiveMinions()) {
+    //if(i < game.getPlayerOne().getActiveMinions()) {
       playerOneMinions.emplace_back(display_minion_no_ability("MinionX", 1, 1, 1));
-       continue;
-    }
-    playerOneMinions.emplace_back(CARD_TEMPLATE_EMPTY);
+      continue;
+    //}
+    //playerOneMinions.emplace_back(CARD_TEMPLATE_EMPTY);
   }
   displayRow(playerOneMinions, true);
   // Print middle
@@ -108,21 +103,23 @@ void Text::displayBoard() {
   // Print bottom player minions
   std::vector<card_template_t> playerTwoMinions;
   for (size_t i = 0; i < minionMax; i++) {
-    if(i < game.getPlayerTwo().getActiveMinions()) {
+    //if(i < game.getPlayerTwo().getActiveMinions()) {
       playerTwoMinions.emplace_back(display_minion_no_ability("MinionX", 1, 1, 1));
-       continue;
+      continue;
     }
-    playerTwoMinions.emplace_back(CARD_TEMPLATE_EMPTY);
-  }
+    //.emplace_back(CARD_TEMPLATE_EMPTY);
+  //}
   displayRow(playerTwoMinions, true);
 
   // Print bottom player
   std::vector<card_template_t> playerTwoRow;
+  playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
-  playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
-  card_template_t playerOne = display_player_card(2, "Player2", 20, 3);
+  card_template_t playerTwo = display_player_card(2, "Player2", 20, 3);
   playerTwoRow.emplace_back(playerOne);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
+  playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
+  displayRow(playerTwoRow, true);
   // Print bottom border
   printBottomBorder();
 }
@@ -142,7 +139,6 @@ void Text::inspect(Minion &m) {
   
   // Print Enchantments
   
-
+  
 }
 
-#endif

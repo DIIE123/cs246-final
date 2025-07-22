@@ -35,7 +35,9 @@ int main (int argc, char *argv[]) {
 
     Game game{name1, name2, deck1, deck2};
 
-    Input input{game, testing}; // true is testing mode, false is normal
+    Text text{game};
+
+    Input input{game, text, testing}; // true is testing mode, false is normal
 
     while (ongoing) {
         ongoing = input.handleCommand(std::cin);

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "collection.h"
 #include "deck.h"
 #include "hand.h"
@@ -16,27 +17,27 @@ class Player {
     int mana;
     Deck deck;
     Hand hand;
-    std::vector<Minion> activeMinions;
+    std::vector<std::unique_ptr<Card>> activeMinions;
 public:
 
-    Player(std::string name, int hp, int mp, std::string deckFile) {}
+    Player(std::string name, int hp, int mp, std::string deckFile);
 
     ~Player() = default;
 
-    void playCard(size_t i) {}
+    void playCard(size_t i);
 
     void drawCard() {}
 
     // returns false if the player doesn't die and true if they do
-    bool takeDamage(int dmg) {}
+    bool takeDamage(int dmg);
 
-    size_t getActiveMinions() {}
+    size_t getActiveMinions();
 
-    size_t getHandSize() {}
+    size_t getHandSize();
 
-    Hand &getHand() {}
+    Hand &getHand();
 
-    Deck &getDeck() {}
+    Deck &getDeck();
 
 };
 
