@@ -3,11 +3,16 @@
 
 #include <string>
 #include "card.h"
-#include "ability.h"
-
-class Ability;
 
 class Minion: public Card {
+    enum TriggerType {
+        NONE,
+        START,
+        END,
+        ENTER,
+        LEAVE
+    };
+
     int attack;
     int defense;
     int maxActions = 1;
@@ -32,14 +37,6 @@ public:
     virtual int getDefense();
     virtual int getMaxActions();
     virtual int getAbilityCost();
-};
-
-enum TriggerType {
-    NONE,
-    START,
-    END,
-    ENTER,
-    LEAVE
 };
 
 #endif

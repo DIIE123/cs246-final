@@ -3,9 +3,7 @@
 
 #include <string>
 #include "minion.h"
-
-class Minion;
-class Player;
+#include "player.h"
 
 class Ability {
     std::string description;

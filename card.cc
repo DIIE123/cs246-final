@@ -12,7 +12,7 @@ int Card::getCost() {
     return cost;
 }
 
-void Card::useAbility(Player *player, Minion *minion) {
-    ability->useAbility(player, minion);
-}
+// void Card::useAbility(Player *player, Minion *minion) {
+//     ability->useAbility(player, minion);
+// }
 
