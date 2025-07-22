@@ -26,7 +26,7 @@ public:
 
     void playCard(size_t i);
 
-    void drawCard() {}
+    void drawCard();
 
     // returns false if the player doesn't die and true if they do
     bool takeDamage(int dmg);
