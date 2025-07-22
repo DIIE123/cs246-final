@@ -1,7 +1,7 @@
 CXX = g++-14
 CXXFLAGS = -std=c++20 -Wall -MMD -Werror=vla
 EXEC = sorcery
-OBJECTS = card.o minion.o main.o # add more later
+OBJECTS = card.o minion.o test.o # add more later
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}

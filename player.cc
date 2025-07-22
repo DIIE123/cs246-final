@@ -1,9 +1,10 @@
 #include "player.h"
 
-Player::Player(int hp, int mp): health{hp}, mana{mp} {
-    
-}
-// pass a file name to deck or smth
+
+Player::Player(std::string name, int hp, int mp, std::string deckFile): 
+    name{name}, health{hp}, mana{mp}, deck{} {
+        deck.createDeck(deckFile);
+    }
 
 bool Player::takeDamage(int dmg) {
     health -= dmg;
@@ -14,10 +15,16 @@ bool Player::takeDamage(int dmg) {
     return false;
 }
 
-void createDeck() {} // do we need this?
+void Player::playCard(size_t i) {
+    activeMinions.emplace_back(hand.removeCard(i));
+}
+
+size_t Player::getActiveMinions() {
+    return activeMinions.size();
+}
 
 size_t Player::getHandSize() {
-    //return hand.getSize();
+    return hand.getSize();
 }
 
 Hand &Player::getHand() {
