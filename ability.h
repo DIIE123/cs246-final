@@ -10,12 +10,13 @@ class Player;
 class Ability {
     std::string description;
 
-    virtual void useChildAbility(Player &player, Minion &minion) = 0;
+    virtual void useChildAbility(Player *player, Minion *minion) = 0;
     
 public:
     Ability();
     Ability(std::string description);
-    void useAbility(Player &player, Minion &minion);
+    void useAbility(Player *player, Minion *minion);
+    std::string getDescription();
 };
 
 // Spells
@@ -25,7 +26,7 @@ public:
 
 // Activated
 class NovicePyromancer: public Ability {
-    void useChildAbility(Player &player, Minion &minion) override;
+    void useChildAbility(Player *player, Minion *minion) override;
     
 public:
     NovicePyromancer();

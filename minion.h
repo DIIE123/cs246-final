@@ -3,12 +3,17 @@
 
 #include <string>
 #include "card.h"
+#include "ability.h"
+
+class Ability;
 
 class Minion: public Card {
     int attack;
     int defense;
     int maxActions = 1;
     int actions = 0;
+    int abilityCost = 0;
+    TriggerType triggerType = NONE;
 
     void readInfo(std::string name) override;
 
@@ -20,6 +25,21 @@ public:
     void decreaseActions();
     void resetActions();
     bool isDead() const;
+
+    int getActions();
+
+    virtual int getAttack();
+    virtual int getDefense();
+    virtual int getMaxActions();
+    virtual int getAbilityCost();
+};
+
+enum TriggerType {
+    NONE,
+    START,
+    END,
+    ENTER,
+    LEAVE
 };
 
 #endif

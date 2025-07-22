@@ -15,7 +15,7 @@ void Minion::readInfo(std::string name) {
     // defense
 
     // OPTIONAL:
-    // ability keyword (triggered or activated)
+    // ability keyword (trigger or active)
     // ability description
     // ability cost (if activated) or type of trigger (if triggered)
 
@@ -27,13 +27,15 @@ void Minion::readInfo(std::string name) {
 
     // std::string temp;
     // in >> temp;
-    // if (temp == "triggered") {
+    // if (temp == "trigger") {
 
     // }
-    // else if (temp == "activated") {
+    // else if (temp == "active") {
 
     // }
 }
+
+// TODO: Make minion use the methods getAttack, getDefense, etc. so it uses the enchanted versions
 
 void Minion::doDamage(Minion &other) {
     other.takeDamage(attack);
@@ -54,3 +56,9 @@ void Minion::resetActions() {
 bool Minion::isDead() const {
     return defense <= 0;
 }
+
+// Getters
+int Minion::getAttack() { return attack; }
+int Minion::getDefense() { return defense; }
+int Minion::getMaxActions() { return maxActions; }
+int Minion::getAbilityCost() { return abilityCost; }
