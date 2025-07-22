@@ -4,6 +4,10 @@
 
 int main (int argc, char *argv[]) {
     bool ongoing = true; // false when we want to quit game
+
+    // Defaults and Files
+    std::string deck1 = "default.deck";
+    std::string deck2 = "default.deck";
     
     // Pre-launch commands
     bool testing = false;
@@ -12,12 +16,15 @@ int main (int argc, char *argv[]) {
         for (int i = 2; i < argc; i++) {
             if (argv[i] == "-init") {
                 // do this later
+                i++;
             } else if (argv[i] == "-testing") {
                 testing = true;
             } else if (argv[i] == "-deck1") {
                 // do this later
+                i++;
             } else if (argv[i] == "-deck2") {
                 // do this later
+                i++;
             } else if (argv[i] == "-graphics") {
                 graphics = true;
             }

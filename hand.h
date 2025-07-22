@@ -2,7 +2,7 @@
 #define HAND_H
 #include "collection.h"
 
-class Hand: Collection{
+class Hand: public Collection{
 public:
   Hand();
   ~Hand() override;
