@@ -4,6 +4,7 @@
 Player::Player(std::string name, int hp, int mp, std::string deckFile): 
     name{name}, health{hp}, mana{mp}, deck{} {
         deck.createDeck(deckFile);
+        deck.shuffle();
     }
 
 bool Player::takeDamage(int dmg) {
