@@ -23,12 +23,12 @@ public:
     Card();
     Card(std::string name, size_t cost);
     virtual ~Card();
-    void useAbility(Player *player = nullptr, Minion *minion = nullptr);
+    void useAbility(Game &game);
 
     std::string getName();
     size_t getCost();
     std::string getAbilityDesc();
-    virtual std::string getType() = 0;
+    virtual CardType getType() = 0;
 };
 
 #endif

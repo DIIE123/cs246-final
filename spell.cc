@@ -8,10 +8,6 @@ Spell::Spell(std::string name) {
     readInfo(name);
 }
 
-CardType Spell::getType() {
-  return CardType::Spell;
-}
-
 void Spell::readInfo(std::string name) {
     // INPUT FORMAT:
     // cost
@@ -26,4 +22,4 @@ void Spell::readInfo(std::string name) {
     abilityFunc = am->getAbility(name);
 }
 
-std::string Spell::getType() { return "spell"; }
+CardType Spell::getType() { return CardType::Spell; }
