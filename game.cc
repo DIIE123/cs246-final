@@ -40,7 +40,7 @@ void Game::drawCard() {
 }
 
 void Game::discard(int i) {
-    getActivePlayer().getDeck().removeCard(i);
+    getActivePlayer().getHand().removeCard(i);
 }
 
 void Game::endTurn() {

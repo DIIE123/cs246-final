@@ -1,34 +1,19 @@
 #ifndef ABILITY_H
 #define ABILITY_H
 
-#include <string>
-class Minion;
-class Player;
+class Game;
 
-class Ability {
-    std::string description;
-
-    virtual void useChildAbility(Player *player, Minion *minion) = 0;
-    
-public:
-    Ability();
-    Ability(std::string description);
-    void useAbility(Player *player, Minion *minion);
-    std::string getDescription();
-};
+typedef void (*Ability)(Game &game);
 
 // Spells
 
 // Minions
 // Triggered
+void abilityBoneGolem(Game &game);
 
 // Activated
-class NovicePyromancer: public Ability {
-    void useChildAbility(Player *player, Minion *minion) override;
-    
-public:
-    NovicePyromancer();
-};
+void abilityNovicePyromancer(Game &game);
+
 // Enchantments
 
 // Rituals

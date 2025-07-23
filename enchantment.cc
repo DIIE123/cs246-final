@@ -1,27 +1,28 @@
 #include "enchantment.h"
 
 // Enchantment
-Enchantment::Enchantment(std::string name, int cost, std::string attackString, std::string defenseString):
-    Card{name, cost}, attackString{attackString}, defenseString{defenseString} {}
+Enchantment::Enchantment(std::string name, size_t cost, std::string attackString, std::string defenseString, Minion* minion):
+    Minion{name, cost}, attackString{attackString}, defenseString{defenseString} {}
 
-Enchantment::Enchantment(std::string name, int cost, std::string abilityDesc):
-    Card{name, cost}, abilityDesc{abilityDesc} {}
+Enchantment::Enchantment(std::string name, size_t cost, std::string abilityDesc, Minion* minion):
+    Minion{name, cost}, abilityDesc{abilityDesc}, minion{minion} {}
 
-void Enchantment::setMinion(Minion *m) { this->minion = minion; }
-Minion* Enchantment::getMinion() { return minion; }
+Enchantment::~Enchantment() {delete minion;};
+
+
 std::string Enchantment::getAttackString() { return attackString; }
 std::string Enchantment::getDefenseString() { return defenseString; }
-std::string Enchantment::getAbilityDesc() { return abilityDesc }
+std::string Enchantment::getAbilityDesc() { return abilityDesc; }
 
 // Giant Strength
-GiantStrength::GiantStrength(): Enchantment{"Giant Strength", 1, "+2", "+2"} {}
-int GiantStrength::getAttack() { return minion->getAttack() + 2; }
-int GiantStrength::getDefense() { return minion->getDefense() + 2; }
+GiantStrength::GiantStrength(Minion* minion): Enchantment{"Giant Strength", 1, "+2", "+2", minion} {}
+size_t GiantStrength::getAttack() { return minion->getAttack() + 2; }
+size_t GiantStrength::getDefense() { return minion->getDefense() + 2; }
 
 // Enrage
-Enrage::Enrage(): Enchantment{"Enrage", 2, "*2", "*2"} {}
-int Enrage::getAttack() { return minion->getAttack() * 2; }
-int Enrage::getDefense() { return minion->getDefense() * 2; }
+Enrage::Enrage(Minion* minion): Enchantment{"Enrage", 2, "*2", "*2", minion} {}
+size_t Enrage::getAttack() { return minion->getAttack() * 2; }
+size_t Enrage::getDefense() { return minion->getDefense() * 2; }
 
 // Haste
 Haste::Haste(): Enchantment{"Haste", 1, "Enchanted minion gains +1 action each turn"} {}

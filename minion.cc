@@ -1,4 +1,5 @@
 #include "minion.h"
+#include "player.h"
 #include <fstream>
 
 const std::string DIRECTORY = "./minions/";
@@ -7,6 +8,8 @@ const std::string EXTENSION = ".txt";
 Minion::Minion(std::string name) {
     readInfo(name);
 }
+
+Minion::Minion(std::string name, size_t cost): Card{name, cost} {}
 
 void Minion::readInfo(std::string name) {
     // INPUT FORMAT:
@@ -32,13 +35,12 @@ void Minion::readInfo(std::string name) {
     in >> input;
 
     // Read ability
-    in >> input;
-    ability = am->getAbility(input);
+    in >> abilityDesc;
+    abilityFunc = am->getAbility(name);
 
     if (input == "trigger") {
         // Read trigger type
-        in >> input;
-        triggerType = readTriggerType(input);
+        in >> triggerType;
     }
     else if (input == "active") {
         // Read active cost
@@ -46,10 +48,12 @@ void Minion::readInfo(std::string name) {
     }
 }
 
-// TODO: Make minion use the methods getAttack, getDefense, etc. so it uses the enchanted versions
-
 void Minion::doDamage(Minion &other) {
     other.takeDamage(attack);
+}
+
+void Minion::doDamage(Player &player) {
+    player.takeDamage(attack);
 }
 
 void Minion::takeDamage(int damage) {
@@ -68,24 +72,17 @@ bool Minion::isDead() const {
     return defense <= 0;
 }
 
-TriggerType Minion::readTriggerType(std::string input) {
-    if (input == "START") return TriggerType::START;
-    if (input == "END") return TriggerType::END;
-    if (input == "ENTER") return TriggerType::ENTER;
-    if (input == "LEAVE") return TriggerType::LEAVE;
-    return NONE;
-}
-
 // Getters
 int Minion::getAttack() { return attack; }
 int Minion::getDefense() { return defense; }
 int Minion::getActions() { return actions; }
 int Minion::getMaxActions() { return maxActions; }
 int Minion::getAbilityCost() { return abilityCost; }
+std::string Minion::getType() { return "minion"; }
 
 // Setters
 void Minion::setAttack(int attack) { this->attack = attack; }
 void Minion::setDefense(int defense) { this->defense = defense; }
-void Minion::setActions(int actions) { this->actions = actions; }
 void Minion::setMaxActions(int maxActions) { this->maxActions = maxActions; }
+void Minion::setActions(int actions) { this->actions = actions; }
 void Minion::setAbilityCost(int abilityCost) { this->abilityCost = abilityCost; }

@@ -9,6 +9,7 @@ class Spell: public Card {
 
 public:
     Spell(std::string name);
+    CardType getType() override;
 };
 
 #endif

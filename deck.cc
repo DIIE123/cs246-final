@@ -1,5 +1,6 @@
 #include "deck.h"
 #include "minion.h"
+#include "spell.h"
 #include <iostream>
 #include <fstream>
 #include <memory>
@@ -23,7 +24,15 @@ void Deck::createDeck(std::string deckfile){
     if (!std::getline(deck, line)) {
       break;
     }
-    this->addCard(std::make_unique<Minion>(line));
+    if (line == "Air Elemental") {
+      this->addCard(std::make_unique<Minion>(line));
+      continue;
+    }
+    if (line == "Banish") {
+      this->addCard(std::make_unique<Spell>(line));
+      continue;
+    }
+    // this->addCard(std::make_unique<Minion>(line));
   }
 }
 
