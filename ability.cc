@@ -10,14 +10,14 @@
 // Minions
 // // Triggered Ability
 // void abilityBoneGolem(Game &game) {
-//     Minion &minion = game.getActiveMinion();
+//     Card &minion = game.getActiveCard();
 //     minion.setAttack(minion.getAttack() + 1);
 //     minion.setDefense(minion.getDefense() + 1);
 // }
 
 // // Activated Ability
 // void abilityNovicePyromancer(Game &game) {
-//     game.getTargetMinion().takeDamage(1);
+//     game.attackMinion(game.getActiveCard(), game.getTargetCard());
 // }
 
 
