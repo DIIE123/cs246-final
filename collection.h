@@ -14,7 +14,7 @@ public:
   Collection(const Collection&) = delete;
   Collection &operator=(const Collection&) = delete;
   size_t getSize();
-  void addCard(std::unique_ptr<Card> c);
+  virtual void addCard(std::unique_ptr<Card> c);
   std::unique_ptr<Card> removeCard(size_t index);
 };
 

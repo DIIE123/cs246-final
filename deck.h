@@ -9,8 +9,6 @@ public:
   ~Deck() override;
   Deck(const Deck&) = delete;
   Deck& operator=(const Deck&) = delete;
-  Deck(Deck&&);
-  Deck& operator=(Deck&&);
   void shuffle();
   void createDeck(std::string deckfile);
 };
