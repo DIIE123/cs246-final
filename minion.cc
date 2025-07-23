@@ -1,5 +1,4 @@
 #include "minion.h"
-#include "player.h"
 #include <fstream>
 
 const std::string DIRECTORY = "./minions/";
@@ -46,41 +45,5 @@ void Minion::readInfo(std::string name) {
     }
 }
 
-void Minion::doDamage(Minion &other) {
-    other.takeDamage(attack);
-}
-
-void Minion::doDamage(Player &player) {
-    player.takeDamage(attack);
-}
-
-void Minion::takeDamage(int damage) {
-    defense -= damage;
-}
-
-void Minion::decreaseActions() {
-    --actions;
-}
-
-void Minion::resetActions() {
-    actions = maxActions;
-}
-
-bool Minion::isDead() const {
-    return defense <= 0;
-}
-
 // Getters
-int Minion::getAttack() { return attack; }
-int Minion::getDefense() { return defense; }
-int Minion::getActions() { return actions; }
-int Minion::getMaxActions() { return maxActions; }
-int Minion::getAbilityCost() { return abilityCost; }
 CardType Minion::getType() { return CardType::Minion; }
-
-// Setters
-void Minion::setAttack(int attack) { this->attack = attack; }
-void Minion::setDefense(int defense) { this->defense = defense; }
-void Minion::setMaxActions(int maxActions) { this->maxActions = maxActions; }
-void Minion::setActions(int actions) { this->actions = actions; }
-void Minion::setAbilityCost(int abilityCost) { this->abilityCost = abilityCost; }
