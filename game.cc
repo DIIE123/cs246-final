@@ -19,6 +19,14 @@ Player &Game::getActivePlayer() {
     }
 }
 
+Player &Game::getOtherPlayer() {
+    if (!currP1) {
+        return p1;
+    } else {
+        return p2;
+    }
+}
+
 Player &Game::getPlayerOne() {
     return p1;
 }

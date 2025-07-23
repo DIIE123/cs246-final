@@ -16,23 +16,21 @@ int main (int argc, char *argv[]) {
     // Pre-launch commands
     bool testing = false;
     bool graphics = false; // graphics display on/off
-    if (argc > 0) {
-        for (int i = 1; i < argc; i++) {
-            std::string command = argv[i];
-            if (command == "-init") {
-                // add init later
-                i++;
-            } else if (command == "-testing") {
-                testing = true;
-            } else if (command == "-deck1") {
-                deck1 = argv[i + 1];
-                i++;
-            } else if (command == "-deck2") {
-                deck2 = argv[i + 2];
-                i++;
-            } else if (command == "-graphics") {
-                graphics = true;
-            }
+    for (int i = 1; i < argc; i++) {
+        std::string command = argv[i];
+        if (command == "-init") {
+            // add init later
+            i++;
+        } else if (command == "-testing") {
+            testing = true;
+        } else if (command == "-deck1") {
+            deck1 = argv[i + 1];
+            i++;
+        } else if (command == "-deck2") {
+            deck2 = argv[i + 1];
+            i++;
+        } else if (command == "-graphics") {
+            graphics = true;
         }
     }
 
