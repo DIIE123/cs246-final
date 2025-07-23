@@ -43,8 +43,12 @@ void Player::drawCard() {
     hand.addCard(deck.removeCard(0));
 }
 
-Card &Player::getActiveMinion(size_t i) {
+Card &Player::getActiveCard(size_t i) {
     return activeMinions.getMinion(i);
+}
+
+size_t Player::getActiveMinionSize() {
+    return activeMinions.getSize();
 }
 
 void Player::attackPlayer(size_t i, Player &enemy) {
