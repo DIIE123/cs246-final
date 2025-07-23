@@ -47,6 +47,14 @@ void Game::discard(int i) {
     getActivePlayer().getHand().removeCard(i);
 }
 
+void Game::attackPlayer(size_t i, Player &enemy) {
+    getActivePlayer().attackPlayer(i, enemy);
+}
+
+void Game::attackMinion(size_t i, Player &enemy, size_t j) {
+    getActivePlayer().attackMinion(i, enemy, j);
+}
+
 void Game::endTurn() {
     currP1 = !currP1;
 }
