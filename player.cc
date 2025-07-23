@@ -43,12 +43,12 @@ size_t Player::getActiveMinions() {
     return activeMinions.getSize();
 }
 
-void attackPlayer(size_t i, Player &enemy) {
-    
+void Player::attackPlayer(size_t i, Player &enemy) {
+    activeMinions.attackPlayer(i, enemy);
 }
 
-void attackMinion(size_t i, Player &enemy, size_t j) {
-
+void Player::attackMinion(size_t i, Player &enemy, size_t j) {
+    activeMinions.attackMinion(i, enemy, j);
 }
 
 size_t Player::getHandSize() {
