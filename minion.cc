@@ -79,5 +79,13 @@ TriggerType Minion::readTriggerType(std::string input) {
 // Getters
 int Minion::getAttack() { return attack; }
 int Minion::getDefense() { return defense; }
+int Minion::getActions() { return actions; }
 int Minion::getMaxActions() { return maxActions; }
 int Minion::getAbilityCost() { return abilityCost; }
+
+// Setters
+void Minion::setAttack(int attack) { this->attack = attack; }
+void Minion::setDefense(int defense) { this->defense = defense; }
+void Minion::setActions(int actions) { this->actions = actions; }
+void Minion::setMaxActions(int maxActions) { this->maxActions = maxActions; }
+void Minion::setAbilityCost(int abilityCost) { this->abilityCost = abilityCost; }

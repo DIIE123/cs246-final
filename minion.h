@@ -26,18 +26,25 @@ class Minion: public Card {
 public:
     Minion(std::string name);
     void doDamage(Minion &other);
-    // void doDamage(Player &p);
+    void doDamage(Player &p);
     void takeDamage(int damage);
     void decreaseActions();
     void resetActions();
     bool isDead() const;
 
+    // Getters
+    int getAttack();
+    int getDefense();
+    int getMaxActions();
     int getActions();
+    int getAbilityCost();
 
-    virtual int getAttack();
-    virtual int getDefense();
-    virtual int getMaxActions();
-    virtual int getAbilityCost();
+    // Setters
+    void setAttack(int attack);
+    void setDefense(int defense);
+    void setActions(int actions);
+    void setMaxActions(int maxActions);
+    void setAbilityCost(int abilityCost);
 };
 
 #endif

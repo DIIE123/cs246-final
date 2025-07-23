@@ -4,10 +4,12 @@
 #include <string>
 #include "minion.h"
 
-class Enchantment: public Minion {
+class Enchantment: public Card {
     std::string attackString = "";
     std::string defenseString = "";
     std::string abilityDesc = "";
+
+    void readInfo(std::string name) override;
 
 protected:
     Minion *minion = nullptr;
@@ -15,6 +17,7 @@ protected:
 public:
     Enchantment(std::string name, int cost, std::string attackString, std::string defenseString);
     Enchantment(std::string name, int cost, std::string abilityDesc);
+    virtual ~Enchantment() = 0;
     void setMinion(Minion *minion);
     Minion* getMinion();
     std::string getAttackString();
@@ -25,33 +28,31 @@ public:
 class GiantStrength: public Enchantment {
 public:
     GiantStrength();
-    int getAttack() override;
-    int getDefense() override;
+    ~GiantStrength();
 };
 
 class Enrage: public Enchantment {
 public:
     Enrage();
-    int getAttack() override;
-    int getDefense() override;
+    ~Enrage();
 };
 
 class Haste: public Enchantment {
 public:
     Haste();
-    int getMaxActions() override;
+    ~Haste();
 };
 
 class MagicFatigue: public Enchantment {
 public:
     MagicFatigue();
-    int getAbilityCost() override;
+    ~MagicFatigue();
 };
 
 class Silence: public Enchantment {
 public:
     Silence();
-    bool getHasAbility() override;
+    ~Silence();
 };
 
 #endif

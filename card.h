@@ -17,7 +17,7 @@ protected:
 public:
     Card();
     virtual ~Card();
-    // void useAbility(Player *player = nullptr, Minion *minion = nullptr);
+    void useAbility(Player *player = nullptr, Minion *minion = nullptr);
 
     std::string getName();
     int getCost();
