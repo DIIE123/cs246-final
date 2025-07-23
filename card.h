@@ -2,6 +2,7 @@
 #define CARD_H
 #include <string>
 #include <memory>
+#include "type.h"
 #include "ability.h"
 #include "abilitymanager.h"
 
@@ -20,6 +21,7 @@ protected:
 
 public:
     Card();
+    Card(std::string name, size_t cost);
     virtual ~Card();
     void useAbility(Game &game);
 

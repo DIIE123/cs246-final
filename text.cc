@@ -131,8 +131,15 @@ void Text::displayHand() {
   size_t limit = game.getActivePlayer().getHandSize();
   std::vector<std::unique_ptr<CardInfo>> information = game.getActivePlayer().getHand().getInfo();
   for (size_t i = 0; i < limit; i++) {
-    card_template_t temp = display_minion_no_ability(information[i]->name, information[i]->cost, 1, 1);
-    currentHand.emplace_back(temp);
+    CardType type = information[i]->getType();
+    if (type == CardType::Minion) {
+      card_template_t temp = display_minion_no_ability(information[i]->name, information[i]->cost, 1, 1);
+      currentHand.emplace_back(temp);
+    }
+    if (type == CardType::Spell) {
+      card_template_t temp = display_spell(information[i]->name, information[i]->cost, "This works!");
+      currentHand.emplace_back(temp);
+    }
   }
   displayRow(currentHand, false);
 }

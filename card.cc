@@ -7,6 +7,10 @@ std::unique_ptr<AbilityManager> Card::am = std::make_unique<AbilityManager>();
 Card::Card() {}
 Card::~Card() {}
 
+void Card::useAbility(Game &game) {
+    abilityFunc(game);
+}
+
 std::string Card::getName() {
     return name;
 }
@@ -17,9 +21,5 @@ size_t Card::getCost() {
 
 std::string Card::getAbilityDesc() {
     return abilityDesc;
-}
-
-void Card::useAbility(Game &game) {
-    abilityFunc(game);
 }
 

@@ -8,6 +8,10 @@ Spell::Spell(std::string name) {
     readInfo(name);
 }
 
+CardType Spell::getType() {
+  return CardType::Spell;
+}
+
 void Spell::readInfo(std::string name) {
     // INPUT FORMAT:
     // cost

@@ -19,6 +19,14 @@ Player &Game::getActivePlayer() {
     }
 }
 
+Player &Game::getOtherPlayer() {
+    if (!currP1) {
+        return p1;
+    } else {
+        return p2;
+    }
+}
+
 Player &Game::getPlayerOne() {
     return p1;
 }
@@ -32,7 +40,7 @@ void Game::drawCard() {
 }
 
 void Game::discard(int i) {
-    getActivePlayer().getDeck().removeCard(i);
+    getActivePlayer().getHand().removeCard(i);
 }
 
 void Game::endTurn() {

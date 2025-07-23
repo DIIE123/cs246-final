@@ -1,13 +1,7 @@
 #ifndef INFO_H
 #define INFO_H
+#include "type.h"
 #include <string>
-
-enum class CardType {
-  Minion,
-  Spell,
-  Enchantment,
-  Ritual
-};
 
 struct CardInfo {
   std::string name;

@@ -9,6 +9,8 @@ Minion::Minion(std::string name) {
     readInfo(name);
 }
 
+Minion::Minion(std::string name, size_t cost): Card{name, cost} {}
+
 void Minion::readInfo(std::string name) {
     // INPUT FORMAT:
     // cost
