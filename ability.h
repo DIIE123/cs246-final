@@ -2,8 +2,8 @@
 #define ABILITY_H
 
 #include <string>
-#include "minion.h"
-#include "player.h"
+class Minion;
+class Player;
 
 class Ability {
     std::string description;

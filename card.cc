@@ -1,6 +1,8 @@
 #include "card.h"
 #include <iostream>
 
+std::unique_ptr<AbilityManager> Card::am = std::make_unique<AbilityManager>();
+
 Card::Card() {}
 Card::~Card() {}
 

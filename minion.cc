@@ -23,16 +23,27 @@ void Minion::readInfo(std::string name) {
     std::ifstream in{file};
 
     this->name = name;
+
+    // Read cost, attack, defense
     if (!(in >> cost >> attack >> defense)) return;
 
-    // std::string temp;
-    // in >> temp;
-    // if (temp == "trigger") {
+    // Read type
+    std::string input;
+    in >> input;
 
-    // }
-    // else if (temp == "active") {
+    // Read ability
+    in >> input;
+    ability = am->getAbility(input);
 
-    // }
+    if (input == "trigger") {
+        // Read trigger type
+        in >> input;
+        triggerType = readTriggerType(input);
+    }
+    else if (input == "active") {
+        // Read active cost
+        in >> abilityCost;
+    }
 }
 
 // TODO: Make minion use the methods getAttack, getDefense, etc. so it uses the enchanted versions
@@ -55,6 +66,14 @@ void Minion::resetActions() {
 
 bool Minion::isDead() const {
     return defense <= 0;
+}
+
+TriggerType Minion::readTriggerType(std::string input) {
+    if (input == "START") return TriggerType::START;
+    if (input == "END") return TriggerType::END;
+    if (input == "ENTER") return TriggerType::ENTER;
+    if (input == "LEAVE") return TriggerType::LEAVE;
+    return NONE;
 }
 
 // Getters

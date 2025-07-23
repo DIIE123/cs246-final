@@ -1,4 +1,6 @@
 #include "ability.h"
+#include "minion.h"
+#include "player.h"
 
 // Ability
 Ability::Ability() {}

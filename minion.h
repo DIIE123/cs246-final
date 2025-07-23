@@ -21,6 +21,7 @@ class Minion: public Card {
     TriggerType triggerType = NONE;
 
     void readInfo(std::string name) override;
+    TriggerType readTriggerType(std::string input);
 
 public:
     Minion(std::string name);

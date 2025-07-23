@@ -18,8 +18,8 @@ void Spell::readInfo(std::string name) {
 
     this->name = name;
     in >> cost;
+
     std::string abilityDesc;
     in >> abilityDesc;
-
-    // TODO: Set Ability using abilityDesc 
+    ability = am->getAbility(abilityDesc);
 }

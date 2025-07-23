@@ -2,12 +2,11 @@
 #define ABILITYMANAGER_H
 
 #include <string>
-#include "ability.h"
 #include <vector>
 #include <memory>
+#include "ability.h"
 
 class AbilityManager {
-protected: 
     std::vector<std::shared_ptr<Ability>> abilities;
     void addAbility(std::shared_ptr<Ability> a);
 
