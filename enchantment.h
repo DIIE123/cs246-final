@@ -4,7 +4,7 @@
 #include <string>
 #include "minion.h"
 
-class Enchantment: public Card {
+class Enchantment: public Minion {
     std::string attackString = "";
     std::string defenseString = "";
     std::string abilityDesc = "";
@@ -15,11 +15,9 @@ protected:
     Minion *minion = nullptr;
 
 public:
-    Enchantment(std::string name, int cost, std::string attackString, std::string defenseString);
-    Enchantment(std::string name, int cost, std::string abilityDesc);
+    Enchantment(std::string name, size_t cost, std::string attackString, std::string defenseString, Minion* minion);
+    Enchantment(std::string name, size_t cost, std::string abilityDesc, Minion* minion);
     virtual ~Enchantment() = 0;
-    void setMinion(Minion *minion);
-    Minion* getMinion();
     std::string getAttackString();
     std::string getDefenseString();
     std::string getAbilityDesc();
@@ -27,14 +25,18 @@ public:
 
 class GiantStrength: public Enchantment {
 public:
-    GiantStrength();
+    GiantStrength(Minion* minion);
     ~GiantStrength();
+    size_t getAttack();
+    size_t getDefense();
 };
 
 class Enrage: public Enchantment {
 public:
-    Enrage();
+    Enrage(Minion* minion);
     ~Enrage();
+    size_t getAttack();
+    size_t getDefense();
 };
 
 class Haste: public Enchantment {

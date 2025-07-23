@@ -69,14 +69,16 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "discard") {
-    if (iss >> command) {
-      cout << "'discard' takes no subsequent arguments. Type 'help' for more details." << std::endl;
+    size_t i = 0;
+    if (!(iss >> i) || iss >> command) {
+      cout << "'discard' expects [int]. Type 'help' for more details." << endl;
       return true;
     }
     if (isTesting) {
-      //game.discard();
+      game.discard(i);
+      return true;
     }
-    
+    cout << "'discard' is a testing mode specifc command." << std::endl;
     return true;
   }
   if (command == "attack") {

@@ -13,7 +13,14 @@ void Hand::playCard(size_t index) {
 std::vector<std::unique_ptr<CardInfo>> Hand::getInfo() {
   std::vector<std::unique_ptr<CardInfo>> information;
   for (auto& it: cards) {
-    information.emplace_back(std::make_unique<MinionInfo>(it->getName(), it->getCost(), 1, 1));
+    if(it->getType() == CardType::Minion) {
+      information.emplace_back(std::make_unique<MinionInfo>(it->getName(), it->getCost(), 1, 1));
+      continue;
+    }
+    if (it->getType() == CardType::Spell) {
+      information.emplace_back(std::make_unique<SpellInfo>(it->getName(), it->getCost(), "This Works!"));
+    }
   }
+
   return information;
 }

@@ -25,6 +25,8 @@ class Minion: public Card {
 
 public:
     Minion(std::string name);
+    Minion(std::string name, size_t cost);
+    CardType getType() override;
     void doDamage(Minion &other);
     void doDamage(Player &p);
     void takeDamage(int damage);

@@ -8,6 +8,8 @@ Minion::Minion(std::string name) {
     readInfo(name);
 }
 
+Minion::Minion(std::string name, size_t cost): Card{name, cost} {}
+
 void Minion::readInfo(std::string name) {
     // INPUT FORMAT:
     // cost
@@ -33,7 +35,7 @@ void Minion::readInfo(std::string name) {
 
     // Read ability
     in >> input;
-    ability = am->getAbility(input);
+    // ability = am->getAbility(input);
 
     if (input == "trigger") {
         // Read trigger type
@@ -74,6 +76,10 @@ TriggerType Minion::readTriggerType(std::string input) {
     if (input == "ENTER") return TriggerType::ENTER;
     if (input == "LEAVE") return TriggerType::LEAVE;
     return NONE;
+}
+
+CardType Minion::getType() {
+  return CardType::Minion;
 }
 
 // Getters
