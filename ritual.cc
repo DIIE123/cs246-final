@@ -20,7 +20,7 @@ void Ritual::readInfo(std::string name) {
 
     this->name = name;
     in >> cost;
-    in >> charges;
+    in >> defense;
     in >> abilityDesc;
     abilityFunc = am->getAbility(name);
     in >> abilityCost;
