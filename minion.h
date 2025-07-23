@@ -14,13 +14,10 @@ class Minion: public Card {
     int abilityCost = 0;
     std::string triggerType = "";
 
-    Player &owner;
-    Player &opponent;
-
     void readInfo(std::string name) override;
 
 public:
-    Minion(std::string name, Player &owner, Player &opponent);
+    Minion(std::string name);
     void doDamage(Minion &other);
     void doDamage(Player &p);
     void takeDamage(int damage);
@@ -35,6 +32,13 @@ public:
     int getActions();
     int getAbilityCost();
     std::string getType() override;
+
+    // Setters
+    void setAttack(int attack);
+    void setDefense(int defense);
+    void setMaxActions(int maxActions);
+    void setActions(int actions);
+    void setAbilityCost(int abilityCost);
 };
 
 #endif

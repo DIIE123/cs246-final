@@ -21,14 +21,9 @@ void Ritual::readInfo(std::string name) {
     this->name = name;
     in >> cost;
     in >> charges;
-
-    std::string abilityDesc;
     in >> abilityDesc;
-    ability = am->getAbility(abilityDesc);
-    
+    abilityFunc = am->getAbility(name);
     in >> abilityCost;
-
-    // TODO: Set Ability using abilityDesc 
 }
 
 std::string Ritual::getType() { return "ritual"; }

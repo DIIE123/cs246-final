@@ -5,7 +5,7 @@
 const std::string DIRECTORY = "./minions/";
 const std::string EXTENSION = ".txt";
 
-Minion::Minion(std::string name, Player &owner, Player &opponent): owner{owner}, opponent{opponent} {
+Minion::Minion(std::string name) {
     readInfo(name);
 }
 
@@ -33,8 +33,8 @@ void Minion::readInfo(std::string name) {
     in >> input;
 
     // Read ability
-    in >> input;
-    ability = am->getAbility(input);
+    in >> abilityDesc;
+    abilityFunc = am->getAbility(name);
 
     if (input == "trigger") {
         // Read trigger type
@@ -45,8 +45,6 @@ void Minion::readInfo(std::string name) {
         in >> abilityCost;
     }
 }
-
-// TODO: Make minion use the methods getAttack, getDefense, etc. so it uses the enchanted versions
 
 void Minion::doDamage(Minion &other) {
     other.takeDamage(attack);
@@ -79,3 +77,10 @@ int Minion::getActions() { return actions; }
 int Minion::getMaxActions() { return maxActions; }
 int Minion::getAbilityCost() { return abilityCost; }
 std::string Minion::getType() { return "minion"; }
+
+// Setters
+void Minion::setAttack(int attack) { this->attack = attack; }
+void Minion::setDefense(int defense) { this->defense = defense; }
+void Minion::setMaxActions(int maxActions) { this->maxActions = maxActions; }
+void Minion::setActions(int actions) { this->actions = actions; }
+void Minion::setAbilityCost(int abilityCost) { this->abilityCost = abilityCost; }

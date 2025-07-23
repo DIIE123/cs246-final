@@ -12,7 +12,11 @@ size_t Card::getCost() {
     return cost;
 }
 
-void Card::useAbility(Player *player, Minion *minion) {
-    ability->useAbility(player, minion);
+std::string Card::getAbilityDesc() {
+    return abilityDesc;
+}
+
+void Card::useAbility(Game &game) {
+    abilityFunc(game);
 }
 

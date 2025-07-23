@@ -18,10 +18,8 @@ void Spell::readInfo(std::string name) {
 
     this->name = name;
     in >> cost;
-
-    std::string abilityDesc;
     in >> abilityDesc;
-    ability = am->getAbility(abilityDesc);
+    abilityFunc = am->getAbility(name);
 }
 
 std::string Spell::getType() { return "spell"; }
