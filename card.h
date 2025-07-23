@@ -21,6 +21,7 @@ public:
 
     std::string getName();
     int getCost();
+    virtual std::string getType() = 0;
 };
 
 #endif

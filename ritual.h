@@ -12,6 +12,7 @@ class Ritual: public Card {
 
 public:
     Ritual(std::string name);
+    std::string getType() override;
 };
 
 #endif

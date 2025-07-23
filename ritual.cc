@@ -30,3 +30,5 @@ void Ritual::readInfo(std::string name) {
 
     // TODO: Set Ability using abilityDesc 
 }
+
+std::string Ritual::getType() { return "ritual"; }

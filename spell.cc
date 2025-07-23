@@ -23,3 +23,5 @@ void Spell::readInfo(std::string name) {
     in >> abilityDesc;
     ability = am->getAbility(abilityDesc);
 }
+
+std::string Spell::getType() { return "spell"; }

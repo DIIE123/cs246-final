@@ -4,27 +4,23 @@
 #include <string>
 #include "card.h"
 
-enum TriggerType {
-    NONE,
-    START,
-    END,
-    ENTER,
-    LEAVE
-};
-
 class Minion: public Card {
+    friend class Enchantment;
+
     int attack;
     int defense;
     int maxActions = 1;
     int actions = 0;
     int abilityCost = 0;
-    TriggerType triggerType = NONE;
+    std::string triggerType = "";
+
+    Player &owner;
+    Player &opponent;
 
     void readInfo(std::string name) override;
-    TriggerType readTriggerType(std::string input);
 
 public:
-    Minion(std::string name);
+    Minion(std::string name, Player &owner, Player &opponent);
     void doDamage(Minion &other);
     void doDamage(Player &p);
     void takeDamage(int damage);
@@ -38,13 +34,7 @@ public:
     int getMaxActions();
     int getActions();
     int getAbilityCost();
-
-    // Setters
-    void setAttack(int attack);
-    void setDefense(int defense);
-    void setActions(int actions);
-    void setMaxActions(int maxActions);
-    void setAbilityCost(int abilityCost);
+    std::string getType() override;
 };
 
 #endif
