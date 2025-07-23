@@ -35,7 +35,7 @@ public:
     // returns false if the player doesn't die and true if they do
     bool takeDamage(int dmg);
 
-    size_t getActiveMinions();
+    Card &getActiveMinion(size_t i);
 
     void attackPlayer(size_t i, Player &enemy);
 
