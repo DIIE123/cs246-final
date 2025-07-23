@@ -21,7 +21,7 @@ protected:
 public:
     Card();
     virtual ~Card();
-    void Card::useAbility(Game &game);
+    void useAbility(Game &game);
 
     std::string getName();
     size_t getCost();

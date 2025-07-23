@@ -4,6 +4,8 @@
 #include <string>
 #include "card.h"
 
+class Player;
+
 class Minion: public Card {
     friend class Enchantment;
 

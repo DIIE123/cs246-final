@@ -1,7 +1,10 @@
 #include "card.h"
 #include <iostream>
+#include <memory>
 
-Card::Card(): cost{5} {}
+std::unique_ptr<AbilityManager> Card::am = std::make_unique<AbilityManager>();
+
+Card::Card() {}
 Card::~Card() {}
 
 std::string Card::getName() {
