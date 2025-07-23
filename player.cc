@@ -59,7 +59,7 @@ void Player::attackPlayer(size_t i, Player &enemy) {
     getActiveCard(i).doDamage(enemy);
 }
 
-void attackMinion(Card &attacker, Card &enemy) {
+void Player::attackMinion(Card &attacker, Card &enemy) {
     attacker.doDamage(enemy);
 }
 
