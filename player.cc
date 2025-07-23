@@ -20,7 +20,10 @@ bool Player::takeDamage(int dmg) {
 }
 
 void Player::playCard(size_t i) {
-    activeMinions.emplace_back(hand.removeCard(i));
+    std::unique_ptr<Card> temp = std::move(hand.removeCard(i));
+    if (temp->getType() == CardType::Minion) {
+        activeMinions.addCard(std::move(temp));
+    }
 }
 
 void Player::drawCard() {
@@ -37,7 +40,15 @@ void Player::drawCard() {
 }
 
 size_t Player::getActiveMinions() {
-    return activeMinions.size();
+    return activeMinions.getSize();
+}
+
+void attackPlayer(size_t i, Player &enemy) {
+    
+}
+
+void attackMinion(size_t i, Player &enemy, size_t j) {
+
 }
 
 size_t Player::getHandSize() {

@@ -10,6 +10,8 @@
 //#include "graveyard.h"
 #include "card.h"
 #include "minion.h"
+#include "activeminions.h"
+#include "type.h"
 
 class Player {
     std::string name;
@@ -17,7 +19,7 @@ class Player {
     int mana;
     Deck deck;
     Hand hand;
-    std::vector<std::unique_ptr<Card>> activeMinions;
+    ActiveMinions activeMinions;
 public:
 
     Player(std::string name, int hp, int mp, std::string deckFile);
@@ -32,6 +34,10 @@ public:
     bool takeDamage(int dmg);
 
     size_t getActiveMinions();
+
+    void attackPlayer(size_t i, Player &enemy);
+
+    void attackMinion(size_t i, Player &enemy, size_t j);
 
     size_t getHandSize();
 
