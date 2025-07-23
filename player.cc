@@ -26,6 +26,10 @@ void Player::playCard(size_t i) {
     }
 }
 
+void playCard(size_t i, Player &enemy, size_t t) {
+    // work on this later
+}
+
 void Player::drawCard() {
     if (getHandSize() >= MAX_HAND) {
         
@@ -39,16 +43,16 @@ void Player::drawCard() {
     hand.addCard(deck.removeCard(0));
 }
 
-size_t Player::getActiveMinions() {
-    return activeMinions.getSize();
+Card &Player::getActiveMinion(size_t i) {
+    return activeMinions.getMinion(i);
 }
 
-void attackPlayer(size_t i, Player &enemy) {
-    
+void Player::attackPlayer(size_t i, Player &enemy) {
+    getActiveMinion(i).doDamage(enemy);
 }
 
-void attackMinion(size_t i, Player &enemy, size_t j) {
-
+void Player::attackMinion(size_t i, Player &enemy, size_t j) {
+    getActiveMinion(i).doDamage(enemy.getActiveMinion(j));
 }
 
 size_t Player::getHandSize() {

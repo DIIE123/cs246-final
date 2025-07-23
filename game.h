@@ -25,11 +25,13 @@ public:
 
     void drawCard();
 
+    void playCard(size_t i);
+
     void discard(int i);
 
-    //void attackPlayer(size_t i, Player &enemy);
+    void attackPlayer(size_t i, Player &enemy);
 
-    //void attackMinion(size_t i, Player &enemy, size_t j);
+    void attackMinion(size_t i, Player &enemy, size_t j);
 
     // end the current player's turn
     void endTurn();
