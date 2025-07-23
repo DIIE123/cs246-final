@@ -43,6 +43,10 @@ void Player::drawCard() {
     hand.addCard(deck.removeCard(0));
 }
 
+void Player::placeCard(Card &min) {
+    //activeMinions.addCard(min);
+}
+
 Card &Player::getActiveCard(size_t i) {
     return activeMinions.getMinion(i);
 }
