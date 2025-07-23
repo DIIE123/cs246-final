@@ -85,7 +85,7 @@ bool Input::handleCommand(istream &istr) {
     size_t i = 0;
     size_t j = 0;
     if (!(iss >> i)) {
-      // Invalid
+      cout << "'attack' expects [int] (optional:) [int]. Type 'help' for more details." << endl;
       return true;
     }
     // Checks bound
