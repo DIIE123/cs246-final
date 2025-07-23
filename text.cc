@@ -91,12 +91,13 @@ void Text::displayBoard() {
 
   // Print top player minions
   std::vector<card_template_t> playerOneMinions;
+  std::vector<std::unique_ptr<CardInfo>> information1 = game.getPlayerOne().getActiveMinions().getInfo();
   for (size_t i = 0; i < minionMax; i++) {
-    //if(i < game.getPlayerOne().getActiveMinions()) {
-      playerOneMinions.emplace_back(display_minion_no_ability("MinionX", 1, 1, 1));
+    if(i < game.getPlayerOne().getActiveCardSize()) {
+      playerOneMinions.emplace_back(display_minion_no_ability(information1[i]->name, information1[i]->cost, 1, 1));
       continue;
-    //}
-    //playerOneMinions.emplace_back(CARD_TEMPLATE_EMPTY);
+    }
+    playerOneMinions.emplace_back(CARD_TEMPLATE_EMPTY);
   }
   displayRow(playerOneMinions, true);
   // Print middle
@@ -104,13 +105,14 @@ void Text::displayBoard() {
 
   // Print bottom player minions
   std::vector<card_template_t> playerTwoMinions;
+  std::vector<std::unique_ptr<CardInfo>> information2 = game.getPlayerTwo().getActiveMinions().getInfo();
   for (size_t i = 0; i < minionMax; i++) {
-    //if(i < game.getPlayerTwo().getActiveMinions()) {
-      playerTwoMinions.emplace_back(display_minion_no_ability("MinionX", 1, 1, 1));
+    if(i < game.getPlayerTwo().getActiveCardSize()) {
+      playerTwoMinions.emplace_back(display_minion_no_ability(information2[i]->name, information2[i]->cost, 1, 1));
       continue;
     }
-    //.emplace_back(CARD_TEMPLATE_EMPTY);
-  //}
+    playerTwoMinions.emplace_back(CARD_TEMPLATE_EMPTY);
+  }
   displayRow(playerTwoMinions, true);
 
   // Print bottom player
@@ -149,7 +151,5 @@ void Text::inspect(Minion &m) {
   //printCard(display_minion_no_ability(m));
   
   // Print Enchantments
-  
-  
 }
 
