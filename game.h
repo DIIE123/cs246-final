@@ -25,6 +25,8 @@ public:
 
     void drawCard();
 
+    void playCard(size_t i);
+
     void discard(int i);
 
     //void attackPlayer(size_t i, Player &enemy);

@@ -39,6 +39,10 @@ void Game::drawCard() {
     getActivePlayer().drawCard();
 }
 
+void Game::playCard(size_t i) {
+    getActivePlayer().playCard(i);
+}
+
 void Game::discard(int i) {
     getActivePlayer().getHand().removeCard(i);
 }
