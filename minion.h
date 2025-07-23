@@ -35,7 +35,7 @@ public:
     int getMaxActions();
     int getActions();
     int getAbilityCost();
-    std::string getType() override;
+    CardType getType() override;
 
     // Setters
     void setAttack(int attack);

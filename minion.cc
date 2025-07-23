@@ -78,7 +78,7 @@ int Minion::getDefense() { return defense; }
 int Minion::getActions() { return actions; }
 int Minion::getMaxActions() { return maxActions; }
 int Minion::getAbilityCost() { return abilityCost; }
-std::string Minion::getType() { return "minion"; }
+CardType Minion::getType() { return CardType::Minion; }
 
 // Setters
 void Minion::setAttack(int attack) { this->attack = attack; }

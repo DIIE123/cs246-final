@@ -28,7 +28,7 @@ public:
     std::string getName();
     size_t getCost();
     std::string getAbilityDesc();
-    virtual std::string getType() = 0;
+    virtual CardType getType() = 0;
 };
 
 #endif

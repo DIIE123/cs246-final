@@ -26,4 +26,4 @@ void Ritual::readInfo(std::string name) {
     in >> abilityCost;
 }
 
-std::string Ritual::getType() { return "ritual"; }
+CardType Ritual::getType() { return CardType::Ritual; }

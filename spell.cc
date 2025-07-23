@@ -26,4 +26,4 @@ void Spell::readInfo(std::string name) {
     abilityFunc = am->getAbility(name);
 }
 
-std::string Spell::getType() { return "spell"; }
+CardType Spell::getType() { return CardType::Spell; }
