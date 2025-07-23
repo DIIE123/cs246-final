@@ -3,6 +3,7 @@
 #include <memory>
 
 class ActiveMinions: public Collection {
+public:
   ActiveMinions();
   ~ActiveMinions() override;
   ActiveMinions(const ActiveMinions&) = delete;
