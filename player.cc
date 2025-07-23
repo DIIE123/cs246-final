@@ -52,11 +52,11 @@ size_t Player::getActiveMinionSize() {
 }
 
 void Player::attackPlayer(size_t i, Player &enemy) {
-    //getActiveMinion(i).doDamage(enemy);
+    getActiveCard(i).doDamage(enemy);
 }
 
 void Player::attackMinion(size_t i, Player &enemy, size_t j) {
-    //getActiveMinion(i).doDamage(enemy.getActiveMinion(j));
+    getActiveCard(i).doDamage(enemy.getActiveCard(j));
 }
 
 size_t Player::getHandSize() {
