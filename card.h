@@ -20,7 +20,7 @@ public:
     void useAbility(Player *player = nullptr, Minion *minion = nullptr);
 
     std::string getName();
-    int getCost();
+    size_t getCost();
     virtual std::string getType() = 0;
 };
 

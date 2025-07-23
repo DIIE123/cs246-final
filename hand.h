@@ -1,6 +1,10 @@
 #ifndef HAND_H
 #define HAND_H
 #include "collection.h"
+#include "info.h"
+#include <vector>
+#include <string>
+#include <memory>
 
 class Hand: public Collection{
 public:
@@ -11,6 +15,7 @@ public:
   Hand(Hand&&) = default;
   Hand& operator=(Hand&&) = default;
   void playCard(size_t index);
+  std::vector<std::unique_ptr<CardInfo>> getInfo();
 };
 
 #endif

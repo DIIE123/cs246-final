@@ -23,4 +23,5 @@ std::unique_ptr<Card> Collection::removeCard(size_t index) {
   std::unique_ptr<Card> temp = std::move(cards[index]);
   cards.erase(cards.begin() + index);
   return temp;
+  
 }

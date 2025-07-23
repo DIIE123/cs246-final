@@ -1,5 +1,6 @@
 #include "deck.h"
 #include "minion.h"
+#include <iostream>
 #include <fstream>
 #include <memory>
 #include <algorithm>
@@ -19,7 +20,7 @@ void Deck::createDeck(std::string deckfile){
   std::ifstream deck{deckfile};
   while (1) {
     std::string line;
-    if (!(deck >> line)) {
+    if (!std::getline(deck, line)) {
       break;
     }
     this->addCard(std::make_unique<Minion>(line));

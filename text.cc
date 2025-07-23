@@ -1,9 +1,11 @@
 #include "text.h"
 #include "ascii_graphics.h"
 #include "game.h"
+#include "info.h"
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
 
 const size_t cardWidth = 33;
@@ -53,14 +55,14 @@ static void displayRow(std::vector<card_template_t> row, bool Withborder) {
 }
 
 static void printCentreGraphic() {
-  for (auto it = CENTRE_GRAPHIC.begin(); it != CENTRE_GRAPHIC.end(); it++) {
-    std::cout << *it << std::endl;
+  for (auto& it: CENTRE_GRAPHIC) {
+    std::cout << it << std::endl;
   }
 }
 
 static void printCard(card_template_t c) {
-  for (auto it = c.begin(); it != c.end(); it++) {
-    std::cout << *it << std::endl;
+  for (auto& it: c) {
+    std::cout << it << std::endl;
   }
 }
 
@@ -116,7 +118,7 @@ void Text::displayBoard() {
   playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
   card_template_t playerTwo = display_player_card(2, "Player2", 20, 3);
-  playerTwoRow.emplace_back(playerOne);
+  playerTwoRow.emplace_back(playerTwo);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
   playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
   displayRow(playerTwoRow, true);
@@ -127,8 +129,10 @@ void Text::displayBoard() {
 void Text::displayHand() {
   std::vector<card_template_t> currentHand;
   size_t limit = game.getActivePlayer().getHandSize();
+  std::vector<std::unique_ptr<CardInfo>> information = game.getActivePlayer().getHand().getInfo();
   for (size_t i = 0; i < limit; i++) {
-    currentHand.emplace_back(display_minion_no_ability("MinionX", 1, 1, 1));
+    card_template_t temp = display_minion_no_ability(information[i]->name, information[i]->cost, 1, 1);
+    currentHand.emplace_back(temp);
   }
   displayRow(currentHand, false);
 }

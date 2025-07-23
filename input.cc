@@ -42,19 +42,37 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "end"){
+    if (iss >> command) {
+      cout << "'end' takes no subsequent arguments. Type 'help' for more details." << std::endl;
+      return true;
+    }
     game.endTurn();
     return true;
   }
   if (command == "quit") {
+    if (iss >> command) {
+      cout << "'quit' takes no subsequent arguments. Type 'help' for more details." << std::endl;
+      return true;
+    }
     return false;
   }
   if (command == "draw") {
-    if (isTesting) {
-      //game.draw();
+    if (iss >> command) {
+      cout << "'draw' takes no subsequent arguments. Type 'help' for more details." << std::endl;
+      return true;
     }
+    if (isTesting) {
+      game.drawCard();
+      return true;
+    } 
+    cout << "'draw' is a testing mode specifc command." << std::endl;
     return true;
   }
   if (command == "discard") {
+    if (iss >> command) {
+      cout << "'discard' takes no subsequent arguments. Type 'help' for more details." << std::endl;
+      return true;
+    }
     if (isTesting) {
       //game.discard();
     }
@@ -120,17 +138,25 @@ bool Input::handleCommand(istream &istr) {
   }
   if (command == "inspect") {
     size_t i = 0;
-    if (!(iss >> i)) {
+    if (!(iss >> i) || iss >> command) {
       // Invalid
-      cout << "'inspect' expects [int]. Type 'help' for more details" << endl;
+      cout << "'inspect' expects [int]. Type 'help' for more details." << endl;
       return true;
     }
   }
   if (command == "hand") {
+    if (iss >> command) {
+      cout << "'hand' takes no subsequent arguments. Type 'help' for more details." << std::endl;
+      return true;
+    }
     text.displayHand();
     return true;
   }
   if (command == "board") {
+    if (iss >> command) {
+      cout << "'board' takes no subsequent arguments. Type 'help' for more details." << std::endl;
+      return true;
+    }
     text.displayBoard();
     return true;
   }

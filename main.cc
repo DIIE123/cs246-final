@@ -1,4 +1,6 @@
 #include <string>
+#include <fstream>
+#include <iostream>
 #include "input.h"
 #include "game.h"
 
@@ -14,20 +16,21 @@ int main (int argc, char *argv[]) {
     // Pre-launch commands
     bool testing = false;
     bool graphics = false; // graphics display on/off
-    if (argc > 1) {
-        for (int i = 2; i < argc; i++) {
-            if (argv[i] == "-init") {
+    if (argc > 0) {
+        for (int i = 1; i < argc; i++) {
+            std::string command = argv[i];
+            if (command == "-init") {
                 // add init later
                 i++;
-            } else if (argv[i] == "-testing") {
+            } else if (command == "-testing") {
                 testing = true;
-            } else if (argv[i] == "-deck1") {
+            } else if (command == "-deck1") {
+                deck1 = argv[i + 1];
                 i++;
-                deck1 = argv[i];
-            } else if (argv[i] == "-deck2") {
+            } else if (command == "-deck2") {
+                deck2 = argv[i + 2];
                 i++;
-                deck2 = argv[i];
-            } else if (argv[i] == "-graphics") {
+            } else if (command == "-graphics") {
                 graphics = true;
             }
         }
@@ -42,6 +45,6 @@ int main (int argc, char *argv[]) {
     while (ongoing) {
         ongoing = input.handleCommand(std::cin);
     }
-
+    
     // since game and input are on the stack, the destructors will run themselves
 }
