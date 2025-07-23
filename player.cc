@@ -48,11 +48,11 @@ Card &Player::getActiveMinion(size_t i) {
 }
 
 void Player::attackPlayer(size_t i, Player &enemy) {
-    getActiveMinion(i).doDamage(enemy);
+    //getActiveMinion(i).doDamage(enemy);
 }
 
 void Player::attackMinion(size_t i, Player &enemy, size_t j) {
-    getActiveMinion(i).doDamage(enemy.getActiveMinion(j));
+    //getActiveMinion(i).doDamage(enemy.getActiveMinion(j));
 }
 
 size_t Player::getHandSize() {
