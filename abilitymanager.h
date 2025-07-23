@@ -11,6 +11,7 @@ class AbilityManager {
 public:
     AbilityManager();
     Ability getAbility(std::string name);
+    
 };
 
 #endif

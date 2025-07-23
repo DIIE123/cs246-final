@@ -1,3 +1,5 @@
+#ifndef ACTiVE_H
+#define ACTIVE_H
 #include "collection.h"
 #include "minion.h"
 #include <memory>
@@ -8,4 +10,8 @@ public:
   ~ActiveMinions() override;
   ActiveMinions(const ActiveMinions&) = delete;
   ActiveMinions& operator=(const ActiveMinions&) = delete;
+  Card& getMinion(size_t i);
+
 };
+
+#endif
