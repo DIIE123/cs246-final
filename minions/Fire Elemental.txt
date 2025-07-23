@@ -1,0 +1,6 @@
+2
+2
+2
+trigger
+Whenever an opponent's minion enters play, deal 1 damage to it.
+ENTER

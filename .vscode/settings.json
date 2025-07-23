@@ -47,6 +47,8 @@
         "memory": "cpp",
         "random": "cpp",
         "vector": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "map": "cpp",
+        "deque": "cpp"
     }
 }
