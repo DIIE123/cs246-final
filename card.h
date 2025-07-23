@@ -6,12 +6,17 @@
 #include "ability.h"
 #include "abilitymanager.h"
 
+class Game;
+
 class Card {
 protected:
     static std::unique_ptr<AbilityManager> am;
 
     std::string name;
-    size_t cost;
+    int cost;
+    std::string abilityDesc = "";
+    Ability abilityFunc = nullptr;
+    
     virtual void readInfo(std::string name) = 0;
 
 public:
@@ -19,10 +24,11 @@ public:
     Card(std::string name, size_t cost);
     virtual ~Card();
     void useAbility(Player *player = nullptr, Minion *minion = nullptr);
-    virtual CardType getType() = 0;
 
     std::string getName();
     size_t getCost();
+    std::string getAbilityDesc();
+    virtual std::string getType() = 0;
 };
 
 #endif
