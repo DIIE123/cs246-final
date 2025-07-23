@@ -51,6 +51,10 @@ void Game::attackPlayer(size_t i, Player &enemy) {
     getActivePlayer().attackPlayer(i, enemy);
 }
 
+void Game::attackMinion(Minion &attacker, Minion &enemy) {
+    getActivePlayer().attackMinion(attacker, enemy);
+}
+
 void Game::attackMinion(size_t i, Player &enemy, size_t j) {
     getActivePlayer().attackMinion(i, enemy, j);
 }

@@ -30,6 +30,8 @@ public:
     void discard(int i);
 
     void attackPlayer(size_t i, Player &enemy);
+    
+    void attackMinion(Minion &attacker, Minion &enemy);
 
     void attackMinion(size_t i, Player &enemy, size_t j);
 

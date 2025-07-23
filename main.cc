@@ -1,6 +1,6 @@
-#include <string>
-#include <fstream>
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "input.h"
 #include "game.h"
 

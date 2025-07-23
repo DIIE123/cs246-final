@@ -37,9 +37,13 @@ public:
 
     Card &getActiveCard(size_t i);
 
-    size_t getActiveMinionSize();
+    ActiveMinions &getActiveMinions();
+
+    size_t getActiveCardSize();
 
     void attackPlayer(size_t i, Player &enemy);
+
+    void attackMinion(Card &attacker, Card &enemy);
 
     void attackMinion(size_t i, Player &enemy, size_t j);
 

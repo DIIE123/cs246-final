@@ -47,12 +47,20 @@ Card &Player::getActiveCard(size_t i) {
     return activeMinions.getMinion(i);
 }
 
-size_t Player::getActiveMinionSize() {
+ActiveMinions &Player::getActiveMinions() {
+    return activeMinions;
+}
+
+size_t Player::getActiveCardSize() {
     return activeMinions.getSize();
 }
 
 void Player::attackPlayer(size_t i, Player &enemy) {
     getActiveCard(i).doDamage(enemy);
+}
+
+void attackMinion(Card &attacker, Card &enemy) {
+    attacker.doDamage(enemy);
 }
 
 void Player::attackMinion(size_t i, Player &enemy, size_t j) {
