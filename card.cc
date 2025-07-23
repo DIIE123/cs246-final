@@ -1,14 +1,14 @@
 #include "card.h"
 #include <iostream>
 
-Card::Card() {}
+Card::Card(): cost{5} {}
 Card::~Card() {}
 
 std::string Card::getName() {
     return name;
 }
 
-int Card::getCost() {
+size_t Card::getCost() {
     return cost;
 }
 

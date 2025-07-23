@@ -1,4 +1,5 @@
 #include "player.h"
+#include <iostream>
 
 // CONSTANTS
 const int MAX_HAND = 5;
@@ -24,6 +25,7 @@ void Player::playCard(size_t i) {
 
 void Player::drawCard() {
     if (getHandSize() >= MAX_HAND) {
+        
         // Can't draw anymore cards; no space
         return;
     }
