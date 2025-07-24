@@ -16,10 +16,11 @@ int main (int argc, char *argv[]) {
     // Pre-launch commands
     bool testing = false;
     bool graphics = false; // graphics display on/off
+    int initFile = -1;
     for (int i = 1; i < argc; i++) {
         std::string command = argv[i];
         if (command == "-init") {
-            // add init later
+            initFile = i + 1;
             i++;
         } else if (command == "-testing") {
             testing = true;
@@ -39,6 +40,13 @@ int main (int argc, char *argv[]) {
     Text text{game};
 
     Input input{game, text, testing}; // true is testing mode, false is normal
+
+    std::ifstream ifs{argv[initFile]};
+    ifs >> name1;
+    ifs >> name2;
+    while (!ifs.eof()) {
+        input.handleCommand(ifs);
+    }
 
     while (ongoing) {
         ongoing = input.handleCommand(std::cin);
