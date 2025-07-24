@@ -62,11 +62,11 @@ void Game::attackPlayer(size_t i, Player &enemy) {
     getActivePlayer().attackPlayer(i, enemy);
 }
 
-void Game::attackMinion(Minion &attacker, Minion &enemy) {
+void Game::attackMinion(Card &attacker, Card &enemy) {
     getActivePlayer().attackMinion(attacker, enemy);
 }
 
-void Game::attackMinion(Minion &enemy, int dmg) {
+void Game::attackMinion(Card &enemy, int dmg) {
     enemy.takeDamage(dmg);
 }
 
