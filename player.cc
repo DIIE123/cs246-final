@@ -79,7 +79,7 @@ void Player::killMinion(size_t i) {
 }
 
 void Player::killMinions() {
-    for (int i = 0; i < hand.getSize(); i++) {
+    for (int i = 0; i < activeMinions.getSize(); i++) {
         if (activeMinions.getMinion(i).isDead()) activeMinions.removeCard(i);
     }
 }
