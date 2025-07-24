@@ -79,3 +79,7 @@ void abilityMasterSummoner(Game &game) {
     }
 }
 
+// Rituals
+void abilityDarkRitual(Game &game) {}
+void abilityAuraOfPower(Game &game) {}
+void abilityStandstill(Game &game) {}
