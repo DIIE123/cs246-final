@@ -61,6 +61,8 @@ public:
 
     void setMagic(int i);
 
+    void resetActions();
+
     size_t getHandSize();
 
     Hand &getHand();
