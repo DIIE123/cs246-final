@@ -20,10 +20,12 @@ void Card::takeDamage(int damage) {
 void Card::doDamage(Card &other) {
     other.takeDamage(getAttack());
     takeDamage(other.getAttack());
+    void decreaseActions();
 }
 
 void Card::doDamage(Player &player) {
     player.takeDamage(getAttack());
+    void decreaseActions();
 }
 
 void Card::decreaseActions() {
