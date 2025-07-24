@@ -24,8 +24,6 @@ void abilityNovicePyromancer(Game &game);
 void abilityApprenticeSummoner(Game &game);
 void abilityMasterSummoner(Game &game);
 
-// Enchantments
-
 // Rituals
 void abilityDarkRitual(Game &game);
 void abilityAuraOfPower(Game &game);

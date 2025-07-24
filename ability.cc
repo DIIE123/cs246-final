@@ -93,7 +93,7 @@ void abilityMasterSummoner(Game &game) {
 // Rituals
 void abilityDarkRitual(Game &game) {
     Player &player = game.getActivePlayer();
-    // player.gainMagic(1);
+    player.incrementMagic(1);
 }
 
 void abilityAuraOfPower(Game &game) {
