@@ -6,11 +6,12 @@
 #include "ability.h"
 #include "abilitymanager.h"
 #include "triggertype.h"
+#include "observer.h"
 
 class Game;
 class Player;
 
-class Card {
+class Card: public Observer {
 protected:
     static std::unique_ptr<AbilityManager> am;
 
@@ -41,6 +42,7 @@ public:
     bool isDead() const;
 
     TriggerType convertToTriggerType(std::string input);
+    void notify(Game &game);
 
     // Getters
     std::string getName();
