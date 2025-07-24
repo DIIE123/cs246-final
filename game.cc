@@ -10,7 +10,9 @@ const int MAX_ACTIVE = 5;
 
 Game::Game(std::string name1, std::string name2, std::string deck1, std::string deck2): 
     currP1{true}, p1{name1, START_HP, START_MAGIC, deck1}, p2{name2, START_HP, START_MAGIC, deck2}, 
-    currCardIndex{0}, targetCardIndex{0}, currTargetPlayer1{true} {}
+    currCardIndex{0}, targetCardIndex{0}, currTargetPlayer1{true} {
+        startTurn();
+    }
 
 
 Player &Game::getActivePlayer() {
@@ -130,6 +132,7 @@ Card &Game::getTargetCard() {
 void Game::startTurn() {
     triggerStart();
     getActivePlayer().drawCard(); // draw 1 card at the start of turn
+    getActivePlayer().incrementMagic(1);
 }
 
 void Game::endTurn() {
