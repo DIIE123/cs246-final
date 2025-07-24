@@ -45,8 +45,8 @@ void Player::drawCard() {
     hand.addCard(deck.removeCard(0));
 }
 
-void Player::placeCard(std::shared_ptr<Card> min) {
-    activeMinions.addCard(min);
+void Player::placeCard(std::unique_ptr<Card> min) {
+    activeMinions.addCard(std::move(min));
 }
 
 Card &Player::getActiveCard(size_t i) {

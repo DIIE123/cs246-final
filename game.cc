@@ -9,7 +9,7 @@ const int MAX_HAND = 5;
 const int MAX_ACTIVE = 5;
 
 Game::Game(std::string name1, std::string name2, std::string deck1, std::string deck2): 
-    currP1{true}, p1{name1, START_HP, START_MAGIC, deck1}, p2{name2, START_HP, START_MAGIC, deck2} {}
+    currP1{true}, p1{name1, START_HP, START_MAGIC, deck1}, p2{name2, START_HP, START_MAGIC, deck2}, currCardIndex{0}, targetCardIndex{0}, currTargetPlayer1{true} {}
 
 
 Player &Game::getActivePlayer() {
@@ -45,9 +45,9 @@ void Game::playCard(size_t i) {
     getActivePlayer().playCard(i);
 }
 
-void Game::playCard(std::shared_ptr<Card> min) {
+void Game::playCard(std::unique_ptr<Card> min) {
     if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
-    getActivePlayer().placeCard(min);
+    getActivePlayer().placeCard(std::move(min));
 }
 
 void Game::discard(int i) {
@@ -64,6 +64,7 @@ void Game::attackPlayer(size_t i, Player &enemy) {
 
 void Game::attackMinion(Card &attacker, Card &enemy) {
     getActivePlayer().attackMinion(attacker, enemy);
+    if (attacker.isDead()); // add this!
 }
 
 void Game::attackMinion(Card &enemy, int dmg) {
@@ -74,12 +75,23 @@ void Game::attackMinion(size_t i, Player &enemy, size_t j) {
     getActivePlayer().attackMinion(i, enemy, j);
 }
 
+void Game::useAbility(size_t i, bool player1, size_t j) {
+    currCardIndex = i;
+    targetCardIndex = j;
+    if (player1) currTargetPlayer1 = true;
+    else currTargetPlayer1 = false;
+}
+
 Card &Game::getActiveCard() {
-    return *curr;
+    return getActivePlayer().getActiveCard(currCardIndex);
 }
 
 Card &Game::getTargetCard() {
-    return *target;
+    if (currTargetPlayer1) {
+        return getPlayerOne().getActiveCard(targetCardIndex);
+    } else {
+        return getPlayerTwo().getActiveCard(targetCardIndex);
+    }
 }
 
 void Game::endTurn() {

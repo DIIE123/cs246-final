@@ -11,8 +11,9 @@ class Game {
     bool currP1;
     Player p1;
     Player p2;
-    std::shared_ptr<Card> curr;
-    std::shared_ptr<Card> target;
+    size_t currCardIndex;
+    size_t targetCardIndex;
+    bool currTargetPlayer1;
 public:
 
     Game(std::string name1, std::string name2, std::string deck1, std::string deck2);
@@ -31,7 +32,7 @@ public:
 
     void playCard(size_t i);
 
-    void playCard(std::shared_ptr<Card> min);
+    void playCard(std::unique_ptr<Card> min);
 
     void discard(int i);
 
@@ -44,6 +45,8 @@ public:
     void attackMinion(Card &enemy, int dmg);
 
     void attackMinion(size_t i, Player &enemy, size_t j);
+
+    void useAbility(size_t i, bool player1, size_t j);
 
     Card &getActiveCard();
 
