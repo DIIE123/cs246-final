@@ -84,7 +84,7 @@ void Player::killMinion(size_t i) {
 
 bool Player::killMinions() {
     bool killed = false;
-    for (int i = 0; i < activeMinions.getSize(); i++) {
+    for (size_t i = 0; i < activeMinions.getSize(); i++) {
         if (activeMinions.getMinion(i).isDead()) {
             activeMinions.removeCard(i);
             killed = true;
@@ -101,6 +101,12 @@ void Player::incrementMagic(int i) {
 
 void Player::setMagic(int i) {
     magic = i;
+}
+
+void Player::resetActions() {
+    for (size_t i = 0; i < activeMinions.getSize(); i++) {
+        getActiveCard(i).resetActions();
+    }
 }
 
 // Getters for important fields

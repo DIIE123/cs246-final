@@ -18,7 +18,7 @@ void Spell::readInfo(std::string name) {
 
     this->name = name;
     in >> cost;
-    in >> abilityDesc;
+    getline(in, abilityDesc);
     abilityFunc = am->getAbility(name);
 }
 

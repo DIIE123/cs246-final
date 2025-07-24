@@ -39,7 +39,7 @@ public:
     void doDamage(Player &p);
     void decreaseActions();
     void resetActions();
-    bool isDead() const;
+    bool isDead();
 
     TriggerType convertToTriggerType(std::string input);
     void notify(Game &game);

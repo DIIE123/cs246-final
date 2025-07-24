@@ -27,12 +27,12 @@ void Deck::createDeck(std::string deckfile){
       break;
     }
     if (line == "Air Elemental" || line == "Earth Elemental" || line == "Fire Elemental" || line == "Bone Golem" ||
-        line == "Potion Seller" || line == "Novie Pyromancer" || line == "Apprentice Summoner" || line == "Master Summoner") {
+        line == "Potion Seller" || line == "Novice Pyromancer" || line == "Apprentice Summoner" || line == "Master Summoner") {
       this->addCard(std::make_unique<Minion>(line));
       continue;
     }
 
-    if (line == "Banish" || line == "Unsommon" || line == "Recharge" || line == "Disenchant" ||
+    if (line == "Banish" || line == "Unsummon" || line == "Recharge" || line == "Disenchant" ||
         line == "Raise Dead" || line == "Blizzard") {
       this->addCard(std::make_unique<Spell>(line));
       continue;

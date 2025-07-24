@@ -66,8 +66,6 @@ public:
     void attackPlayer(size_t i);
 
     void attackPlayer(size_t i, Player &enemy);
-    
-    void attackMinion(Card &attacker, Card &enemy);
 
     void attackMinion(Card &enemy, int dmg);
 

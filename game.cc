@@ -80,13 +80,7 @@ void Game::attackPlayer(size_t i, Player &enemy) {
     getActivePlayer().attackPlayer(i, enemy);
 }
 
-void Game::attackMinion(Card &attacker, Card &enemy) {
-    getActivePlayer().attackMinion(attacker, enemy);
-    // kill all minions which are dead
-    getActivePlayer().killMinions();
-    getOtherPlayer().killMinions();
-}
-
+// attack minion for non-minion entities
 void Game::attackMinion(Card &enemy, int dmg) {
     enemy.takeDamage(dmg);
     // kill all minions which are dead
@@ -98,6 +92,7 @@ void Game::attackMinion(Card &enemy, int dmg) {
     }
 }
 
+// attack minions for minions
 void Game::attackMinion(size_t i, Player &enemy, size_t j) {
     getActivePlayer().attackMinion(i, enemy, j);
     if (getActivePlayer().killMinions()) {
@@ -115,6 +110,18 @@ void Game::useAbility(size_t i, bool player1, size_t j) {
     targetCardIndex = j;
     if (player1) currTargetPlayer1 = true;
     else currTargetPlayer1 = false;
+
+    // Check
+    if (getActiveCard().getAbilityCost() <= 0) return; // just double check to see if its not an active ability
+    if (getActiveCard().getActions() <= 0) return; // has no more actions
+    if (getActiveCard().getAbilityCost() <= getActivePlayer().getMagic()) {
+        getActivePlayer().incrementMagic(-getActiveCard().getAbilityCost());
+        getActiveCard().useAbility(*this);
+        // If it is a spell, remove it from hand
+        if (getActiveCard().getType() == CardType::Spell) {
+            getActivePlayer().getHand().removeCard(currCardIndex); // big line!!
+        }
+    } // add else if you want to do something when they can't afford ability
 }
 
 Card &Game::getActiveCard() {
@@ -133,6 +140,7 @@ void Game::startTurn() {
     triggerStart();
     getActivePlayer().drawCard(); // draw 1 card at the start of turn
     getActivePlayer().incrementMagic(1);
+    getActivePlayer().resetActions();
 }
 
 void Game::endTurn() {
