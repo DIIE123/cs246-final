@@ -69,9 +69,8 @@ void abilityNovicePyromancer(Game &game) {
 }
 
 void abilityApprenticeSummoner(Game &game) {
-    ActiveMinions &activeMinions = game.getActivePlayer().getActiveMinions();
-
-    
+    std::unique_ptr<Card> newMinion = std::make_unique<Minion>("Air Elemental");
+    game.playCard(std::move(newMinion));
 }
 
 void abilityMasterSummoner(Game &game) {
