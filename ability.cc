@@ -17,9 +17,9 @@ void abilityUnsummon(Game &game) {
     // Card &minion = game.getTargetCard();
 
     // // Make copy of card and add it to hand
-    // std::unique_ptr<Card> returnedMinion = std::make_unique<Card>(minion);
+    // std::shared_ptr<Card> returnedMinion = std::make_shared<Card>(minion);
     // Player &player = game.getTargetPlayer();
-    // player.getHand().addCard(std::move(returnedMinion));
+    // player.getHand().addCard(returnedMinion);
 
     // // Kill card
     // game.attackMinion(minion, 9999);
@@ -79,8 +79,8 @@ void abilityNovicePyromancer(Game &game) {
 }
 
 void abilityApprenticeSummoner(Game &game) {
-    std::unique_ptr<Card> newMinion = std::make_unique<Minion>("Air Elemental");
-    game.playCard(std::move(newMinion));
+    std::shared_ptr<Card> newMinion = std::make_shared<Minion>("Air Elemental");
+    game.playCard(newMinion);
 }
 
 void abilityMasterSummoner(Game &game) {

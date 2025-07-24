@@ -21,7 +21,7 @@ class Player {
     Deck deck;
     Hand hand;
     ActiveMinions activeMinions;
-    std::unique_ptr<Card> ritual;
+    std::shared_ptr<Card> ritual;
 public:
 
     Player(std::string name, int hp, int mp, std::string deckFile);
@@ -35,7 +35,7 @@ public:
     void drawCard();
 
     // place card into activeminions
-    void placeCard(std::unique_ptr<Card> min);
+    void placeCard(std::shared_ptr<Card> min);
 
     // returns false if the player doesn't die and true if they do
     bool takeDamage(int dmg);
@@ -70,7 +70,7 @@ public:
     Deck &getDeck();
 
     // tranfer ownership of ritual
-    std::unique_ptr<Card> getRitual();
+    std::shared_ptr<Card> getRitual();
 
     // Simple getters
     // health, magic, name getters

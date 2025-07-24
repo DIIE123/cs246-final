@@ -3,7 +3,7 @@
 #include <iostream>
 #include <memory>
 
-std::unique_ptr<AbilityManager> Card::am = std::make_unique<AbilityManager>();
+std::shared_ptr<AbilityManager> Card::am = std::make_shared<AbilityManager>();
 
 Card::Card() {}
 Card::~Card() {}

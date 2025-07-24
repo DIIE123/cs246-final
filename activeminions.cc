@@ -7,10 +7,10 @@ Card& ActiveMinions::getMinion(size_t i) {
   return *cards[i];
 }
 
-std::vector<std::unique_ptr<CardInfo>> ActiveMinions::getInfo() {
-  std::vector<std::unique_ptr<CardInfo>> information;
+std::vector<std::shared_ptr<CardInfo>> ActiveMinions::getInfo() {
+  std::vector<std::shared_ptr<CardInfo>> information;
   for (auto& it: cards) {
-    information.emplace_back(std::make_unique<MinionInfo>(it->getName(), it->getCost(), it->getAttack(), it->getDefense()));
+    information.emplace_back(std::make_shared<MinionInfo>(it->getName(), it->getCost(), it->getAttack(), it->getDefense()));
   }
   return information;
 }

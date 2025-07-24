@@ -21,9 +21,9 @@ bool Player::takeDamage(int dmg) {
 }
 
 bool Player::playCard(size_t i) {
-    std::unique_ptr<Card> temp = std::move(hand.removeCard(i));
+    std::shared_ptr<Card> temp = hand.removeCard(i);
     if (temp->getType() == CardType::Minion) {
-        activeMinions.addCard(std::move(temp));
+        activeMinions.addCard(temp);
         return true;
     }
     return false;
@@ -46,8 +46,8 @@ void Player::drawCard() {
     hand.addCard(deck.removeCard(0));
 }
 
-void Player::placeCard(std::unique_ptr<Card> min) {
-    activeMinions.addCard(std::move(min));
+void Player::placeCard(std::shared_ptr<Card> min) {
+    activeMinions.addCard(min);
 }
 
 Card &Player::getActiveCard(size_t i) {
@@ -122,8 +122,8 @@ Deck &Player::getDeck() {
     return deck;
 }
 
-std::unique_ptr<Card> Player::getRitual() {
-    return std::move(ritual);
+std::shared_ptr<Card> Player::getRitual() {
+    return ritual;
 }
 
 // health, magic, name getters

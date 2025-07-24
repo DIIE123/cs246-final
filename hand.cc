@@ -10,15 +10,15 @@ void Hand::playCard(size_t index) {
   }
 }
 
-std::vector<std::unique_ptr<CardInfo>> Hand::getInfo() {
-  std::vector<std::unique_ptr<CardInfo>> information;
+std::vector<std::shared_ptr<CardInfo>> Hand::getInfo() {
+  std::vector<std::shared_ptr<CardInfo>> information;
   for (auto& it: cards) {
     if(it->getType() == CardType::Minion) {
-      information.emplace_back(std::make_unique<MinionInfo>(it->getName(), it->getCost(), it->getAttack(), it->getDefense()));
+      information.emplace_back(std::make_shared<MinionInfo>(it->getName(), it->getCost(), it->getAttack(), it->getDefense()));
       continue;
     }
     if (it->getType() == CardType::Spell) {
-      information.emplace_back(std::make_unique<SpellInfo>(it->getName(), it->getCost(), it->getAbilityDesc()));
+      information.emplace_back(std::make_shared<SpellInfo>(it->getName(), it->getCost(), it->getAbilityDesc()));
     }
   }
 
