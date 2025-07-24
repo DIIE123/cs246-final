@@ -46,6 +46,10 @@ TriggerType Card::convertToTriggerType(std::string input) {
     return TriggerType::None;
 }
 
+void Card::notify(Game &game) {
+    useAbility(game);
+}
+
 // Getters
 std::string Card::getName() { return name; }
 size_t Card::getCost() { return cost; }
