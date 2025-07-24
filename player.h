@@ -37,6 +37,19 @@ public:
     // place card into activeminions
     void placeCard(std::shared_ptr<Card> min);
 
+    // NEW PLAY FUNCTIONS
+
+    void playMinion(size_t i);
+
+    void playSpell(size_t i);
+
+    void playSpell(size_t i, Player &enemy, size_t j);
+
+    void playEnchant(size_t i, size_t j);
+
+    void playRitual(size_t i);
+    
+
     // returns false if the player doesn't die and true if they do
     bool takeDamage(int dmg);
 

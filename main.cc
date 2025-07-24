@@ -35,7 +35,7 @@ int main (int argc, char *argv[]) {
         }
     }
 
-    Game game{name1, name2, deck1, deck2};
+    Game game{testing, name1, name2, deck1, deck2};
 
     Text text{game};
 
