@@ -41,11 +41,13 @@ int main (int argc, char *argv[]) {
 
     Input input{game, text, testing}; // true is testing mode, false is normal
 
-    std::ifstream ifs{argv[initFile]};
-    ifs >> name1;
-    ifs >> name2;
-    while (!ifs.eof()) {
-        input.handleCommand(ifs);
+    if (initFile > 0) {
+        std::ifstream ifs{argv[initFile]};
+        ifs >> name1;
+        ifs >> name2;
+        while (!ifs.eof()) {
+            input.handleCommand(ifs);
+        }
     }
 
     while (ongoing) {

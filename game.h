@@ -24,6 +24,9 @@ public:
 
     Player &getOtherPlayer();
 
+    // For ability target
+    Player &getTargetPlayer();
+
     Player &getPlayerOne();
 
     Player &getPlayerTwo();

@@ -28,6 +28,14 @@ Player &Game::getOtherPlayer() {
     }
 }
 
+Player &Game::getTargetPlayer() {
+    if (currTargetPlayer1) {
+        return p1;
+    } else {
+        return p2;
+    }
+}
+
 Player &Game::getPlayerOne() {
     return p1;
 }
