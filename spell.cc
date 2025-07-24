@@ -18,7 +18,8 @@ void Spell::readInfo(std::string name) {
 
     this->name = name;
     in >> cost;
-    getline(in, abilityDesc);
+    in.ignore();
+    std::getline(in, abilityDesc);
     abilityFunc = am->getAbility(name);
 }
 
