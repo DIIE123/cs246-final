@@ -18,8 +18,8 @@ protected:
     std::unique_ptr<Minion> minion = nullptr;
 
 public:
-    Enchantment(std::string enchantmentName, size_t cost, std::string attackString, std::string defenseString, std::unique_ptr<Minion> minion);
-    Enchantment(std::string enchantmentName, size_t cost, std::string abilityDesc, std::unique_ptr<Minion> minion);
+    Enchantment(std::string enchantmentName, int cost, std::string attackString, std::string defenseString, std::unique_ptr<Minion> minion);
+    Enchantment(std::string enchantmentName, int cost, std::string abilityDesc, std::unique_ptr<Minion> minion);
     virtual ~Enchantment() = 0;
     virtual std::string getAttackString();
     virtual std::string getDefenseString();
@@ -30,8 +30,8 @@ class GiantStrength: public Enchantment {
 public:
     GiantStrength(std::unique_ptr<Minion> minion);
     ~GiantStrength();
-    size_t getAttack();
-    size_t getDefense();
+    int getAttack();
+    int getDefense();
     virtual CardType getType() override;
 };
 
@@ -39,8 +39,8 @@ class Enrage: public Enchantment {
 public:
     Enrage(std::unique_ptr<Minion> minion);
     ~Enrage();
-    size_t getAttack() override;
-    size_t getDefense() override;
+    int getAttack() override;
+    int getDefense() override;
     virtual CardType getType() override;
 };
 
@@ -48,7 +48,7 @@ class Haste: public Enchantment {
 public:
     Haste(std::unique_ptr<Minion> minion);
     ~Haste();
-    size_t getMaxActions() override;
+    int getMaxActions() override;
     virtual CardType getType() override;
 };
 
@@ -56,7 +56,7 @@ class MagicFatigue: public Enchantment {
 public:
     MagicFatigue(std::unique_ptr<Minion> minion);
     ~MagicFatigue();
-    size_t getAbilityCost() override;
+    int getAbilityCost() override;
     virtual CardType getType() override;
 };
 

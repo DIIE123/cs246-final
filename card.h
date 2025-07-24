@@ -46,22 +46,22 @@ public:
 
     // Getters
     std::string getName();
-    size_t getCost();
+    virtual int getCost();
     std::string getAbilityDesc();
-    int getAbilityCost();
-    int getAttack();
-    int getDefense();
-    int getMaxActions();
+    virtual int getAbilityCost();
+    virtual int getAttack();
+    virtual int getDefense();
+    virtual int getMaxActions();
     int getActions();
     TriggerType getTriggerType();
     virtual CardType getType() = 0;
 
     // Setters
-    void setAttack(size_t attack);
-    void setDefense(size_t defense);
-    void setMaxActions(size_t maxActions);
-    void setActions(size_t actions);
-    void setAbilityCost(size_t abilityCost);
+    void setAttack(int attack);
+    void setDefense(int defense);
+    void setMaxActions(int maxActions);
+    void setActions(int actions);
+    void setAbilityCost(int abilityCost);
 };
 
 #endif
