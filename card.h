@@ -5,6 +5,7 @@
 #include "type.h"
 #include "ability.h"
 #include "abilitymanager.h"
+#include "triggertype.h"
 
 class Game;
 class Player;
@@ -20,7 +21,7 @@ protected:
     int abilityCost = 0;
     int maxActions = 1;
     int actions = 0;
-    std::string triggerType = "";
+    TriggerType triggerType = TriggerType::None;
     std::string abilityDesc = "";
     Ability abilityFunc = nullptr;
     
@@ -39,6 +40,8 @@ public:
     void resetActions();
     bool isDead() const;
 
+    TriggerType convertToTriggerType(std::string input);
+
     // Getters
     std::string getName();
     size_t getCost();
@@ -48,6 +51,7 @@ public:
     int getDefense();
     int getMaxActions();
     int getActions();
+    TriggerType getTriggerType();
     virtual CardType getType() = 0;
 
     // Setters

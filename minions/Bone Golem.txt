@@ -3,4 +3,4 @@
 3
 trigger
 Gain +1/+1 whenever a minion leaves play.
-LEAVE
+Leave

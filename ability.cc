@@ -13,7 +13,18 @@ void abilityBanish(Game &game) {
     abilityAttackMinion(game, 9999);
 }
 
-void abilityUnsummon(Game &game) {}
+void abilityUnsummon(Game &game) {
+    // This function might crash, not sure
+    Card &minion = game.getTargetCard();
+    int defense = minion.getDefense();
+
+    game.attackMinion(minion, 9999);
+    minion.setDefense(defense);
+
+    Player &player = game.getTargetPlayer();
+    std::unique_ptr<Minion> returnedMinion = std::make_unique<Minion>(minion);
+    player.getHand().addCard(std::move(returnedMinion));
+}
 
 void abilityRecharge(Game &game) {
     Card &ritual = game.getTargetCard();
@@ -84,11 +95,13 @@ void abilityDarkRitual(Game &game) {
     Player &player = game.getActivePlayer();
     // player.gainMagic(1);
 }
+
 void abilityAuraOfPower(Game &game) {
     Card &minion = game.getTargetCard();
     minion.setAttack(minion.getAttack() + 1);
     minion.setDefense(minion.getDefense() + 1);
 }
+
 void abilityStandstill(Game &game) {
     game.attackMinion(game.getTargetCard(), 9999);
 }

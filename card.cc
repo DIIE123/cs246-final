@@ -38,6 +38,14 @@ bool Card::isDead() const {
     return defense <= 0;
 }
 
+TriggerType Card::convertToTriggerType(std::string input) {
+    if (input == "Start") return TriggerType::Start;
+    if (input == "End") return TriggerType::End;
+    if (input == "Enter") return TriggerType::Enter;
+    if (input == "Leave") return TriggerType::Leave;
+    return TriggerType::None;
+}
+
 // Getters
 std::string Card::getName() { return name; }
 size_t Card::getCost() { return cost; }
@@ -47,6 +55,7 @@ int Card::getAttack() { return attack; }
 int Card::getDefense() { return defense; }
 int Card::getActions() { return actions; }
 int Card::getMaxActions() { return maxActions; }
+TriggerType Card::getTriggerType() { return triggerType; }
 
 // Setters
 void Card::setAttack(int attack) { this->attack = attack; }

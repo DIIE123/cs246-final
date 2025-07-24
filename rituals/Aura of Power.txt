@@ -1,4 +1,5 @@
 1
 4
-Whenever a minion enters play under your control, it gains +1/+1
 1
+Whenever a minion enters play under your control, it gains +1/+1
+Enter
