@@ -10,6 +10,7 @@
 
 class Game {
     // Fields
+    bool isTesting;
     bool currP1;
     Player p1;
     Player p2;
@@ -40,7 +41,7 @@ private:
 
 public:
 
-    Game(std::string name1, std::string name2, std::string deck1, std::string deck2);
+    Game(bool isTesting, std::string name1, std::string name2, std::string deck1, std::string deck2);
 
     ~Game() = default;
 

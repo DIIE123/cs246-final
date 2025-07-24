@@ -8,8 +8,8 @@ const std::string NAME_2 = "player2";
 const int MAX_HAND = 5;
 const int MAX_ACTIVE = 5;
 
-Game::Game(std::string name1, std::string name2, std::string deck1, std::string deck2): 
-    currP1{true}, p1{name1, START_HP, START_MAGIC, deck1}, p2{name2, START_HP, START_MAGIC, deck2}, 
+Game::Game(bool isTesting, std::string name1, std::string name2, std::string deck1, std::string deck2): 
+    isTesting{isTesting}, currP1{true}, p1{name1, START_HP, START_MAGIC, deck1}, p2{name2, START_HP, START_MAGIC, deck2}, 
     currCardIndex{0}, targetCardIndex{0}, currTargetPlayer1{true} {
         startTurn();
     }
@@ -54,9 +54,10 @@ void Game::drawCard() {
 // For normal play
 void Game::playCard(size_t i) {
     if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
+    if (getActivePlayer().getActiveCard(i).getCost() > getActivePlayer().getMagic()) return;
     getActivePlayer().playCard(i);
     triggerEnter(i); // order matters!
-    //getAc->attach();
+    //attach(); // check this works later
 }
 
 // for summoning
@@ -65,7 +66,7 @@ void Game::playCard(std::unique_ptr<Card> min) {
     size_t temp = getActivePlayer().getActiveCardSize();
     getActivePlayer().placeCard(std::move(min));
     triggerEnter(temp); // order matters!
-    //min->attach();
+    //min->attach(); // check this works later
 }
 
 void Game::discard(int i) {
