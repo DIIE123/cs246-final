@@ -42,15 +42,15 @@ bool Card::isDead() const {
 std::string Card::getName() { return name; }
 size_t Card::getCost() { return cost; }
 std::string Card::getAbilityDesc() { return abilityDesc; }
-int Card::getAbilityCost() { return abilityCost; }
-int Card::getAttack() { return attack; }
-int Card::getDefense() { return defense; }
-int Card::getActions() { return actions; }
-int Card::getMaxActions() { return maxActions; }
+size_t Card::getAbilityCost() { return abilityCost; }
+size_t Card::getAttack() { return attack; }
+size_t Card::getDefense() { return defense; }
+size_t Card::getActions() { return actions; }
+size_t Card::getMaxActions() { return maxActions; }
 
 // Setters
-void Card::setAttack(int attack) { this->attack = attack; }
-void Card::setDefense(int defense) { this->defense = defense; }
-void Card::setMaxActions(int maxActions) { this->maxActions = maxActions; }
-void Card::setActions(int actions) { this->actions = actions; }
-void Card::setAbilityCost(int abilityCost) { this->abilityCost = abilityCost; }
+void Card::setAttack(size_t attack) { this->attack = attack; }
+void Card::setDefense(size_t defense) { this->defense = defense; }
+void Card::setMaxActions(size_t maxActions) { this->maxActions = maxActions; }
+void Card::setActions(size_t actions) { this->actions = actions; }
+void Card::setAbilityCost(size_t abilityCost) { this->abilityCost = abilityCost; }

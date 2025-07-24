@@ -2,59 +2,70 @@
 #define ENCHANTMENT_H
 
 #include <string>
+#include <memory>
 #include "minion.h"
+#include "type.h"
 
 class Enchantment: public Minion {
-    std::string attackString = "";
-    std::string defenseString = "";
-    std::string abilityDesc = "";
+    std::string enchantmentName;
+    std::string attackString;
+    std::string defenseString;
+    std::string abilityDesc;
 
-    void readInfo(std::string name) override;
+    virtual CardType getType() override;
 
 protected:
-    Minion *minion = nullptr;
+    std::unique_ptr<Minion> minion = nullptr;
 
 public:
-    Enchantment(std::string name, size_t cost, std::string attackString, std::string defenseString, Minion* minion);
-    Enchantment(std::string name, size_t cost, std::string abilityDesc, Minion* minion);
+    Enchantment(std::string enchantmentName, size_t cost, std::string attackString, std::string defenseString, std::unique_ptr<Minion> minion);
+    Enchantment(std::string enchantmentName, size_t cost, std::string abilityDesc, std::unique_ptr<Minion> minion);
     virtual ~Enchantment() = 0;
-    std::string getAttackString();
-    std::string getDefenseString();
-    std::string getAbilityDesc();
+    virtual std::string getAttackString();
+    virtual std::string getDefenseString();
+    virtual std::string getAbilityDesc();
 };
 
 class GiantStrength: public Enchantment {
 public:
-    GiantStrength(Minion* minion);
+    GiantStrength(std::unique_ptr<Minion> minion);
     ~GiantStrength();
     size_t getAttack();
     size_t getDefense();
+    virtual CardType getType() override;
 };
 
 class Enrage: public Enchantment {
 public:
-    Enrage(Minion* minion);
+    Enrage(std::unique_ptr<Minion> minion);
     ~Enrage();
-    size_t getAttack();
-    size_t getDefense();
+    size_t getAttack() override;
+    size_t getDefense() override;
+    virtual CardType getType() override;
 };
 
 class Haste: public Enchantment {
 public:
-    Haste();
+    Haste(std::unique_ptr<Minion> minion);
     ~Haste();
+    size_t getMaxActions() override;
+    virtual CardType getType() override;
 };
 
 class MagicFatigue: public Enchantment {
 public:
-    MagicFatigue();
+    MagicFatigue(std::unique_ptr<Minion> minion);
     ~MagicFatigue();
+    size_t getAbilityCost() override;
+    virtual CardType getType() override;
 };
 
 class Silence: public Enchantment {
 public:
-    Silence();
+    Silence(std::unique_ptr<Minion> minion);
     ~Silence();
+    virtual CardType getType() override;
+    bool getHasAbility();
 };
 
 #endif

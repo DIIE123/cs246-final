@@ -14,12 +14,12 @@ protected:
     static std::unique_ptr<AbilityManager> am;
 
     std::string name;
-    int cost;
-    int attack = 0;
-    int defense = 0;
-    int abilityCost = 0;
-    int maxActions = 1;
-    int actions = 0;
+    size_t cost;
+    size_t attack = 0;
+    size_t defense = 0;
+    size_t abilityCost = 0;
+    size_t maxActions = 1;
+    size_t actions = 0;
     std::string triggerType = "";
     std::string abilityDesc = "";
     Ability abilityFunc = nullptr;
@@ -43,19 +43,19 @@ public:
     std::string getName();
     size_t getCost();
     std::string getAbilityDesc();
-    int getAbilityCost();
-    int getAttack();
-    int getDefense();
-    int getMaxActions();
-    int getActions();
+    virtual size_t getAbilityCost();
+    virtual size_t getAttack();
+    virtual size_t getDefense();
+    virtual size_t getMaxActions();
+    size_t getActions();
     virtual CardType getType() = 0;
 
     // Setters
-    void setAttack(int attack);
-    void setDefense(int defense);
-    void setMaxActions(int maxActions);
-    void setActions(int actions);
-    void setAbilityCost(int abilityCost);
+    void setAttack(size_t attack);
+    void setDefense(size_t defense);
+    void setMaxActions(size_t maxActions);
+    void setActions(size_t actions);
+    void setAbilityCost(size_t abilityCost);
 };
 
 #endif

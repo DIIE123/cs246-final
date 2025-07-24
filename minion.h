@@ -11,7 +11,7 @@ public:
     Minion(std::string name);
 
     // Getters
-    CardType getType() override;
+    virtual CardType getType() override;
 };
 
 #endif
