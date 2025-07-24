@@ -46,12 +46,12 @@ public:
 
     // Getters
     std::string getName();
-    size_t getCost();
+    virtual int getCost();
     std::string getAbilityDesc();
-    int getAbilityCost();
-    int getAttack();
-    int getDefense();
-    int getMaxActions();
+    virtual int getAbilityCost();
+    virtual int getAttack();
+    virtual int getDefense();
+    virtual int getMaxActions();
     int getActions();
     TriggerType getTriggerType();
     virtual CardType getType() = 0;

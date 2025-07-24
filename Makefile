@@ -1,7 +1,7 @@
 CXX = g++-14
 CXXFLAGS = -std=c++20 -Wall -MMD -Werror=vla
 EXEC = sorcery
-OBJECTS = subject.o ability.o abilitymanager.o card.o minion.o spell.o ascii_graphics.o collection.o activeminions.o graveyard.o info.o deck.o hand.o display.o text.o graphics.o player.o game.o input.o main.o
+OBJECTS = subject.o ability.o abilitymanager.o card.o minion.o spell.o enchantment.o ascii_graphics.o collection.o activeminions.o graveyard.o info.o deck.o hand.o display.o text.o graphics.o player.o game.o input.o main.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}

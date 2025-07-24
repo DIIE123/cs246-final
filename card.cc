@@ -52,14 +52,13 @@ void Card::notify(Game &game) {
 
 // Getters
 std::string Card::getName() { return name; }
-size_t Card::getCost() { return cost; }
+int Card::getCost() { return cost; }
 std::string Card::getAbilityDesc() { return abilityDesc; }
 int Card::getAbilityCost() { return abilityCost; }
 int Card::getAttack() { return attack; }
 int Card::getDefense() { return defense; }
 int Card::getActions() { return actions; }
 int Card::getMaxActions() { return maxActions; }
-TriggerType Card::getTriggerType() { return triggerType; }
 
 // Setters
 void Card::setAttack(int attack) { this->attack = attack; }
