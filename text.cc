@@ -91,7 +91,7 @@ void Text::displayBoard() {
 
   // Print top player minions
   std::vector<card_template_t> playerOneMinions;
-  std::vector<std::unique_ptr<CardInfo>> information1 = game.getPlayerOne().getActiveMinions().getInfo();
+  std::vector<std::shared_ptr<CardInfo>> information1 = game.getPlayerOne().getActiveMinions().getInfo();
   for (size_t i = 0; i < minionMax; i++) {
     if(i < game.getPlayerOne().getActiveCardSize()) {
       playerOneMinions.emplace_back(display_minion_no_ability(information1[i]->name, information1[i]->cost, information1[i]->damage, information1[i]->health));
@@ -105,7 +105,7 @@ void Text::displayBoard() {
 
   // Print bottom player minions
   std::vector<card_template_t> playerTwoMinions;
-  std::vector<std::unique_ptr<CardInfo>> information2 = game.getPlayerTwo().getActiveMinions().getInfo();
+  std::vector<std::shared_ptr<CardInfo>> information2 = game.getPlayerTwo().getActiveMinions().getInfo();
   for (size_t i = 0; i < minionMax; i++) {
     if(i < game.getPlayerTwo().getActiveCardSize()) {
       playerTwoMinions.emplace_back(display_minion_no_ability(information2[i]->name, information2[i]->cost, information2[i]->damage, information2[i]->health));
@@ -131,7 +131,7 @@ void Text::displayBoard() {
 void Text::displayHand() {
   std::vector<card_template_t> currentHand;
   size_t limit = game.getActivePlayer().getHandSize();
-  std::vector<std::unique_ptr<CardInfo>> information = game.getActivePlayer().getHand().getInfo();
+  std::vector<std::shared_ptr<CardInfo>> information = game.getActivePlayer().getHand().getInfo();
   for (size_t i = 0; i < limit; i++) {
     CardType type = information[i]->getType();
     if (type == CardType::Minion) {

@@ -15,7 +15,7 @@ public:
   Hand(Hand&&) = default;
   Hand& operator=(Hand&&) = default;
   void playCard(size_t index);
-  std::vector<std::unique_ptr<CardInfo>> getInfo();
+  std::vector<std::shared_ptr<CardInfo>> getInfo();
 };
 
 #endif

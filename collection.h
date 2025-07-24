@@ -6,7 +6,7 @@
 
 class Collection {
 protected: 
-  std::vector<std::unique_ptr<Card>> cards;
+  std::vector<std::shared_ptr<Card>> cards;
 
 public:
   Collection();
@@ -14,8 +14,8 @@ public:
   Collection(const Collection&) = delete;
   Collection &operator=(const Collection&) = delete;
   size_t getSize();
-  virtual void addCard(std::unique_ptr<Card> c);
-  std::unique_ptr<Card> removeCard(size_t index);
+  virtual void addCard(std::shared_ptr<Card> c);
+  std::shared_ptr<Card> removeCard(size_t index);
 };
 
 #endif

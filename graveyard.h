@@ -9,7 +9,7 @@ public:
   ~Graveyard() override;
   Graveyard(const Graveyard&) = delete;
   Graveyard& operator=(const Graveyard&) = delete;
-  std::unique_ptr<CardInfo> getInfo();
+  std::shared_ptr<CardInfo> getInfo();
 };
 
 #endif

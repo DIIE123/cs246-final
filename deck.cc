@@ -28,39 +28,39 @@ void Deck::createDeck(std::string deckfile){
     }
     if (line == "Air Elemental" || line == "Earth Elemental" || line == "Fire Elemental" || line == "Bone Golem" ||
         line == "Potion Seller" || line == "Novice Pyromancer" || line == "Apprentice Summoner" || line == "Master Summoner") {
-      this->addCard(std::make_unique<Minion>(line));
+      this->addCard(std::make_shared<Minion>(line));
       continue;
     }
 
     if (line == "Banish" || line == "Unsummon" || line == "Recharge" || line == "Disenchant" ||
         line == "Raise Dead" || line == "Blizzard") {
-      this->addCard(std::make_unique<Spell>(line));
+      this->addCard(std::make_shared<Spell>(line));
       continue;
     }
     
     /*
     if (line == "Giant Strength") {
-      this->addCard(std::make_unique<GiantStrength>(std::move(std::make_unique<Minion>("Air Elemental"))));
+      this->addCard(std::make_shared<GiantStrength>(std::make_shared<Minion>("Air Elemental")));
       continue;
     }
     if (line == "Enrage") {
-      this->addCard(std::make_unique<Enrage>(std::move(std::make_unique<Minion>("Air Elemental"))));
+      this->addCard(std::make_shared<Enrage>(std::make_shared<Minion>("Air Elemental")));
       continue;
     }
     if (line == "Haste") {
-      this->addCard(std::make_unique<Haste>(std::move(std::make_unique<Minion>("Air Elemental"))));
+      this->addCard(std::make_shared<Haste>(std::make_shared<Minion>("Air Elemental")));
       continue;
     }
     if (line == "MagicFatigue") {
-      this->addCard(std::make_unique<MagicFatigue>(std::move(std::make_unique<Minion>("Air Elemental"))));
+      this->addCard(std::make_shared<MagicFatigue>(std::make_shared<Minion>("Air Elemental")));
       continue;
     } 
     if (line == "Silence") {
-      this->addCard(std::make_unique<Silence>(std::move(std::make_unique<Minion>("Air Elemental"))));
+      this->addCard(std::make_shared<Silence>(std::make_shared<Minion>("Air Elemental")));
       continue;
     }
       */
-    // this->addCard(std::make_unique<Minion>(line));
+    // this->addCard(std::make_shared<Minion>(line));
   }
 }
 

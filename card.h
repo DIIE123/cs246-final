@@ -13,7 +13,7 @@ class Player;
 
 class Card: public Observer {
 protected:
-    static std::unique_ptr<AbilityManager> am;
+    static std::shared_ptr<AbilityManager> am;
 
     std::string name;
     int cost;
