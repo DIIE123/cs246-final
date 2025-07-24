@@ -62,6 +62,10 @@ bool Input::handleCommand(istream &istr) {
       return true;
     }
     if (isTesting) {
+      if (game.getActivePlayer().getHandSize() >= 5) {
+        cout << "Hand is full." << endl;
+        return true;
+      }
       game.drawCard();
       return true;
     } 
@@ -75,6 +79,10 @@ bool Input::handleCommand(istream &istr) {
       return true;
     }
     if (isTesting) {
+      if (i >= game.getActivePlayer().getHandSize()) {
+        cout << "Card inex is out of bounds." << endl;
+        return true;
+      }
       game.discard(i);
       return true;
     }
@@ -90,6 +98,7 @@ bool Input::handleCommand(istream &istr) {
     }
     // Checks bound
     if (!(iss >> j)) {
+      iss.clear();
       if (iss >> command) {
         cout << "'attack' expects [int] (optional:) [int]. Type 'help' for more details." << endl;
         return true;
@@ -106,7 +115,11 @@ bool Input::handleCommand(istream &istr) {
       return true;
     }
     // attack opposing player
-    game.attackMinion(i, game.getOtherPlayer(), j);
+    if (j < game.getOtherPlayer().getActiveCardSize()) {
+      game.attackMinion(i, game.getOtherPlayer(), j);
+      return true;
+    }
+    cout << "Card index is out of bounds." << endl;
     return true;
   }
   if (command == "play") {
@@ -118,14 +131,28 @@ bool Input::handleCommand(istream &istr) {
       return true;
     }
     if (!(iss >> p)) {
-      if (i < game.getActivePlayer().getHandSize()) {
-        game.playCard(i);
+      iss.clear();
+      if (iss >> command) {
+        cout << "'play' expects [int] (optional:) [int] [int]. Type 'help' for more details." << endl;
         return true;
       }
-      cout << "Card index is out of bounds." << endl;
+      if (i >= game.getActivePlayer().getHandSize()) {
+        cout << "Card index is out of bounds." << endl;
+        return true;
+      }
+      if (game.getActivePlayer().getActiveCardSize() >= 5) {
+        cout << "Board is full." << endl;
+        return true;
+      }
+      game.playCard(i);
       return true;
     }
     if (!(iss >> t)) {
+      cout << "'play' expects [int] (optional:) [int] [int]. Type 'help' for more details." << endl;
+      return true;
+    }
+    iss.clear();
+    if (iss >> command) {
       cout << "'play' expects [int] (optional:) [int] [int]. Type 'help' for more details." << endl;
       return true;
     }

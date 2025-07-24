@@ -21,6 +21,5 @@ std::vector<std::unique_ptr<CardInfo>> Hand::getInfo() {
       information.emplace_back(std::make_unique<SpellInfo>(it->getName(), it->getCost(), it->getAbilityDesc()));
     }
   }
-
   return information;
 }
