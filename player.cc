@@ -3,9 +3,10 @@
 
 // CONSTANTS
 const int MAX_HAND = 5;
+const int MAX_ACTIVE = 5;
 
 Player::Player(std::string name, int hp, int mp, std::string deckFile): 
-    name{name}, health{hp}, mana{mp}, deck{}, hand{}, activeMinions{}, ritual{"dummy"} {
+    name{name}, health{hp}, mana{mp}, deck{}, hand{}, activeMinions{} {
         deck.createDeck(deckFile);
         deck.shuffle();
     }
@@ -75,6 +76,16 @@ void Player::attackMinion(size_t i, Player &enemy, size_t j) {
     getActiveCard(i).doDamage(enemy.getActiveCard(j));
 }
 
+void Player::killMinion(size_t i) {
+    activeMinions.removeCard(i);
+}
+
+void Player::killMinions() {
+    for (int i = 0; i < hand.getSize(); i++) {
+        if (activeMinions.getMinion(i).isDead()) activeMinions.removeCard(i);
+    }
+}
+
 size_t Player::getHandSize() {
     return hand.getSize();
 }
@@ -88,5 +99,5 @@ Deck &Player::getDeck() {
 }
 
 Ritual &Player::getRitual() {
-    return ritual;
+    //return ritual;
 }
