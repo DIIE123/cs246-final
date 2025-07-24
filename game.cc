@@ -64,15 +64,24 @@ void Game::attackPlayer(size_t i, Player &enemy) {
 
 void Game::attackMinion(Card &attacker, Card &enemy) {
     getActivePlayer().attackMinion(attacker, enemy);
-    if (attacker.isDead()); // add this!
+    // kill all minions which are dead
+    getActivePlayer().killMinions();
+    getOtherPlayer().killMinions();
 }
 
 void Game::attackMinion(Card &enemy, int dmg) {
     enemy.takeDamage(dmg);
+    // kill all minions which are dead
+    getActivePlayer().killMinions();
+    getOtherPlayer().killMinions();
 }
 
 void Game::attackMinion(size_t i, Player &enemy, size_t j) {
     getActivePlayer().attackMinion(i, enemy, j);
+    getActivePlayer().killMinions();
+    getOtherPlayer().killMinions();
+    //if (getActivePlayer().getActiveCard(i).isDead()) getActivePlayer().killMinion(i);
+    //if (enemy.getActiveCard(i).isDead()) enemy.killMinion(i);
 }
 
 void Game::useAbility(size_t i, bool player1, size_t j) {

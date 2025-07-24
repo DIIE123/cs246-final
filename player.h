@@ -21,7 +21,6 @@ class Player {
     Deck deck;
     Hand hand;
     ActiveMinions activeMinions;
-    Ritual ritual;
 public:
 
     Player(std::string name, int hp, int mp, std::string deckFile);
@@ -51,6 +50,10 @@ public:
     void attackMinion(Card &attacker, Card &enemy);
 
     void attackMinion(size_t i, Player &enemy, size_t j);
+
+    void killMinion(size_t i);
+
+    void killMinions();
 
     size_t getHandSize();
 
