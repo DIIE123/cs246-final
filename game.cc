@@ -144,34 +144,39 @@ void Game::endTurn() {
 // Subjects and trigger helpers
 void Game::triggerStart() {
     if (currP1) {
-        startP1.notifyObservers();
+        startP1.notifyObservers(*this);
     } else {
-        startP2.notifyObservers();
+        startP2.notifyObservers(*this);
     }
 }
 
 void Game::triggerEnd() {
     if (currP1) {
-        endP1.notifyObservers();
+        endP1.notifyObservers(*this);
     } else {
-        endP2.notifyObservers();
+        endP2.notifyObservers(*this);
     }
 }
 
 void Game::triggerEnter(size_t i) {
     targetCardIndex = i;
+
+    // APNAP
     if (currP1) {
-        enterP1.notifyObservers();
+        enterP1.notifyObservers(*this);
+        enterP2.notifyObservers(*this);
     } else {
-        enterP2.notifyObservers();
+        enterP2.notifyObservers(*this);
+        enterP1.notifyObservers(*this);
     }
-    
 }
 
 void Game::triggerLeave(bool deadMinP1) {
     if (deadMinP1) {
-        leaveP1.notifyObservers();
+        leaveP1.notifyObservers(*this);
+        leaveP2.notifyObservers(*this);
     } else {
-        leaveP2.notifyObservers();
+        leaveP2.notifyObservers(*this);
+        leaveP1.notifyObservers(*this);
     }
 }
