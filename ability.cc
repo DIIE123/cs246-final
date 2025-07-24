@@ -80,6 +80,15 @@ void abilityMasterSummoner(Game &game) {
 }
 
 // Rituals
-void abilityDarkRitual(Game &game) {}
-void abilityAuraOfPower(Game &game) {}
-void abilityStandstill(Game &game) {}
+void abilityDarkRitual(Game &game) {
+    Player &player = game.getActivePlayer();
+    // player.gainMagic(1);
+}
+void abilityAuraOfPower(Game &game) {
+    Card &minion = game.getTargetCard();
+    minion.setAttack(minion.getAttack() + 1);
+    minion.setDefense(minion.getDefense() + 1);
+}
+void abilityStandstill(Game &game) {
+    game.attackMinion(game.getTargetCard(), 9999);
+}
