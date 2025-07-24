@@ -35,7 +35,7 @@ public:
     void drawCard();
 
     // place card into activeminions
-    void placeCard(Card &min);
+    void placeCard(std::shared_ptr<Card> min);
 
     // returns false if the player doesn't die and true if they do
     bool takeDamage(int dmg);

@@ -31,7 +31,7 @@ public:
 
     void playCard(size_t i);
 
-    void playCard(Card &min);
+    void playCard(std::shared_ptr<Card> min);
 
     void discard(int i);
 

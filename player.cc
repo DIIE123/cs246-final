@@ -45,8 +45,8 @@ void Player::drawCard() {
     hand.addCard(deck.removeCard(0));
 }
 
-void Player::placeCard(Card &min) {
-    //activeMinions.addCard(min);
+void Player::placeCard(std::shared_ptr<Card> min) {
+    activeMinions.addCard(min);
 }
 
 Card &Player::getActiveCard(size_t i) {
@@ -83,4 +83,8 @@ Hand &Player::getHand() {
 
 Deck &Player::getDeck() {
     return deck;
+}
+
+Ritual &Player::getRitual() {
+    return ritual;
 }
