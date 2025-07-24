@@ -17,10 +17,11 @@
 class Player {
     std::string name;
     int health;
-    int mana;
+    int magic;
     Deck deck;
     Hand hand;
     ActiveMinions activeMinions;
+    std::unique_ptr<Card> ritual;
 public:
 
     Player(std::string name, int hp, int mp, std::string deckFile);
@@ -55,13 +56,21 @@ public:
 
     void killMinions();
 
+    // Deal with magic
+    void incrementMagic(int i);
+
+    void setMagic(int i);
+
+    int getMagic();
+
     size_t getHandSize();
 
     Hand &getHand();
 
     Deck &getDeck();
 
-    Ritual &getRitual();
+    // tranfer ownership of ritual
+    std::unique_ptr<Card> getRitual();
 
 };
 
