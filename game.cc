@@ -115,6 +115,13 @@ void Game::useAbility(size_t i, bool player1, size_t j) {
     targetCardIndex = j;
     if (player1) currTargetPlayer1 = true;
     else currTargetPlayer1 = false;
+
+    // Check
+    if (getActiveCard().getAbilityCost() <= 0) return; // just double check to see if its not an active ability
+    if (getActiveCard().getAbilityCost() <= getActivePlayer().getMagic()) {
+        getActivePlayer().incrementMagic(-getActiveCard().getAbilityCost());
+        getActiveCard().useAbility(*this);
+    } // add else if you want to do something when they can't afford ability
 }
 
 Card &Game::getActiveCard() {
