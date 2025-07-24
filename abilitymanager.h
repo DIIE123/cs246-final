@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include "ability.h"
+#include "info.h"
 
 class AbilityManager {
     std::map<std::string, Ability> abilities;
@@ -11,7 +12,6 @@ class AbilityManager {
 public:
     AbilityManager();
     Ability getAbility(std::string name);
-    
 };
 
 #endif

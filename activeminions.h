@@ -11,7 +11,7 @@ public:
   ActiveMinions(const ActiveMinions&) = delete;
   ActiveMinions& operator=(const ActiveMinions&) = delete;
   Card& getMinion(size_t i);
-
+  std::vector<std::unique_ptr<CardInfo>> getInfo();
 };
 
 #endif
