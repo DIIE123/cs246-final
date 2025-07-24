@@ -27,11 +27,15 @@ public:
 
     void playCard(size_t i);
 
+    void playCard(Card &min);
+
     void discard(int i);
 
     void attackPlayer(size_t i, Player &enemy);
     
     void attackMinion(Minion &attacker, Minion &enemy);
+
+    void attackMinion(Minion &enemy, int dmg);
 
     void attackMinion(size_t i, Player &enemy, size_t j);
 

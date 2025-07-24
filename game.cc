@@ -6,6 +6,7 @@ const int START_MAGIC = 3;
 const std::string NAME_1 = "player1";
 const std::string NAME_2 = "player2";
 const int MAX_HAND = 5;
+const int MAX_ACTIVE = 5;
 
 Game::Game(std::string name1, std::string name2, std::string deck1, std::string deck2): 
     currP1{true}, p1{name1, START_HP, START_MAGIC, deck1}, p2{name2, START_HP, START_MAGIC, deck2} {}
@@ -40,7 +41,13 @@ void Game::drawCard() {
 }
 
 void Game::playCard(size_t i) {
+    if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
     getActivePlayer().playCard(i);
+}
+
+void Game::playCard(Card &min) {
+    if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
+    getActivePlayer().placeCard(min);
 }
 
 void Game::discard(int i) {
@@ -53,6 +60,10 @@ void Game::attackPlayer(size_t i, Player &enemy) {
 
 void Game::attackMinion(Minion &attacker, Minion &enemy) {
     getActivePlayer().attackMinion(attacker, enemy);
+}
+
+void Game::attackMinion(Minion &enemy, int dmg) {
+    enemy.takeDamage(dmg);
 }
 
 void Game::attackMinion(size_t i, Player &enemy, size_t j) {

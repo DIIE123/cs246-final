@@ -44,7 +44,7 @@ void Player::drawCard() {
 }
 
 void Player::placeCard(Card &min) {
-    //activeMinions.addCard(min);
+    activeMinions.addCard(min);
 }
 
 Card &Player::getActiveCard(size_t i) {
