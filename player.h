@@ -12,6 +12,7 @@
 #include "minion.h"
 #include "activeminions.h"
 #include "type.h"
+#include "ritual.h"
 
 class Player {
     std::string name;
@@ -20,20 +21,21 @@ class Player {
     Deck deck;
     Hand hand;
     ActiveMinions activeMinions;
+    Ritual ritual;
 public:
 
     Player(std::string name, int hp, int mp, std::string deckFile);
 
     ~Player() = default;
 
-    void playCard(size_t i);
+    bool playCard(size_t i);
 
-    void playCard(size_t i, Player &enemy, size_t t);
+    bool playCard(size_t i, Player &enemy, size_t t);
 
     void drawCard();
 
     // place card into activeminions
-    void placeCard(Card &min);
+    void placeCard(std::unique_ptr<Card> min);
 
     // returns false if the player doesn't die and true if they do
     bool takeDamage(int dmg);
@@ -55,6 +57,8 @@ public:
     Hand &getHand();
 
     Deck &getDeck();
+
+    Ritual &getRitual();
 
 };
 
