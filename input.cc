@@ -89,31 +89,44 @@ bool Input::handleCommand(istream &istr) {
       return true;
     }
     // Checks bound
-    // if (i >= game.current.getSize());
     if (!(iss >> j)) {
-      
-      // attack opposing player
+      if (iss >> command) {
+        cout << "'attack' expects [int] (optional:) [int]. Type 'help' for more details." << endl;
+        return true;
+      }
+      if (i < game.getActivePlayer().getActiveCardSize()) {
+        game.attackPlayer(i, game.getOtherPlayer());
+        return true;
+      }
+      cout << "Card index is out of bounds." << endl;
       return true;
     }
-    // Checks bound
-    // if (j >= game.current.getSize());
-    // attack jth minion
+    if (iss >> command) {
+      cout << "Card index is out of bounds." << endl;
+      return true;
+    }
+    // attack opposing player
+    game.attackMinion(i, game.getOtherPlayer(), j);
     return true;
   }
-  // Remember to check bounds!
   if (command == "play") {
     size_t i = 0;
     size_t p = 0;
     size_t t = 0;
     if (!(iss >> i)) {
-      // Invalid
+      cout << "'play' expects [int] (optional:) [int] [int]. Type 'help' for more details." << endl;
       return true;
     }
     if (!(iss >> p)) {
-      // Play without target
+      if (i < game.getActivePlayer().getHandSize()) {
+        game.playCard(i);
+        return true;
+      }
+      cout << "Card index is out of bounds." << endl;
+      return true;
     }
     if (!(iss >> t)) {
-      // Invalid
+      cout << "'play' expects [int] (optional:) [int] [int]. Type 'help' for more details." << endl;
       return true;
     }
     // Play with target

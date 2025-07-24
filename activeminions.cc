@@ -10,7 +10,7 @@ Card& ActiveMinions::getMinion(size_t i) {
 std::vector<std::unique_ptr<CardInfo>> ActiveMinions::getInfo() {
   std::vector<std::unique_ptr<CardInfo>> information;
   for (auto& it: cards) {
-    information.emplace_back(std::make_unique<MinionInfo>(it->getName(), it->getCost(), 1, 1));
+    information.emplace_back(std::make_unique<MinionInfo>(it->getName(), it->getCost(), it->getAttack(), it->getDefense()));
   }
   return information;
 }

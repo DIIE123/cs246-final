@@ -2,10 +2,10 @@
 
 // Enchantment
 Enchantment::Enchantment(std::string name, size_t cost, std::string attackString, std::string defenseString, Minion* minion):
-    Minion{name, cost}, attackString{attackString}, defenseString{defenseString} {}
+    Minion{name}, attackString{attackString}, defenseString{defenseString} {}
 
 Enchantment::Enchantment(std::string name, size_t cost, std::string abilityDesc, Minion* minion):
-    Minion{name, cost}, abilityDesc{abilityDesc}, minion{minion} {}
+    Minion{name}, abilityDesc{abilityDesc}, minion{minion} {}
 
 Enchantment::~Enchantment() {delete minion;};
 

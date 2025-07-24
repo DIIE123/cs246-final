@@ -45,10 +45,12 @@ void Game::playCard(size_t i) {
     getActivePlayer().playCard(i);
 }
 
+/*
 void Game::playCard(Card &min) {
     if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
     getActivePlayer().placeCard(min);
 }
+    */
 
 void Game::discard(int i) {
     getActivePlayer().getHand().removeCard(i);
