@@ -14,28 +14,30 @@ void Card::useAbility(Game &game) {
 
 // Utilities
 void Card::takeDamage(int damage) {
-    defense -= damage;
+    setDefense(getDefense() - damage);
 }
 
 void Card::doDamage(Card &other) {
-    other.takeDamage(attack);
-    takeDamage(other.attack);
+    other.takeDamage(getAttack());
+    takeDamage(other.getAttack());
+    decreaseActions();
 }
 
 void Card::doDamage(Player &player) {
-    player.takeDamage(attack);
+    player.takeDamage(getAttack());
+    decreaseActions();
 }
 
 void Card::decreaseActions() {
-    --actions;
+    setActions(getActions() - 1);
 }
 
 void Card::resetActions() {
-    actions = maxActions;
+    setActions(getMaxActions());
 }
 
-bool Card::isDead() const {
-    return defense <= 0;
+bool Card::isDead() {
+    return getDefense() <= 0;
 }
 
 TriggerType Card::convertToTriggerType(std::string input) {

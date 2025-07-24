@@ -14,16 +14,15 @@ void abilityBanish(Game &game) {
 }
 
 void abilityUnsummon(Game &game) {
-//     // This function doesn't work
-//     Card &minion = game.getTargetCard();
-//     int defense = minion.getDefense();
+    // Card &minion = game.getTargetCard();
 
-//     game.attackMinion(minion, 9999);
-//     minion.setDefense(defense);
+    // // Make copy of card and add it to hand
+    // std::unique_ptr<Card> returnedMinion = std::make_unique<Card>(minion);
+    // Player &player = game.getTargetPlayer();
+    // player.getHand().addCard(std::move(returnedMinion));
 
-//     Player &player = game.getTargetPlayer();
-//     std::unique_ptr<Card> returnedMinion = std::make_unique<Card>(minion);
-//     player.getHand().addCard(std::move(returnedMinion));
+    // // Kill card
+    // game.attackMinion(minion, 9999);
 }
 
 void abilityRecharge(Game &game) {
