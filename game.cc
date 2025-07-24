@@ -61,10 +61,10 @@ void Game::playCard(size_t i) {
 }
 
 // for summoning
-void Game::playCard(std::unique_ptr<Card> min) {
+void Game::playCard(std::shared_ptr<Card> min) {
     if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
     size_t temp = getActivePlayer().getActiveCardSize();
-    getActivePlayer().placeCard(std::move(min));
+    getActivePlayer().placeCard(min);
     triggerEnter(temp); // order matters!
     //min->attach(); // check this works later
 }

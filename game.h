@@ -60,7 +60,7 @@ public:
 
     void playCard(size_t i);
 
-    void playCard(std::unique_ptr<Card> min);
+    void playCard(std::shared_ptr<Card> min);
 
     void discard(int i);
 

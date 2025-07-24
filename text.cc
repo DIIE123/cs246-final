@@ -82,7 +82,7 @@ void Text::displayBoard() {
   // temporary!!
   playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
-  card_template_t playerOne = display_player_card(1, "Player1", 20, 3);
+  card_template_t playerOne = display_player_card(1, game.getPlayerOne().getName(), game.getPlayerOne().getHealth(), game.getPlayerOne().getMagic());
   playerOneRow.emplace_back(playerOne);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
   playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
@@ -91,7 +91,7 @@ void Text::displayBoard() {
 
   // Print top player minions
   std::vector<card_template_t> playerOneMinions;
-  std::vector<std::unique_ptr<CardInfo>> information1 = game.getPlayerOne().getActiveMinions().getInfo();
+  std::vector<std::shared_ptr<CardInfo>> information1 = game.getPlayerOne().getActiveMinions().getInfo();
   for (size_t i = 0; i < minionMax; i++) {
     if(i < game.getPlayerOne().getActiveCardSize()) {
       playerOneMinions.emplace_back(display_minion_no_ability(information1[i]->name, information1[i]->cost, information1[i]->damage, information1[i]->health));
@@ -105,7 +105,7 @@ void Text::displayBoard() {
 
   // Print bottom player minions
   std::vector<card_template_t> playerTwoMinions;
-  std::vector<std::unique_ptr<CardInfo>> information2 = game.getPlayerTwo().getActiveMinions().getInfo();
+  std::vector<std::shared_ptr<CardInfo>> information2 = game.getPlayerTwo().getActiveMinions().getInfo();
   for (size_t i = 0; i < minionMax; i++) {
     if(i < game.getPlayerTwo().getActiveCardSize()) {
       playerTwoMinions.emplace_back(display_minion_no_ability(information2[i]->name, information2[i]->cost, information2[i]->damage, information2[i]->health));
@@ -119,7 +119,7 @@ void Text::displayBoard() {
   std::vector<card_template_t> playerTwoRow;
   playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
-  card_template_t playerTwo = display_player_card(2, "Player2", 20, 3);
+  card_template_t playerTwo = display_player_card(2, game.getPlayerTwo().getName(), game.getPlayerTwo().getHealth(), game.getPlayerTwo().getMagic());
   playerTwoRow.emplace_back(playerTwo);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
   playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
@@ -131,15 +131,15 @@ void Text::displayBoard() {
 void Text::displayHand() {
   std::vector<card_template_t> currentHand;
   size_t limit = game.getActivePlayer().getHandSize();
-  std::vector<std::unique_ptr<CardInfo>> information = game.getActivePlayer().getHand().getInfo();
+  std::vector<std::shared_ptr<CardInfo>> information = game.getActivePlayer().getHand().getInfo();
   for (size_t i = 0; i < limit; i++) {
     CardType type = information[i]->getType();
     if (type == CardType::Minion) {
-      card_template_t temp = display_minion_no_ability(information[i]->name, information[i]->cost, 1, 1);
+      card_template_t temp = display_minion_no_ability(information[i]->name, information[i]->cost, information[i]->damage, information[i]->health);
       currentHand.emplace_back(temp);
     }
     if (type == CardType::Spell) {
-      card_template_t temp = display_spell(information[i]->name, information[i]->cost, "This works!");
+      card_template_t temp = display_spell(information[i]->name, information[i]->cost, information[i]->description);
       currentHand.emplace_back(temp);
     }
   }

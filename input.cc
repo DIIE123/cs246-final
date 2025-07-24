@@ -65,7 +65,7 @@ bool Input::handleCommand(istream &istr) {
       game.drawCard();
       return true;
     } 
-    cout << "'draw' is a testing mode specifc command." << std::endl;
+    cout << "'draw' is a testing mode specific command." << std::endl;
     return true;
   }
   if (command == "discard") {
@@ -78,7 +78,7 @@ bool Input::handleCommand(istream &istr) {
       game.discard(i);
       return true;
     }
-    cout << "'discard' is a testing mode specifc command." << std::endl;
+    cout << "'discard' is a testing mode specific command." << std::endl;
     return true;
   }
   if (command == "attack") {
@@ -102,7 +102,7 @@ bool Input::handleCommand(istream &istr) {
       return true;
     }
     if (iss >> command) {
-      cout << "Card index is out of bounds." << endl;
+      cout << "'attack' expects [int] (optional:) [int]. Type 'help' for more details." << endl;
       return true;
     }
     // attack opposing player
