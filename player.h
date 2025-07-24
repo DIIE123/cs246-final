@@ -54,7 +54,7 @@ public:
 
     void killMinion(size_t i);
 
-    void killMinions();
+    bool killMinions();
 
     // Deal with magic
     void incrementMagic(int i);
@@ -71,6 +71,14 @@ public:
 
     // tranfer ownership of ritual
     std::unique_ptr<Card> getRitual();
+
+    // Simple getters
+    // health, magic, name getters
+    int getHealth();
+
+    int getMagic();
+
+    std::string getName();
 
 };
 

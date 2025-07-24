@@ -82,10 +82,15 @@ void Player::killMinion(size_t i) {
     activeMinions.removeCard(i);
 }
 
-void Player::killMinions() {
+bool Player::killMinions() {
+    bool killed = false;
     for (int i = 0; i < activeMinions.getSize(); i++) {
-        if (activeMinions.getMinion(i).isDead()) activeMinions.removeCard(i);
+        if (activeMinions.getMinion(i).isDead()) {
+            activeMinions.removeCard(i);
+            killed = true;
+        }
     }
+    return killed;
 }
 
 
@@ -118,3 +123,17 @@ Deck &Player::getDeck() {
 std::unique_ptr<Card> Player::getRitual() {
     return std::move(ritual);
 }
+
+// health, magic, name getters
+int Player::getHealth() {
+    return health;
+}
+
+int Player::getMagic() {
+    return magic;
+}
+
+std::string Player::getName() {
+    return name;
+}
+
