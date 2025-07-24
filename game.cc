@@ -45,12 +45,10 @@ void Game::playCard(size_t i) {
     getActivePlayer().playCard(i);
 }
 
-/*
-void Game::playCard(Card &min) {
+void Game::playCard(std::unique_ptr<Card> min) {
     if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
     getActivePlayer().placeCard(std::move(min));
 }
-    */
 
 void Game::discard(int i) {
     getActivePlayer().getHand().removeCard(i);
