@@ -37,7 +37,8 @@ void Minion::readInfo(std::string name) {
 
     if (input == "trigger") {
         // Read trigger type
-        in >> triggerType;
+        in >> input;
+        triggerType = convertToTriggerType(input);
     }
     else if (input == "active") {
         // Read active cost
