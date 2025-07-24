@@ -74,12 +74,12 @@ void Game::attackMinion(size_t i, Player &enemy, size_t j) {
     getActivePlayer().attackMinion(i, enemy, j);
 }
 
-std::shared_ptr<Card> Game::getActiveCard() {
-    return curr;
+Card &Game::getActiveCard() {
+    return *curr;
 }
 
-std::shared_ptr<Card> Game::getTargetCard() {
-    return target;
+Card &Game::getTargetCard() {
+    return *target;
 }
 
 void Game::endTurn() {

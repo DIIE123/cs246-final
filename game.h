@@ -45,9 +45,9 @@ public:
 
     void attackMinion(size_t i, Player &enemy, size_t j);
 
-    std::shared_ptr<Card> getActiveCard();
+    Card &getActiveCard();
 
-    std::shared_ptr<Card> getTargetCard();
+    Card &getTargetCard();
 
     // end the current player's turn
     void endTurn();
