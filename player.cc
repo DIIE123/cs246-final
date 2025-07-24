@@ -103,10 +103,6 @@ void Player::setMagic(int i) {
     magic = i;
 }
 
-int Player::getMagic() {
-    return magic;
-}
-
 // Getters for important fields
 size_t Player::getHandSize() {
     return hand.getSize();
