@@ -9,6 +9,6 @@ void Subject::detach() {
     observers.pop_back();
 }
 
-void Subject::notifyObservers() {
-    for (auto &ob : observers) ob->notify(*this);
+void Subject::notifyObservers(Game &game) {
+    for (auto &ob : observers) ob->notify(game);
 }

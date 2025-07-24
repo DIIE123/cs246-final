@@ -12,8 +12,9 @@ void Ritual::readInfo(std::string name) {
     // INPUT FORMAT:
     // cost
     // charges
-    // ability description
     // ability cost
+    // ability description
+    // trigger type
 
     std::string file{DIRECTORY + name + EXTENSION};
     std::ifstream in{file};
@@ -21,9 +22,13 @@ void Ritual::readInfo(std::string name) {
     this->name = name;
     in >> cost;
     in >> defense;
+    in >> abilityCost;
     in >> abilityDesc;
     abilityFunc = am->getAbility(name);
-    in >> abilityCost;
+    
+    std::string temp;
+    in >> temp;
+    triggerType = convertToTriggerType(temp);
 }
 
 CardType Ritual::getType() { return CardType::Ritual; }

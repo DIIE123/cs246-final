@@ -6,7 +6,7 @@ const int MAX_HAND = 5;
 const int MAX_ACTIVE = 5;
 
 Player::Player(std::string name, int hp, int mp, std::string deckFile): 
-    name{name}, health{hp}, mana{mp}, deck{}, hand{}, activeMinions{} {
+    name{name}, health{hp}, magic{mp}, deck{}, hand{}, activeMinions{} {
         deck.createDeck(deckFile);
         deck.shuffle();
     }
@@ -62,28 +62,48 @@ size_t Player::getActiveCardSize() {
     return activeMinions.getSize();
 }
 
+// Attacking
 void Player::attackPlayer(size_t i, Player &enemy) {
     getActiveCard(i).doDamage(enemy);
+    getActiveCard(i).decreaseActions();
 }
 
 void Player::attackMinion(Card &attacker, Card &enemy) {
     attacker.doDamage(enemy);
+    attacker.decreaseActions();
 }
 
 void Player::attackMinion(size_t i, Player &enemy, size_t j) {
     getActiveCard(i).doDamage(enemy.getActiveCard(j));
+    getActiveCard(i).decreaseActions();
 }
 
 void Player::killMinion(size_t i) {
     activeMinions.removeCard(i);
 }
 
-void Player::killMinions() {
+bool Player::killMinions() {
+    bool killed = false;
     for (int i = 0; i < activeMinions.getSize(); i++) {
-        if (activeMinions.getMinion(i).isDead()) activeMinions.removeCard(i);
+        if (activeMinions.getMinion(i).isDead()) {
+            activeMinions.removeCard(i);
+            killed = true;
+        }
     }
+    return killed;
 }
 
+
+// Deal with magic
+void Player::incrementMagic(int i) {
+    magic += i;
+}
+
+void Player::setMagic(int i) {
+    magic = i;
+}
+
+// Getters for important fields
 size_t Player::getHandSize() {
     return hand.getSize();
 }
@@ -96,6 +116,20 @@ Deck &Player::getDeck() {
     return deck;
 }
 
-Ritual &Player::getRitual() {
-    //return ritual;
+std::unique_ptr<Card> Player::getRitual() {
+    return std::move(ritual);
 }
+
+// health, magic, name getters
+int Player::getHealth() {
+    return health;
+}
+
+int Player::getMagic() {
+    return magic;
+}
+
+std::string Player::getName() {
+    return name;
+}
+

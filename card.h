@@ -5,22 +5,24 @@
 #include "type.h"
 #include "ability.h"
 #include "abilitymanager.h"
+#include "triggertype.h"
+#include "observer.h"
 
 class Game;
 class Player;
 
-class Card {
+class Card: public Observer {
 protected:
     static std::unique_ptr<AbilityManager> am;
 
     std::string name;
-    size_t cost;
-    size_t attack = 0;
-    size_t defense = 0;
-    size_t abilityCost = 0;
-    size_t maxActions = 1;
-    size_t actions = 0;
-    std::string triggerType = "";
+    int cost;
+    int attack = 0;
+    int defense = 0;
+    int abilityCost = 0;
+    int maxActions = 1;
+    int actions = 0;
+    TriggerType triggerType = TriggerType::None;
     std::string abilityDesc = "";
     Ability abilityFunc = nullptr;
     
@@ -39,15 +41,19 @@ public:
     void resetActions();
     bool isDead() const;
 
+    TriggerType convertToTriggerType(std::string input);
+    void notify(Game &game);
+
     // Getters
     std::string getName();
     size_t getCost();
     std::string getAbilityDesc();
-    virtual size_t getAbilityCost();
-    virtual size_t getAttack();
-    virtual size_t getDefense();
-    virtual size_t getMaxActions();
-    size_t getActions();
+    int getAbilityCost();
+    int getAttack();
+    int getDefense();
+    int getMaxActions();
+    int getActions();
+    TriggerType getTriggerType();
     virtual CardType getType() = 0;
 
     // Setters
