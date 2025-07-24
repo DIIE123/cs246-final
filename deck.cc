@@ -38,6 +38,7 @@ void Deck::createDeck(std::string deckfile){
       continue;
     }
     
+    /*
     if (line == "Giant Strength") {
       this->addCard(std::make_unique<GiantStrength>(std::move(std::make_unique<Minion>("Air Elemental"))));
       continue;
@@ -58,6 +59,7 @@ void Deck::createDeck(std::string deckfile){
       this->addCard(std::make_unique<Silence>(std::move(std::make_unique<Minion>("Air Elemental"))));
       continue;
     }
+      */
     // this->addCard(std::make_unique<Minion>(line));
   }
 }

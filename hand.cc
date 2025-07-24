@@ -18,7 +18,7 @@ std::vector<std::unique_ptr<CardInfo>> Hand::getInfo() {
       continue;
     }
     if (it->getType() == CardType::Spell) {
-      information.emplace_back(std::make_unique<SpellInfo>(it->getName(), it->getCost(), "This Works!"));
+      information.emplace_back(std::make_unique<SpellInfo>(it->getName(), it->getCost(), it->getAbilityDesc()));
     }
   }
 

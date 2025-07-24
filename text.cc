@@ -82,7 +82,7 @@ void Text::displayBoard() {
   // temporary!!
   playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
-  card_template_t playerOne = display_player_card(1, "Player1", 20, 3);
+  card_template_t playerOne = display_player_card(1, game.getPlayerOne().getName(), game.getPlayerOne().getHealth(), game.getPlayerOne().getMagic());
   playerOneRow.emplace_back(playerOne);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
   playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
@@ -119,7 +119,7 @@ void Text::displayBoard() {
   std::vector<card_template_t> playerTwoRow;
   playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
-  card_template_t playerTwo = display_player_card(2, "Player2", 20, 3);
+  card_template_t playerTwo = display_player_card(2, game.getPlayerTwo().getName(), game.getPlayerTwo().getHealth(), game.getPlayerTwo().getMagic());
   playerTwoRow.emplace_back(playerTwo);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
   playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
@@ -135,11 +135,11 @@ void Text::displayHand() {
   for (size_t i = 0; i < limit; i++) {
     CardType type = information[i]->getType();
     if (type == CardType::Minion) {
-      card_template_t temp = display_minion_no_ability(information[i]->name, information[i]->cost, 1, 1);
+      card_template_t temp = display_minion_no_ability(information[i]->name, information[i]->cost, information[i]->damage, information[i]->health);
       currentHand.emplace_back(temp);
     }
     if (type == CardType::Spell) {
-      card_template_t temp = display_spell(information[i]->name, information[i]->cost, "This works!");
+      card_template_t temp = display_spell(information[i]->name, information[i]->cost, information[i]->description);
       currentHand.emplace_back(temp);
     }
   }
