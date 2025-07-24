@@ -5,7 +5,7 @@
 const int MAX_HAND = 5;
 
 Player::Player(std::string name, int hp, int mp, std::string deckFile): 
-    name{name}, health{hp}, mana{mp}, deck{}, hand{}, activeMinions{} {
+    name{name}, health{hp}, mana{mp}, deck{}, hand{}, activeMinions{}, ritual{"dummy"} {
         deck.createDeck(deckFile);
         deck.shuffle();
     }
@@ -19,14 +19,16 @@ bool Player::takeDamage(int dmg) {
     return false;
 }
 
-void Player::playCard(size_t i) {
+bool Player::playCard(size_t i) {
     std::unique_ptr<Card> temp = std::move(hand.removeCard(i));
     if (temp->getType() == CardType::Minion) {
         activeMinions.addCard(std::move(temp));
+        return true;
     }
+    return false;
 }
 
-void playCard(size_t i, Player &enemy, size_t t) {
+bool Player::playCard(size_t i, Player &enemy, size_t t) {
     // work on this later
 }
 
@@ -44,7 +46,7 @@ void Player::drawCard() {
 }
 
 void Player::placeCard(Card &min) {
-    activeMinions.addCard(min);
+    //activeMinions.addCard(min);
 }
 
 Card &Player::getActiveCard(size_t i) {

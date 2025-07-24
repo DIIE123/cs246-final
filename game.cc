@@ -54,6 +54,10 @@ void Game::discard(int i) {
     getActivePlayer().getHand().removeCard(i);
 }
 
+void Game::attackPlayer(size_t i) {
+    getActivePlayer().attackPlayer(i, getOtherPlayer());
+}
+
 void Game::attackPlayer(size_t i, Player &enemy) {
     getActivePlayer().attackPlayer(i, enemy);
 }
@@ -68,6 +72,14 @@ void Game::attackMinion(Minion &enemy, int dmg) {
 
 void Game::attackMinion(size_t i, Player &enemy, size_t j) {
     getActivePlayer().attackMinion(i, enemy, j);
+}
+
+std::shared_ptr<Card> Game::getActiveCard() {
+    return curr;
+}
+
+std::shared_ptr<Card> Game::getTargetCard() {
+    return target;
 }
 
 void Game::endTurn() {
