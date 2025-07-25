@@ -2,14 +2,24 @@
 
 // Enchantment
 Enchantment::Enchantment(std::string enchantmentName, int cost, std::string attackString, std::string defenseString, std::shared_ptr<Minion> minion):
-    Minion{minion->getName()}, enchantmentName{enchantmentName}, attackString{attackString}, defenseString{defenseString}, minion{minion} {}
+    Minion{"Air Elemental"}, enchantmentName{enchantmentName}, attackString{attackString}, defenseString{defenseString}, minion{minion} {
+  this->cost = cost;
+  this->abilityDesc = "";
+}
 
 Enchantment::Enchantment(std::string enchantmentName, int cost, std::string abilityDesc, std::shared_ptr<Minion> minion):
-    Minion{minion->getName()}, enchantmentName{enchantmentName}, abilityDesc{abilityDesc}, minion{minion} {}
+    Minion{"Air Elemental"}, enchantmentName{enchantmentName}, minion{minion} {
+  this->cost = cost;
+  this->abilityDesc = abilityDesc;
+}
 
 
 CardType Enchantment::getType() {
   return CardType::Enchantment;
+}
+
+std::shared_ptr<Card> Enchantment::getPointer() {
+  return minion;
 }
 
 Enchantment::~Enchantment() {}

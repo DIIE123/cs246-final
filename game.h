@@ -2,6 +2,7 @@
 #define GAME_H
 #include <string>
 #include <memory>
+#include <iostream>
 #include "display.h"
 #include "player.h"
 #include "subject.h"
