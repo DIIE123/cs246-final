@@ -8,7 +8,7 @@ class Minion: public Card {
     void readInfo(std::string name) override;
 
 public:
-    Minion(std::string name);
+    Minion(std::string name, Player &player);
 
     // Getters
     virtual CardType getType() override;

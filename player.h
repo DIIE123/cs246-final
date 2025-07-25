@@ -25,7 +25,7 @@ class Player {
     std::shared_ptr<Card> ritual;
 public:
 
-    Player(std::string name, int hp, int mp, std::string deckFile);
+    Player(std::string name, int hp, int mp, std::string deckFile, bool isTesting);
 
     ~Player() = default;
 
@@ -74,6 +74,8 @@ public:
 
     // share ownership of ritual
     std::shared_ptr<Card> getRitual();
+
+    void setRitual(std::shared_ptr<Card> card);
 
     // Simple getters
     // health, magic, name getters

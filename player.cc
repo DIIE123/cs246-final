@@ -5,10 +5,10 @@
 const int MAX_HAND = 5;
 const int MAX_ACTIVE = 5;
 
-Player::Player(std::string name, int hp, int mp, std::string deckFile): 
+Player::Player(std::string name, int hp, int mp, std::string deckFile, bool isTesting): 
     name{name}, health{hp}, magic{mp}, deck{}, hand{}, activeMinions{} {
-        deck.createDeck(deckFile);
-        deck.shuffle();
+        deck.createDeck(deckFile, *this);
+        if (!isTesting) deck.shuffle();
     }
 
 bool Player::takeDamage(int dmg) {
@@ -86,7 +86,9 @@ bool Player::killMinions() {
     bool killed = false;
     for (size_t i = 0; i < activeMinions.getSize(); i++) {
         if (activeMinions.getCard(i).isDead()) {
-            graveyard.addCard(std::make_shared<Minion>(activeMinions.removeCard(i)->getName()));
+            std::shared_ptr<Card> temp = activeMinions.getCardPtr(i);
+            graveyard.addCard(temp);
+            activeMinions.removeCard(i);
             killed = true;
             --i;
         }
@@ -127,6 +129,10 @@ Deck &Player::getDeck() {
 
 std::shared_ptr<Card> Player::getRitual() {
     return ritual;
+}
+
+void Player::setRitual(std::shared_ptr<Card> card) {
+    ritual = card;
 }
 
 // health, magic, name getters

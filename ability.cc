@@ -3,113 +3,153 @@
 #include "player.h"
 #include "game.h"
 
+const int MAX_SIZE = 5;
+
 // Abstract Abilities
-void abilityAttackMinion(Game &game, int damage = 1) {
+bool abilityAttackMinion(Game &game, int damage = 1) {
     game.attackMinion(game.getTargetCard(), damage);
+    return true;
 }
 
 // Spells
-void abilityBanish(Game &game) {
-    abilityAttackMinion(game, 9999);
+bool abilityBanish(Game &game) {
+    return abilityAttackMinion(game, game.getTargetCard().getDefense());
 }
 
-void abilityUnsummon(Game &game) {
+bool abilityUnsummon(Game &game) {
+    Player &player = game.getTargetPlayer();
+    if (player.getHandSize() >= MAX_SIZE) return false;
+
     std::shared_ptr<Card> minion = game.getTargetCardPtr();
     int defense = minion->getDefense();
 
     // Kill card
-    game.attackMinion(*minion, 9999);
+    game.attackMinion(*minion, defense);
     minion->setDefense(defense);
 
     // Add to player hand
-    Player &player = game.getTargetPlayer();
+    player.getGraveyard().removeTopCard();
     player.getHand().addCard(minion);
+
+    return true;
 }
 
-void abilityRecharge(Game &game) {
-    Card &ritual = game.getTargetCard();
-    ritual.setDefense(ritual.getDefense() + 3);
+bool abilityRecharge(Game &game) {
+    auto ritual = game.getActivePlayer().getRitual();
+    if (!ritual) return false;
+    ritual->setDefense(ritual->getDefense() + 3);
+
+    return true;
 }
 
-void abilityDisenchant(Game &game) {}
+bool abilityDisenchant(Game &game) { return false; }
 
-void abilityRaiseDead(Game &game) {
+bool abilityRaiseDead(Game &game) {
     Player &player = game.getActivePlayer();
     std::shared_ptr<Card> minion = player.getGraveyard().removeTopCard();
 
+    // Check if no minion in graveyard
+    if (!minion) return false;
+
     // Add to player hand
+    minion->setDefense(1);
     player.getHand().addCard(minion);
+
+    return true;
 }
 
-void abilityBlizzard(Game &game) {
+bool abilityBlizzard(Game &game) {
     // current player
     ActiveMinions &currentMinions = game.getActivePlayer().getActiveMinions();
     
     for (size_t i = 0; i < currentMinions.getSize(); ++i) {
-        game.attackMinion(currentMinions.getCard(i), 2);
+        currentMinions.getCard(i).setDefense(currentMinions.getCard(i).getDefense() - 2);
     }
+    game.attackMinion(currentMinions.getCard(0), 0);
 
     // enemy player
     ActiveMinions &enemyMinions = game.getOtherPlayer().getActiveMinions();
     
-    for (size_t i = 0; i < currentMinions.getSize(); ++i) {
-        game.attackMinion(enemyMinions.getCard(i), 2);
+    for (size_t i = 0; i < enemyMinions.getSize(); ++i) {
+        enemyMinions.getCard(i).setDefense(enemyMinions.getCard(i).getDefense() - 2);
     }
+    game.attackMinion(enemyMinions.getCard(0), 0);
+
+    return true;
 }
 
 // Minions
 // Triggered Ability
-void abilityBoneGolem(Game &game) {
+bool abilityBoneGolem(Game &game) {
     Card &minion = game.getActiveCard();
     minion.setAttack(minion.getAttack() + 1);
     minion.setDefense(minion.getDefense() + 1);
+
+    return true;
 }
 
-void abilityFireElemental(Game &game) {
-    if (game.getActivePlayer() != game.getTargetPlayer()) {
+bool abilityFireElemental(Game &game) {
+    if (game.getActivePlayer() != game.getActiveCard().getPlayer()) {
         abilityAttackMinion(game);
     }
+
+    return true;
 }
 
-void abilityPotionSeller(Game &game) {
+bool abilityPotionSeller(Game &game) {
     ActiveMinions &activeMinions = game.getActivePlayer().getActiveMinions();
 
     for (size_t i = 0; i < activeMinions.getSize(); ++i) {
         Card &minion = activeMinions.getCard(i);
         minion.setDefense(minion.getDefense() + 1);
     }
+
+    return true;
 }
 
 // Activated Ability
-void abilityNovicePyromancer(Game &game) {
-    abilityAttackMinion(game);
+bool abilityNovicePyromancer(Game &game) {
+    return abilityAttackMinion(game);
 }
 
-void abilityApprenticeSummoner(Game &game) {
-    std::shared_ptr<Card> newMinion = std::make_shared<Minion>("Air Elemental");
+bool abilityApprenticeSummoner(Game &game) {
+    Player &p = game.getActivePlayer();
+    if (p.getActiveCardSize() >= MAX_SIZE) return false;
+
+    std::shared_ptr<Card> newMinion = std::make_shared<Minion>("Air Elemental", p);
     game.playCard(newMinion);
+    return true;
 }
 
-void abilityMasterSummoner(Game &game) {
-    for (int i = 0; i < 3; ++i) {
+bool abilityMasterSummoner(Game &game) {
+    const int NUM_SUMMONS = 3;
+    Player &p = game.getActivePlayer();
+    if (p.getActiveCardSize() >= MAX_SIZE) return false;
+
+    for (int i = 0; i < NUM_SUMMONS; ++i) {
         abilityApprenticeSummoner(game);
     }
+
+    return true;
 }
 
 // Rituals
-void abilityDarkRitual(Game &game) {
+bool abilityDarkRitual(Game &game) {
     Player &player = game.getActivePlayer();
     player.incrementMagic(1);
+    return true;
 }
 
-void abilityAuraOfPower(Game &game) {
-    if (!(game.getActivePlayer() != game.getTargetPlayer())) {
+bool abilityAuraOfPower(Game &game) {
+    if (!(game.getActivePlayer() != game.getActiveCard().getPlayer())) {
         Card &minion = game.getTargetCard();
         minion.setAttack(minion.getAttack() + 1);
         minion.setDefense(minion.getDefense() + 1);
     }
+    return true;
 }
 
-void abilityStandstill(Game &game) {
+bool abilityStandstill(Game &game) {
     game.attackMinion(game.getTargetCard(), 9999);
+    return true;
 }

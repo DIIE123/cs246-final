@@ -18,6 +18,7 @@ class Game {
     Player p2;
     size_t currCardIndex;
     size_t targetCardIndex;
+    bool currActivePlayer1;
     bool currTargetPlayer1;
     int turnsPassed;
 
@@ -40,7 +41,7 @@ private:
 
     void triggerEnter(size_t i);
 
-    void triggerLeave(bool deadMinP1);
+    void triggerLeave();
 
     void addTrigger(std::shared_ptr<Card> minion);
 
@@ -65,15 +66,15 @@ public:
 
     void drawCard();
 
-    void playCard(size_t i);
+    bool playCard(size_t i);
 
-    void playCard(size_t i, bool player1, size_t t);
+    bool playCard(size_t i, bool player1, size_t t);
 
     void playCard(std::shared_ptr<Card> min);
 
-    void useCard(size_t i);
+    bool useCard(size_t i);
     
-    void useCard(size_t i, bool player1, size_t t);
+    bool useCard(size_t i, bool player1, size_t t);
 
     void discard(int i);
 
@@ -85,9 +86,9 @@ public:
 
     void attackMinion(size_t i, Player &enemy, size_t j);
 
-    void useAbility(size_t i, bool player1 = true, size_t j = 0);
+    bool useAbility(size_t i, bool player1 = true, size_t j = 0);
 
-    void useAbilityInHand(size_t i, bool player1 = true, size_t j = 0);
+    bool useAbilityInHand(size_t i, bool player1 = true, size_t j = 0);
 
     Card &getActiveCard();
 

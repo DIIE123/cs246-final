@@ -73,7 +73,7 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "discard") {
-    size_t i = 0;
+    int i = 0;
     if (!(iss >> i) || iss >> command) {
       cout << "'discard' expects [int]. Type 'help' for more details." << endl;
       return true;
@@ -90,8 +90,8 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "attack") {
-    size_t i = 0;
-    size_t j = 0;
+    int i = 0;
+    int j = 0;
     if (!(iss >> i)) {
       cout << "'attack' expects [int] (optional:) [int]. Type 'help' for more details." << endl;
       return true;
@@ -130,9 +130,9 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "play") {
-    size_t i = 0;
+    int i = 0;
     int p = 0;
-    size_t t = 0;
+    int t = 0;
     if (!(iss >> i)) {
       cout << "'play' expects [int] (optional:) [int] [int]. Type 'help' for more details." << endl;
       return true;
@@ -158,7 +158,7 @@ bool Input::handleCommand(istream &istr) {
         cout << "Board is full." << endl;
         return true;
       }
-      game.playCard(i - 1);
+      if (!game.playCard(i - 1)) cout << "Card cannot be played!" << endl;
       return true;
     }
     if (!(iss >> t)) {
@@ -178,16 +178,20 @@ bool Input::handleCommand(istream &istr) {
       cout << "Please select a player." << endl;
       return true;
     }
-    if (t < 1 || t > game.getActivePlayer().getActiveCardSize()) {
-      cout << "Card index is out of bounds." << endl;
-      return true;
-    }
     if (p == 1) {
-      game.playCard(i - 1, true, t - 1);
+      if (t < 1 || t > game.getPlayerOne().getActiveCardSize()) {
+        cout << "Card index is out of bounds." << endl;
+        return true;
+      }
+      if (!game.playCard(i - 1, true, t - 1)) cout << "Card cannot be played!" << endl;
       return true;
     }
     // Play with target
-    game.playCard(i - 1, false, t - 1);
+    if (t < 1 || t > game.getPlayerTwo().getActiveCardSize()) {
+      cout << "Card index is out of bounds." << endl;
+      return true;
+    }
+    if (!game.playCard(i - 1, false, t - 1)) cout << "Card cannot be played!" << endl;
     return true;
   }
   if (command == "use") {
@@ -201,8 +205,9 @@ bool Input::handleCommand(istream &istr) {
     }
     if (!(iss >> p)) {
       // Play without target
-      if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 && game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
-        game.useCard(i - 1);
+      if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 &&
+      game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
+        if (!game.useCard(i - 1)) cout << "Ability cannot be used!" << endl;
         return true;
       }
       if (game.getActivePlayer().getActiveCard(i - 1).getTriggerType() != TriggerType::None) {
@@ -218,8 +223,13 @@ bool Input::handleCommand(istream &istr) {
     }
     // Play with target
     if (p == 1) {
-      if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 && game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
-        game.useCard(i - 1, true, t - 1);
+      if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 &&
+      game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
+        if (t < 1 || t > game.getPlayerOne().getActiveCardSize()) {
+          cout << "Card index is out of bounds." << endl;
+          return true;
+        }
+        if (!game.useCard(i - 1, true, t - 1)) cout << "Ability cannot be used!" << endl;
         return true;
       }
       if (game.getActivePlayer().getActiveCard(i - 1).getTriggerType() != TriggerType::None) {
@@ -229,8 +239,13 @@ bool Input::handleCommand(istream &istr) {
       return true;
     }
     // Play with target
-    if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 && game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
-      game.useCard(i - 1, false, t - 1);
+    if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 &&
+    game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
+      if (t < 1 || t > game.getPlayerTwo().getActiveCardSize()) {
+        cout << "Card index is out of bounds." << endl;
+        return true;
+      }
+      if (!game.useCard(i - 1, false, t - 1)) cout << "Ability cannot be used!" << endl;
       return true;
     }
     if (game.getActivePlayer().getActiveCard(i - 1).getTriggerType() != TriggerType::None) {
@@ -240,7 +255,7 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "inspect") {
-    size_t i = 0;
+    int i = 0;
     if (!(iss >> i) || iss >> command) {
       // Invalid
       cout << "'inspect' expects [int]. Type 'help' for more details." << endl;

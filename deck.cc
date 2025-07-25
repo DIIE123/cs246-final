@@ -1,6 +1,7 @@
 #include "deck.h"
 #include "minion.h"
 #include "spell.h"
+#include "ritual.h"
 #include "enchantment.h"
 #include <iostream>
 #include <fstream>
@@ -19,7 +20,7 @@ void Deck::shuffle() {
   std::shuffle(cards.begin(), cards.end(), rng);
 }
 
-void Deck::createDeck(std::string deckfile){
+void Deck::createDeck(std::string deckfile, Player &player){
   std::ifstream deck{deckfile};
   while (1) {
     std::string line;
@@ -28,27 +29,27 @@ void Deck::createDeck(std::string deckfile){
     }
     if (line == "Air Elemental" || line == "Earth Elemental" || line == "Fire Elemental" || line == "Bone Golem" ||
         line == "Potion Seller" || line == "Novice Pyromancer" || line == "Apprentice Summoner" || line == "Master Summoner") {
-      this->addCard(std::make_shared<Minion>(line));
+      this->addCard(std::make_shared<Minion>(line, player));
       continue;
     }
 
     if (line == "Banish" || line == "Unsummon" || line == "Recharge" || line == "Disenchant" ||
         line == "Raise Dead" || line == "Blizzard") {
-      this->addCard(std::make_shared<Spell>(line));
+      this->addCard(std::make_shared<Spell>(line, player));
       continue;
     }
     
     
     if (line == "Giant Strength") {
-      this->addCard(std::make_shared<GiantStrength>(std::make_shared<Minion>("Air Elemental")));
+      this->addCard(std::make_shared<GiantStrength>(std::make_shared<Minion>("Air Elemental", player), player));
       continue;
     }
     if (line == "Enrage") {
-      this->addCard(std::make_shared<Enrage>(std::make_shared<Minion>("Air Elemental")));
+      this->addCard(std::make_shared<Enrage>(std::make_shared<Minion>("Air Elemental", player), player));
       continue;
     }
     if (line == "Haste") {
-      this->addCard(std::make_shared<Haste>(std::make_shared<Minion>("Air Elemental")));
+      this->addCard(std::make_shared<Haste>(std::make_shared<Minion>("Air Elemental", player), player));
       continue;
     }
     if (line == "Magic Fatigue") {
@@ -56,7 +57,7 @@ void Deck::createDeck(std::string deckfile){
       continue;
     } 
     if (line == "Silence") {
-      this->addCard(std::make_shared<Silence>(std::make_shared<Minion>("Air Elemental")));
+      this->addCard(std::make_shared<Silence>(std::make_shared<Minion>("Air Elemental", player), player));
       continue;
     }
     // this->addCard(std::make_shared<Minion>(line));
