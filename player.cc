@@ -66,11 +66,11 @@ void Player::playSpell(size_t i, Player &enemy, size_t j) {
 }
 
 void Player::playEnchant(size_t i, size_t j) {
-    
+    // do this
 }
 
 void Player::playRitual(size_t i) {
-    
+    // do this
 }
 
 Card &Player::getActiveCard(size_t i) {
