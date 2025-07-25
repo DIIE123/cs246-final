@@ -98,6 +98,8 @@ bool Player::killMinions() {
 // Deal with magic
 void Player::incrementMagic(int i) {
     magic += i;
+
+    if (magic < 0) magic = 0;
 }
 
 void Player::setMagic(int i) {

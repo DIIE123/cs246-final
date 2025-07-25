@@ -5,6 +5,7 @@
 // CONSTANTS
 const int START_HP = 20;
 const int START_MAGIC = 3;
+const int START_CARDS = 5;
 const std::string NAME_1 = "player1";
 const std::string NAME_2 = "player2";
 const int MAX_HAND = 5;
@@ -12,7 +13,7 @@ const int MAX_ACTIVE = 5;
 
 Game::Game(bool isTesting, std::string name1, std::string name2, std::string deck1, std::string deck2): 
     isTesting{isTesting}, currP1{true}, p1{name1, START_HP, START_MAGIC, deck1}, p2{name2, START_HP, START_MAGIC, deck2}, 
-    currCardIndex{0}, targetCardIndex{0}, currTargetPlayer1{true} {
+    currCardIndex{0}, targetCardIndex{0}, currTargetPlayer1{true}, turnsPassed{0} {
         startTurn();
     }
 
@@ -213,10 +214,18 @@ void Game::setActiveIndex(size_t i) {
 }
 
 void Game::startTurn() {
-    triggerStart();
-    getActivePlayer().drawCard(); // draw 1 card at the start of turn
-    getActivePlayer().incrementMagic(1);
-    getActivePlayer().resetActions();
+    if (turnsPassed >= 2) {
+        triggerStart();
+        getActivePlayer().drawCard(); // draw 1 card at the start of turn
+        getActivePlayer().incrementMagic(1);
+        getActivePlayer().resetActions();
+    }
+    else {
+        ++turnsPassed;
+        for (int i = 0; i < START_CARDS; ++i) {
+            getActivePlayer().drawCard();
+        }
+    }
 }
 
 void Game::endTurn() {

@@ -18,6 +18,7 @@ class Game {
     size_t currCardIndex;
     size_t targetCardIndex;
     bool currTargetPlayer1;
+    int turnsPassed;
 
     // Trigger Fields
     Subject startP1; // start turn
