@@ -32,7 +32,8 @@ void Minion::readInfo(std::string name) {
     in >> input;
 
     // Read ability
-    getline(in, abilityDesc);
+    in.ignore();
+    std::getline(in, abilityDesc);
     abilityFunc = am->getAbility(name);
 
     if (input == "trigger") {

@@ -1,4 +1,5 @@
 #include "game.h"
+#include <iostream>
 
 // CONSTANTS
 const int START_HP = 20;
@@ -53,20 +54,22 @@ void Game::drawCard() {
 
 // For normal play
 void Game::playCard(size_t i) {
-    if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
-    if (getActivePlayer().getActiveCard(i).getCost() > getActivePlayer().getMagic()) return;
-    getActivePlayer().playCard(i);
-    triggerEnter(i); // order matters!
-    //attach(); // check this works later
+    Player &p = getActivePlayer();
+    size_t size = p.getActiveCardSize();
+    if (size >= MAX_ACTIVE) return;
+    p.playCard(i);
+    triggerEnter(size); // order matters!
+    addTrigger(p.getActiveCardPtr(size));
 }
 
 // for summoning
 void Game::playCard(std::shared_ptr<Card> min) {
-    if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
-    size_t temp = getActivePlayer().getActiveCardSize();
-    getActivePlayer().placeCard(min);
+    Player &p = getActivePlayer();
+    if (p.getActiveCardSize() >= MAX_ACTIVE) return;
+    size_t temp = p.getActiveCardSize();
+    p.placeCard(min);
     triggerEnter(temp); // order matters!
-    //min->attach(); // check this works later
+    addTrigger(p.getActiveCardPtr(temp));
 }
 
 void Game::discard(int i) {
@@ -86,9 +89,11 @@ void Game::attackMinion(Card &enemy, int dmg) {
     enemy.takeDamage(dmg);
     // kill all minions which are dead
     if (getActivePlayer().killMinions()) {
+        removeObservers();
         triggerLeave(currP1);
     }
     if (getOtherPlayer().killMinions()) {
+        removeObservers();
         triggerLeave(!currP1);
     }
 }
@@ -97,9 +102,11 @@ void Game::attackMinion(Card &enemy, int dmg) {
 void Game::attackMinion(size_t i, Player &enemy, size_t j) {
     getActivePlayer().attackMinion(i, enemy, j);
     if (getActivePlayer().killMinions()) {
+        removeObservers();
         triggerLeave(currP1);
     }
     if (getOtherPlayer().killMinions()) {
+        removeObservers();
         triggerLeave(!currP1);
     }
     //if (getActivePlayer().getActiveCard(i).isDead()) getActivePlayer().killMinion(i);
@@ -129,12 +136,28 @@ Card &Game::getActiveCard() {
     return getActivePlayer().getActiveCard(currCardIndex);
 }
 
+std::shared_ptr<Card> Game::getActiveCardPtr() {
+    return getActivePlayer().getActiveCardPtr(currCardIndex);
+}
+
 Card &Game::getTargetCard() {
     if (currTargetPlayer1) {
         return getPlayerOne().getActiveCard(targetCardIndex);
     } else {
         return getPlayerTwo().getActiveCard(targetCardIndex);
     }
+}
+
+std::shared_ptr<Card> Game::getTargetCardPtr() {
+    if (currTargetPlayer1) {
+        return getPlayerOne().getActiveCardPtr(targetCardIndex);
+    } else {
+        return getPlayerTwo().getActiveCardPtr(targetCardIndex);
+    }
+}
+
+void Game::setActiveIndex(size_t i) {
+    currCardIndex = i;
 }
 
 void Game::startTurn() {
@@ -171,7 +194,9 @@ void Game::triggerEnd() {
 }
 
 void Game::triggerEnter(size_t i) {
+    // std::cout << "enter trigger" << std::endl;
     targetCardIndex = i;
+    // std::cout << "entered minion is " << getTargetCard().getName() << std::endl;
 
     // APNAP
     if (currP1) {
@@ -191,4 +216,30 @@ void Game::triggerLeave(bool deadMinP1) {
         leaveP2.notifyObservers(*this);
         leaveP1.notifyObservers(*this);
     }
+}
+
+void Game::addTrigger(std::shared_ptr<Card> minion) {
+    if (currP1) {
+        if (minion->getTriggerType() == TriggerType::Start) startP1.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::End) endP1.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::Enter) enterP1.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::Leave) leaveP1.attach(minion);
+    }
+    else {
+        if (minion->getTriggerType() == TriggerType::Start) startP2.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::End) endP2.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::Enter) enterP2.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::Leave) leaveP2.attach(minion);
+    }
+}
+
+void Game::removeObservers() {
+    startP1.removeObservers();
+    endP1.removeObservers();
+    enterP1.removeObservers();
+    leaveP1.removeObservers();
+    startP2.removeObservers();
+    endP2.removeObservers();
+    enterP2.removeObservers();
+    leaveP2.removeObservers();
 }

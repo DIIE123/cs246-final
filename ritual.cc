@@ -23,7 +23,8 @@ void Ritual::readInfo(std::string name) {
     in >> cost;
     in >> defense;
     in >> abilityCost;
-    getline(in, abilityDesc);
+    in.ignore();
+    std::getline(in, abilityDesc);
     abilityFunc = am->getAbility(name);
     
     std::string temp;

@@ -2,6 +2,7 @@
 #define GAME_H
 #include <string>
 #include <memory>
+#include <iostream>
 #include "display.h"
 #include "player.h"
 #include "subject.h"
@@ -38,6 +39,10 @@ private:
     void triggerEnter(size_t i);
 
     void triggerLeave(bool deadMinP1);
+
+    void addTrigger(std::shared_ptr<Card> minion);
+
+    void removeObservers();
 
 public:
 
@@ -76,7 +81,13 @@ public:
 
     Card &getActiveCard();
 
+    std::shared_ptr<Card> getActiveCardPtr();
+
     Card &getTargetCard();
+
+    std::shared_ptr<Card> getTargetCardPtr();
+
+    void setActiveIndex(size_t i);
 
     void startTurn();
 

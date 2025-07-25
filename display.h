@@ -13,7 +13,7 @@ public:
   virtual ~Display();
   virtual void displayBoard() = 0;
   virtual void displayHand() = 0;
-  virtual void inspect(Minion &m) = 0;
+  virtual void inspect(std::shared_ptr<Card> minion) = 0;
 };
 
 #endif

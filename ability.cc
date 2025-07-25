@@ -14,15 +14,16 @@ void abilityBanish(Game &game) {
 }
 
 void abilityUnsummon(Game &game) {
-    // Card &minion = game.getTargetCard();
+    std::shared_ptr<Card> minion = game.getTargetCardPtr();
+    int defense = minion->getDefense();
 
-    // // Make copy of card and add it to hand
-    // std::shared_ptr<Card> returnedMinion = std::make_shared<Card>(minion);
-    // Player &player = game.getTargetPlayer();
-    // player.getHand().addCard(returnedMinion);
+    // Kill card
+    game.attackMinion(*minion, 9999);
+    minion->setDefense(defense);
 
-    // // Kill card
-    // game.attackMinion(minion, 9999);
+    // Add to player hand
+    Player &player = game.getTargetPlayer();
+    player.getHand().addCard(minion);
 }
 
 void abilityRecharge(Game &game) {
@@ -33,7 +34,11 @@ void abilityRecharge(Game &game) {
 void abilityDisenchant(Game &game) {}
 
 void abilityRaiseDead(Game &game) {
+    Player &player = game.getActivePlayer();
+    std::shared_ptr<Card> minion = player.getGraveyard().removeTopCard();
 
+    // Add to player hand
+    player.getHand().addCard(minion);
 }
 
 void abilityBlizzard(Game &game) {
@@ -61,7 +66,9 @@ void abilityBoneGolem(Game &game) {
 }
 
 void abilityFireElemental(Game &game) {
-    abilityAttackMinion(game);
+    if (game.getActivePlayer() != game.getTargetPlayer()) {
+        abilityAttackMinion(game);
+    }
 }
 
 void abilityPotionSeller(Game &game) {
@@ -96,9 +103,11 @@ void abilityDarkRitual(Game &game) {
 }
 
 void abilityAuraOfPower(Game &game) {
-    Card &minion = game.getTargetCard();
-    minion.setAttack(minion.getAttack() + 1);
-    minion.setDefense(minion.getDefense() + 1);
+    if (!(game.getActivePlayer() != game.getTargetPlayer())) {
+        Card &minion = game.getTargetCard();
+        minion.setAttack(minion.getAttack() + 1);
+        minion.setDefense(minion.getDefense() + 1);
+    }
 }
 
 void abilityStandstill(Game &game) {

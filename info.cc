@@ -1,7 +1,7 @@
 #include "info.h"
 
-CardInfo::CardInfo(std::string name, size_t cost, size_t damage, size_t health): 
-  name{name}, cost{cost}, damage{damage}, health{health} {}
+CardInfo::CardInfo(std::string name, size_t cost, size_t damage, size_t health, std::string description, size_t activationCost): 
+  name{name}, cost{cost}, damage{damage}, health{health}, description{description}, activationCost{activationCost} {}
 
 CardInfo::CardInfo(std::string name, size_t cost, std::string description): 
   name{name}, cost{cost}, description{description} {}
@@ -12,8 +12,8 @@ CardInfo::CardInfo(std::string name, size_t cost, std::string description, std::
 CardInfo::CardInfo(std::string name, size_t cost, std::string description, size_t activationCost, size_t charge):
   name{name}, cost{cost}, description{description}, activationCost{activationCost}, charge{charge} {}
 
-MinionInfo::MinionInfo(std::string name, size_t cost, size_t damage, size_t health): 
-  CardInfo{name, cost, damage, health} {}
+MinionInfo::MinionInfo(std::string name, size_t cost, size_t damage, size_t health, std::string description, size_t activationCost): 
+  CardInfo{name, cost, damage, health, description, activationCost} {}
   
 CardType MinionInfo::getType() {
   return CardType::Minion;

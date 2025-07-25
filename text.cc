@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 
 const size_t cardWidth = 33;
@@ -39,12 +40,34 @@ static void printBottomBorder() {
 }
 
 static void displayRow(std::vector<card_template_t> row, bool Withborder) {
+  size_t size = row.size();
+  size_t j = 0;
+  while (size >= minionMax) {
+    size -= minionMax;
+    j += minionMax;
+    for (size_t i = 0; i < rowHeight; i++) {
+      std::string line;
+      if (Withborder) {
+        line += EXTERNAL_BORDER_CHAR_UP_DOWN;
+      }
+      for (; j < minionMax; j++) {
+        line += row[j][i];
+      }
+      if (Withborder) {
+        line += EXTERNAL_BORDER_CHAR_UP_DOWN;
+      }
+      std::cout << line << std::endl;
+    }
+  }
+  if (size == 0) {
+    return;
+  }
   for (size_t i = 0; i < rowHeight; i++) {
     std::string line;
     if (Withborder) {
       line += EXTERNAL_BORDER_CHAR_UP_DOWN;
     }
-    for (size_t j = 0; j < row.size(); j++) {
+    for (; j < size; j++) {
       line += row[j][i];
     }
     if (Withborder) {
@@ -94,7 +117,13 @@ void Text::displayBoard() {
   std::vector<std::shared_ptr<CardInfo>> information1 = game.getPlayerOne().getActiveMinions().getInfo();
   for (size_t i = 0; i < minionMax; i++) {
     if(i < game.getPlayerOne().getActiveCardSize()) {
-      playerOneMinions.emplace_back(display_minion_no_ability(information1[i]->name, information1[i]->cost, information1[i]->damage, information1[i]->health));
+      if (information1[i]->activationCost <= 0) {
+        playerOneMinions.emplace_back(display_minion_triggered_ability(information1[i]->name, information1[i]->cost, 
+          information1[i]->damage, information1[i]->health, information1[i]->description));
+        continue;
+      }
+      playerOneMinions.emplace_back(display_minion_activated_ability(information1[i]->name, information1[i]->cost, 
+        information1[i]->damage, information1[i]->health, information1[i]->activationCost, information1[i]->description));
       continue;
     }
     playerOneMinions.emplace_back(CARD_TEMPLATE_EMPTY);
@@ -108,7 +137,13 @@ void Text::displayBoard() {
   std::vector<std::shared_ptr<CardInfo>> information2 = game.getPlayerTwo().getActiveMinions().getInfo();
   for (size_t i = 0; i < minionMax; i++) {
     if(i < game.getPlayerTwo().getActiveCardSize()) {
-      playerTwoMinions.emplace_back(display_minion_no_ability(information2[i]->name, information2[i]->cost, information2[i]->damage, information2[i]->health));
+      if (information2[i]->activationCost <= 0) {
+        playerTwoMinions.emplace_back(display_minion_triggered_ability(information2[i]->name, information2[i]->cost, 
+          information2[i]->damage, information2[i]->health, information2[i]->description));
+        continue;
+      }
+      playerTwoMinions.emplace_back(display_minion_activated_ability(information2[i]->name, information2[i]->cost, 
+        information2[i]->damage, information2[i]->health, information2[i]->activationCost, information2[i]->description));
       continue;
     }
     playerTwoMinions.emplace_back(CARD_TEMPLATE_EMPTY);
@@ -135,8 +170,16 @@ void Text::displayHand() {
   for (size_t i = 0; i < limit; i++) {
     CardType type = information[i]->getType();
     if (type == CardType::Minion) {
-      card_template_t temp = display_minion_no_ability(information[i]->name, information[i]->cost, information[i]->damage, information[i]->health);
+      if (information[i]->activationCost <= 0) {
+        card_template_t temp = display_minion_triggered_ability(information[i]->name, information[i]->cost, 
+          information[i]->damage, information[i]->health, information[i]->description);
+        currentHand.emplace_back(temp);
+        continue;
+      }
+      card_template_t temp = display_minion_activated_ability(information[i]->name, information[i]->cost, 
+        information[i]->damage, information[i]->health, information[i]->activationCost, information[i]->description);
       currentHand.emplace_back(temp);
+      continue;
     }
     if (type == CardType::Spell) {
       card_template_t temp = display_spell(information[i]->name, information[i]->cost, information[i]->description);
@@ -146,10 +189,35 @@ void Text::displayHand() {
   displayRow(currentHand, false);
 }
 
-void Text::inspect(Minion &m) {
-  // Print Minion
-  //printCard(display_minion_no_ability(m));
-  
+void Text::inspect(std::shared_ptr<Card> minion) {
+  std::shared_ptr<Card> head = minion;
+  std::vector<card_template_t> information;
+  while (1) {
+    // Print Minion. Exit.
+    if (head->getType() == CardType::Minion) {
+      if (head->getAbilityCost() <= 0) {
+        card_template_t temp = display_minion_triggered_ability(head->getName(), head->getCost(), 
+          head->getAttack(), head->getDefense(), head->getAbilityDesc());
+        printCard(temp);
+        break;
+      }
+      card_template_t temp = display_minion_activated_ability(head->getName(), head->getCost(), 
+        head->getAttack(), head->getDefense(), head->getAbilityCost(), head->getAbilityDesc());
+      printCard(temp);
+      break;
+    }
+    if (head->getType() == CardType::GiantStrength || 
+        head->getType() == CardType::Enrage) {
+      card_template_t temp = display_enchantment_attack_defence(head->getName(), head->getCost(), head->getAbilityDesc(), head->getAttackString(), head->getDefenseString());
+      information.emplace_back(temp);
+      continue;
+    }
+    card_template_t temp = display_enchantment(head->getName(), head->getCost(), head->getAbilityDesc());
+    information.emplace_back(temp);
+    head = head->getPointer();
+  }
   // Print Enchantments
+  std::reverse(information.begin(), information.end());
+  displayRow(information, false);
 }
 
