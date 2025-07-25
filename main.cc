@@ -35,6 +35,12 @@ int main (int argc, char *argv[]) {
         }
     }
 
+    if (initFile > 0) {
+        std::ifstream ifs{argv[initFile]};
+        getline(ifs, name1);
+        getline(ifs, name2);
+    }
+
     Game game{testing, name1, name2, deck1, deck2};
 
     Text text{game};
@@ -43,8 +49,8 @@ int main (int argc, char *argv[]) {
 
     if (initFile > 0) {
         std::ifstream ifs{argv[initFile]};
-        ifs >> name1;
-        ifs >> name2;
+        getline(ifs, name1);
+        getline(ifs, name2);
         while (!ifs.eof()) {
             input.handleCommand(ifs);
         }
