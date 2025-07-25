@@ -53,6 +53,8 @@ public:
     virtual int getAttack();
     virtual int getDefense();
     virtual int getMaxActions();
+    virtual std::string getAttackString();
+    virtual std::string getDefenseString();
     int getActions();
     TriggerType getTriggerType();
     virtual CardType getType() = 0;

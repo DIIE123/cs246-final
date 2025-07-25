@@ -55,7 +55,6 @@ void Game::drawCard() {
 void Game::playCard(size_t i) {
     Player &p = getActivePlayer();
     if (p.getActiveCardSize() >= MAX_ACTIVE) return;
-    if (p.getActiveCard(i).getCost() > p.getMagic()) return;
     p.playCard(i);
     triggerEnter(i); // order matters!
     addTrigger(p.getActiveCardPtr(i));
