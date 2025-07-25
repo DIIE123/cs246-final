@@ -217,6 +217,8 @@ void Text::displayHand() {
       card_template_t temp = display_enchantment(information[i]->name, information[i]->cost, information[i]->description);
       currentHand.emplace_back(temp);
     }
+    card_template_t temp = display_ritual(information[i]->name, information[i]->cost, information[i]->activationCost, information[i]->description, information[i]->charge);
+    currentHand.emplace_back(temp);
   }
   displayRow(currentHand, false);
 }

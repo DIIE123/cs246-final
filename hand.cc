@@ -20,10 +20,10 @@ std::vector<std::shared_ptr<CardInfo>> Hand::getInfo() {
     if (it->getType() == CardType::Spell) {
       information.emplace_back(std::make_shared<SpellInfo>(it->getName(), it->getCost(), it->getAbilityDesc()));
     }
-    if (it->getType() == CardType::GiantStrength || it->getType() == CardType::Enrage || 
-        it->getType() == CardType::Haste || it->getType() == CardType::MagicFatigue || it->getType() == CardType::Silence) {
-      information.emplace_back(std::make_shared<EnchantInfo>(it->getEnchantmentName(), it->getEnchantmentCost(), it->getEnchantmentDesc(), it->getAttackString(), it->getDefenseString()));
+    if (it->getType() == CardType::Ritual) {
+      information.emplace_back(std::make_shared<RitualInfo>(it->getName(), it->getCost(), it->getAbilityDesc(), it->getAbilityCost(), it->getDefense()));
     }
+    information.emplace_back(std::make_shared<EnchantInfo>(it->getEnchantmentName(), it->getEnchantmentCost(), it->getEnchantmentDesc(), it->getAttackString(), it->getDefenseString()));
   }
   return information;
 }
