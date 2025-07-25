@@ -171,3 +171,7 @@ std::string Player::getName() {
     return name;
 }
 
+bool Player::operator!=(const Player &other) const {
+    return name != other.name || health != other.health || magic != other.magic;
+}
+

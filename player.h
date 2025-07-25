@@ -87,7 +87,7 @@ public:
 
     Deck &getDeck();
 
-    // tranfer ownership of ritual
+    // share ownership of ritual
     std::shared_ptr<Card> getRitual();
 
     // Simple getters
@@ -98,6 +98,8 @@ public:
 
     std::string getName();
 
+    // operator override
+    bool operator!=(const Player &other) const; 
 };
 
 #endif
