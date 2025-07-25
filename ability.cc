@@ -68,7 +68,7 @@ bool abilityBlizzard(Game &game) {
     // enemy player
     ActiveMinions &enemyMinions = game.getOtherPlayer().getActiveMinions();
     
-    for (size_t i = 0; i < currentMinions.getSize(); ++i) {
+    for (size_t i = 0; i < enemyMinions.getSize(); ++i) {
         game.attackMinion(enemyMinions.getCard(i), 2);
     }
 
