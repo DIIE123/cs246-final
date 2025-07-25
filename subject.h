@@ -10,6 +10,7 @@ class Subject {
     std::vector<std::shared_ptr<Observer>> observers;
   public:
     void attach(std::shared_ptr<Observer> o);  
+    void removeObservers();
     void notifyObservers(Game &game);
 };
 

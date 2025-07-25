@@ -88,9 +88,11 @@ void Game::attackMinion(Card &enemy, int dmg) {
     enemy.takeDamage(dmg);
     // kill all minions which are dead
     if (getActivePlayer().killMinions()) {
+        removeObservers();
         triggerLeave(currP1);
     }
     if (getOtherPlayer().killMinions()) {
+        removeObservers();
         triggerLeave(!currP1);
     }
 }
@@ -99,9 +101,11 @@ void Game::attackMinion(Card &enemy, int dmg) {
 void Game::attackMinion(size_t i, Player &enemy, size_t j) {
     getActivePlayer().attackMinion(i, enemy, j);
     if (getActivePlayer().killMinions()) {
+        removeObservers();
         triggerLeave(currP1);
     }
     if (getOtherPlayer().killMinions()) {
+        removeObservers();
         triggerLeave(!currP1);
     }
     //if (getActivePlayer().getActiveCard(i).isDead()) getActivePlayer().killMinion(i);
@@ -224,4 +228,15 @@ void Game::addTrigger(std::shared_ptr<Card> minion) {
         else if (minion->getTriggerType() == TriggerType::Enter) enterP2.attach(minion);
         else if (minion->getTriggerType() == TriggerType::Leave) leaveP2.attach(minion);
     }
+}
+
+void Game::removeObservers() {
+    startP1.removeObservers();
+    endP1.removeObservers();
+    enterP1.removeObservers();
+    leaveP1.removeObservers();
+    startP2.removeObservers();
+    endP2.removeObservers();
+    enterP2.removeObservers();
+    leaveP2.removeObservers();
 }

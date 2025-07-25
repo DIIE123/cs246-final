@@ -41,6 +41,8 @@ private:
 
     void addTrigger(std::shared_ptr<Card> minion);
 
+    void removeObservers();
+
 public:
 
     Game(bool isTesting, std::string name1, std::string name2, std::string deck1, std::string deck2);
