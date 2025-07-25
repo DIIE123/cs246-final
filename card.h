@@ -42,7 +42,8 @@ public:
     bool isDead();
 
     TriggerType convertToTriggerType(std::string input);
-    void notify(Game &game);
+    void notify(Game &game) override;
+    bool shouldRemove() override;
 
     // Getters
     std::string getName();

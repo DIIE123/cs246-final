@@ -52,6 +52,10 @@ void Card::notify(Game &game) {
     useAbility(game);
 }
 
+bool Card::shouldRemove() {
+    return isDead();
+}
+
 // Getters
 std::string Card::getName() { return name; }
 int Card::getCost() { return cost; }

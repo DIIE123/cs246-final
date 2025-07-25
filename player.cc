@@ -110,7 +110,7 @@ void Player::attackMinion(size_t i, Player &enemy, size_t j) {
 }
 
 void Player::killMinion(size_t i) {
-    activeMinions.removeCard(i);
+    graveyard.addCard(activeMinions.removeCard(i));
 }
 
 bool Player::killMinions() {
@@ -119,6 +119,7 @@ bool Player::killMinions() {
         if (activeMinions.getMinion(i).isDead()) {
             activeMinions.removeCard(i);
             killed = true;
+            --i;
         }
     }
     return killed;
