@@ -66,7 +66,9 @@ void abilityBoneGolem(Game &game) {
 }
 
 void abilityFireElemental(Game &game) {
-    abilityAttackMinion(game);
+    if (game.getActivePlayer() != game.getTargetPlayer()) {
+        abilityAttackMinion(game);
+    }
 }
 
 void abilityPotionSeller(Game &game) {
@@ -101,9 +103,11 @@ void abilityDarkRitual(Game &game) {
 }
 
 void abilityAuraOfPower(Game &game) {
-    Card &minion = game.getTargetCard();
-    minion.setAttack(minion.getAttack() + 1);
-    minion.setDefense(minion.getDefense() + 1);
+    if (!(game.getActivePlayer() != game.getTargetPlayer())) {
+        Card &minion = game.getTargetCard();
+        minion.setAttack(minion.getAttack() + 1);
+        minion.setDefense(minion.getDefense() + 1);
+    }
 }
 
 void abilityStandstill(Game &game) {

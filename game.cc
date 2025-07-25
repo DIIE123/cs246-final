@@ -1,4 +1,5 @@
 #include "game.h"
+#include <iostream>
 
 // CONSTANTS
 const int START_HP = 20;
@@ -54,10 +55,11 @@ void Game::drawCard() {
 // For normal play
 void Game::playCard(size_t i) {
     Player &p = getActivePlayer();
-    if (p.getActiveCardSize() >= MAX_ACTIVE) return;
+    size_t size = p.getActiveCardSize();
+    if (size >= MAX_ACTIVE) return;
     p.playCard(i);
-    triggerEnter(i); // order matters!
-    addTrigger(p.getActiveCardPtr(i));
+    triggerEnter(size); // order matters!
+    addTrigger(p.getActiveCardPtr(size));
 }
 
 // for summoning
@@ -192,7 +194,9 @@ void Game::triggerEnd() {
 }
 
 void Game::triggerEnter(size_t i) {
+    // std::cout << "enter trigger" << std::endl;
     targetCardIndex = i;
+    // std::cout << "entered minion is " << getTargetCard().getName() << std::endl;
 
     // APNAP
     if (currP1) {
