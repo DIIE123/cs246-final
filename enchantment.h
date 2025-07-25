@@ -22,10 +22,10 @@ public:
     Enchantment(std::string enchantmentName, int cost, std::string attackString, std::string defenseString, std::shared_ptr<Minion> minion);
     Enchantment(std::string enchantmentName, int cost, std::string abilityDesc, std::shared_ptr<Minion> minion);
     virtual ~Enchantment() = 0;
-    virtual std::string getAttackString();
-    virtual std::string getDefenseString();
+    std::string getAttackString() override;
+    std::string getDefenseString() override;
     virtual std::string getAbilityDesc();
-    std::shared_ptr<Minion> getPointer() override;
+    std::shared_ptr<Card> getPointer() override;
     
 };
 
