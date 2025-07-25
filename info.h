@@ -8,14 +8,16 @@ struct CardInfo {
   size_t cost;
   size_t damage;
   size_t health;
-  std::string modification;
+  std::string attackString;
+  std::string defenseString;
   size_t activationCost;
   size_t charge;
   std::string description;
-  
-  CardInfo(std::string name, size_t cost, size_t damage, size_t health, std::string description, size_t activationCost);
+  bool noTrigger;
+
+  CardInfo(std::string name, size_t cost, size_t damage, size_t health, std::string description, size_t activationCost, bool noTrigger);
   CardInfo(std::string name, size_t cost, std::string description);
-  CardInfo(std::string name, size_t cost, std::string description, std::string modification);
+  CardInfo(std::string name, size_t cost, std::string description, std::string attackString, std::string defenseString);
   CardInfo(std::string name, size_t cost, std::string description, size_t activationCost, size_t charge);
   virtual ~CardInfo() = default;
   virtual CardType getType() = 0;
@@ -24,7 +26,7 @@ struct CardInfo {
 
 struct MinionInfo: public CardInfo {
 
-  MinionInfo(std::string name, size_t cost, size_t damage, size_t health, std::string description, size_t activationCost);
+  MinionInfo(std::string name, size_t cost, size_t damage, size_t health, std::string description, size_t activationCost, bool noTrigger);
   ~MinionInfo() = default;
   CardType getType() override;
 };
@@ -38,7 +40,7 @@ struct SpellInfo: public CardInfo{
 
 struct EnchantInfo: public CardInfo {
 
-  EnchantInfo(std::string name, size_t cost, std::string description, std::string modification);
+  EnchantInfo(std::string name, size_t cost, std::string description, std::string attackString, std::string defenseString);
   ~EnchantInfo() = default;
   CardType getType() override;
 };

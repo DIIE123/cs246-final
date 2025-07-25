@@ -8,6 +8,7 @@
 #include "subject.h"
 #include "ritual.h"
 #include "subject.h"
+#include "enchantment.h"
 
 class Game {
     // Fields

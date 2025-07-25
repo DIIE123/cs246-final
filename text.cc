@@ -112,7 +112,7 @@ void Text::displayBoard() {
   std::shared_ptr<CardInfo> grave1 = game.getPlayerOne().getGraveyard().getInfo();
   if (!grave1) {
     playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
-  } else if (grave1->activationCost <= 0) {
+  } else if (!grave1->noTrigger) {
     playerOneRow.emplace_back(display_minion_triggered_ability(grave1->name, grave1->cost, grave1->damage, grave1->health, grave1->description));
   } else {
     playerOneRow.emplace_back(display_minion_activated_ability(grave1->name, grave1->cost, grave1->damage, grave1->health, grave1->activationCost, grave1->description));
@@ -125,7 +125,7 @@ void Text::displayBoard() {
   std::vector<std::shared_ptr<CardInfo>> information1 = game.getPlayerOne().getActiveMinions().getInfo();
   for (size_t i = 0; i < minionMax; i++) {
     if(i < game.getPlayerOne().getActiveCardSize()) {
-      if (information1[i]->activationCost <= 0) {
+      if (!information1[i]->noTrigger) {
         playerOneMinions.emplace_back(display_minion_triggered_ability(information1[i]->name, information1[i]->cost, 
           information1[i]->damage, information1[i]->health, information1[i]->description));
         continue;
@@ -145,7 +145,7 @@ void Text::displayBoard() {
   std::vector<std::shared_ptr<CardInfo>> information2 = game.getPlayerTwo().getActiveMinions().getInfo();
   for (size_t i = 0; i < minionMax; i++) {
     if(i < game.getPlayerTwo().getActiveCardSize()) {
-      if (information2[i]->activationCost <= 0) {
+      if (!information2[i]->noTrigger) {
         playerTwoMinions.emplace_back(display_minion_triggered_ability(information2[i]->name, information2[i]->cost, 
           information2[i]->damage, information2[i]->health, information2[i]->description));
         continue;
@@ -168,7 +168,7 @@ void Text::displayBoard() {
   std::shared_ptr<CardInfo> grave2 = game.getPlayerTwo().getGraveyard().getInfo();
   if (!grave2) {
     playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
-  } else if (grave2->activationCost <= 0) {
+  } else if (!grave2->noTrigger) {
     playerTwoRow.emplace_back(display_minion_triggered_ability(grave2->name, grave2->cost, grave2->damage, grave2->health, grave2->description));
   } else {
     playerTwoRow.emplace_back(display_minion_activated_ability(grave2->name, grave2->cost, grave2->damage, grave2->health, grave2->activationCost, grave2->description));
@@ -185,7 +185,7 @@ void Text::displayHand() {
   for (size_t i = 0; i < limit; i++) {
     CardType type = information[i]->getType();
     if (type == CardType::Minion) {
-      if (information[i]->activationCost <= 0) {
+      if (!information[i]->noTrigger) {
         card_template_t temp = display_minion_triggered_ability(information[i]->name, information[i]->cost, 
           information[i]->damage, information[i]->health, information[i]->description);
         currentHand.emplace_back(temp);
@@ -198,6 +198,17 @@ void Text::displayHand() {
     }
     if (type == CardType::Spell) {
       card_template_t temp = display_spell(information[i]->name, information[i]->cost, information[i]->description);
+      currentHand.emplace_back(temp);
+      continue;
+    }
+    if (type == CardType::Enchantment) {
+      if (information[i]->description == "") {
+        card_template_t temp = display_enchantment_attack_defence(information[i]->name, information[i]->cost, 
+          information[i]->description, information[i]->attackString, information[i]->defenseString);
+        currentHand.emplace_back(temp);
+        continue;
+      }
+      card_template_t temp = display_enchantment(information[i]->name, information[i]->cost, information[i]->description);
       currentHand.emplace_back(temp);
     }
   }
@@ -213,22 +224,23 @@ void Text::inspect(std::shared_ptr<Card> minion) {
     if (head->getType() == CardType::Minion) {
       if (head->getAbilityCost() <= 0) {
         card_template_t temp = display_minion_triggered_ability(head->getName(), head->getCost(), 
-          head->getAttack(), head->getDefense(), head->getAbilityDesc());
+          minion->getAttack(), minion->getDefense(), head->getAbilityDesc());
         printCard(temp);
         break;
       }
       card_template_t temp = display_minion_activated_ability(head->getName(), head->getCost(), 
-        head->getAttack(), head->getDefense(), head->getAbilityCost(), head->getAbilityDesc());
+        minion->getAttack(), minion->getDefense(), head->getAbilityCost(), head->getAbilityDesc());
       printCard(temp);
       break;
     }
     if (head->getType() == CardType::GiantStrength || 
         head->getType() == CardType::Enrage) {
-      card_template_t temp = display_enchantment_attack_defence(head->getName(), head->getCost(), head->getAbilityDesc(), head->getAttackString(), head->getDefenseString());
+      card_template_t temp = display_enchantment_attack_defence(head->getEnchantmentName(), head->getEnchantmentCost(), "", head->getAttackString(), head->getDefenseString());
       information.emplace_back(temp);
+      head = head->getPointer();
       continue;
     }
-    card_template_t temp = display_enchantment(head->getName(), head->getCost(), head->getAbilityDesc());
+    card_template_t temp = display_enchantment(head->getEnchantmentName(), head->getEnchantmentCost(), head->getEnchantmentDesc());
     information.emplace_back(temp);
     head = head->getPointer();
   }

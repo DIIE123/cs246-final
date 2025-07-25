@@ -83,8 +83,15 @@ void Game::playCard(size_t i) {
 void Game::playCard(size_t i, bool player1, size_t t) {
     Player &p = getActivePlayer();
     Card &card = p.getHandCard(i);
+    Player &target = player1 ? getPlayerOne() : getPlayerTwo();
+    ActiveMinions& victim = target.getActiveMinions();
     if (card.getType() == CardType::Spell) {
         useAbilityInHand(i, player1, t);
+    }
+    if (card.getType() == CardType::GiantStrength || card.getType() == CardType::Enrage || 
+        card.getType() == CardType::Haste || card.getType() == CardType::MagicFatigue || card.getType() == CardType::Silence) {
+        victim.useEnchantment(t, card.getType());
+        p.getHand().removeCard(i);
     }
 }
 

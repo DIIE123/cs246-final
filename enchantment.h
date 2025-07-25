@@ -9,29 +9,32 @@
 
 class Enchantment: public Minion {
     std::string enchantmentName;
+    int enchantmentCost;
     std::string attackString;
     std::string defenseString;
-    std::string abilityDesc;
+    std::string enchantmentDesc;
 
     virtual CardType getType() override;
 
 protected:
-    std::shared_ptr<Minion> minion = nullptr;
+    std::shared_ptr<Card> minion = nullptr;
 
 public:
-    Enchantment(std::string enchantmentName, int cost, std::string attackString, std::string defenseString, std::shared_ptr<Minion> minion);
-    Enchantment(std::string enchantmentName, int cost, std::string abilityDesc, std::shared_ptr<Minion> minion);
+    Enchantment(std::string enchantmentName, int cost, std::string attackString, std::string defenseString, std::shared_ptr<Card> minion);
+    Enchantment(std::string enchantmentName, int cost, std::string enchantmentDesc, std::shared_ptr<Card> minion);
     virtual ~Enchantment() = 0;
+    int getEnchantmentCost() override;
     std::string getAttackString() override;
     std::string getDefenseString() override;
-    virtual std::string getAbilityDesc();
+    std::string getEnchantmentName() override;
+    std::string getEnchantmentDesc() override;
     std::shared_ptr<Card> getPointer() override;
     
 };
 
 class GiantStrength: public Enchantment {
 public:
-    GiantStrength(std::shared_ptr<Minion> minion);
+    GiantStrength(std::shared_ptr<Card> minion);
     ~GiantStrength();
     int getAttack();
     int getDefense();
@@ -40,7 +43,7 @@ public:
 
 class Enrage: public Enchantment {
 public:
-    Enrage(std::shared_ptr<Minion> minion);
+    Enrage(std::shared_ptr<Card> minion);
     ~Enrage();
     int getAttack() override;
     int getDefense() override;
@@ -49,7 +52,7 @@ public:
 
 class Haste: public Enchantment {
 public:
-    Haste(std::shared_ptr<Minion> minion);
+    Haste(std::shared_ptr<Card> minion);
     ~Haste();
     int getMaxActions() override;
     virtual CardType getType() override;
@@ -57,7 +60,7 @@ public:
 
 class MagicFatigue: public Enchantment {
 public:
-    MagicFatigue(std::shared_ptr<Minion> minion);
+    MagicFatigue(std::shared_ptr<Card> minion);
     ~MagicFatigue();
     int getAbilityCost() override;
     virtual CardType getType() override;
@@ -65,7 +68,7 @@ public:
 
 class Silence: public Enchantment {
 public:
-    Silence(std::shared_ptr<Minion> minion);
+    Silence(std::shared_ptr<Card> minion);
     ~Silence();
     virtual CardType getType() override;
     bool getHasAbility();

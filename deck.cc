@@ -38,7 +38,7 @@ void Deck::createDeck(std::string deckfile){
       continue;
     }
     
-    /*
+    
     if (line == "Giant Strength") {
       this->addCard(std::make_shared<GiantStrength>(std::make_shared<Minion>("Air Elemental")));
       continue;
@@ -51,7 +51,7 @@ void Deck::createDeck(std::string deckfile){
       this->addCard(std::make_shared<Haste>(std::make_shared<Minion>("Air Elemental")));
       continue;
     }
-    if (line == "MagicFatigue") {
+    if (line == "Magic Fatigue") {
       this->addCard(std::make_shared<MagicFatigue>(std::make_shared<Minion>("Air Elemental")));
       continue;
     } 
@@ -59,7 +59,6 @@ void Deck::createDeck(std::string deckfile){
       this->addCard(std::make_shared<Silence>(std::make_shared<Minion>("Air Elemental")));
       continue;
     }
-      */
     // this->addCard(std::make_shared<Minion>(line));
   }
 }

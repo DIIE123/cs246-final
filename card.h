@@ -52,9 +52,12 @@ public:
     virtual int getAbilityCost();
     virtual int getAttack();
     virtual int getDefense();
+    virtual int getEnchantmentCost();
     virtual int getMaxActions();
+    virtual std::string getEnchantmentName();
     virtual std::string getAttackString();
     virtual std::string getDefenseString();
+    virtual std::string getEnchantmentDesc();
     int getActions();
     TriggerType getTriggerType();
     virtual CardType getType() = 0;

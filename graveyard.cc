@@ -8,7 +8,7 @@ std::shared_ptr<CardInfo> Graveyard::getInfo() {
     return nullptr;
   }
   return std::make_shared<MinionInfo>(cards.back()->getName(), cards.back()->getCost(), 
-    cards.back()->getAttack(), cards.back()->getDefense(), cards.back()->getAbilityDesc(), cards.back()->getAbilityCost());
+    cards.back()->getAttack(), cards.back()->getDefense(), cards.back()->getAbilityDesc(), cards.back()->getAbilityCost(), cards.back()->getTriggerType() == TriggerType::None);
 }
 
 Card &Graveyard::getTopCard() {

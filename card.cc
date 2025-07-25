@@ -65,9 +65,12 @@ int Card::getAttack() { return attack; }
 int Card::getDefense() { return defense; }
 int Card::getActions() { return actions; }
 int Card::getMaxActions() { return maxActions; }
+int Card::getEnchantmentCost() { return 0; }
 TriggerType Card::getTriggerType() { return triggerType; }
 std::string Card::getAttackString() { return ""; }
 std::string Card::getDefenseString() { return ""; }
+std::string Card::getEnchantmentName() { return ""; }
+std::string Card::getEnchantmentDesc() { return ""; }
 std::shared_ptr<Card> Card::getPointer() {return nullptr; }
 
 // Setters
