@@ -70,6 +70,7 @@ TriggerType Card::getTriggerType() { return triggerType; }
 std::string Card::getAttackString() { return ""; }
 std::string Card::getDefenseString() { return ""; }
 std::shared_ptr<Card> Card::getPointer() { return nullptr; }
+bool Card::getIsTarget() { return isTarget; }
 
 // Setters
 void Card::setAttack(int attack) { this->attack = attack; }

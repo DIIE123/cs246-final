@@ -22,6 +22,7 @@ protected:
     int abilityCost = 0;
     int maxActions = 1;
     int actions = 0;
+    bool isTarget = false;
     TriggerType triggerType = TriggerType::None;
     std::string abilityDesc = "";
     Ability abilityFunc = nullptr;
@@ -61,6 +62,7 @@ public:
     TriggerType getTriggerType();
     virtual CardType getType() = 0;
     virtual std::shared_ptr<Card> getPointer();
+    bool getIsTarget();
 
     // Setters
     void setAttack(int attack);

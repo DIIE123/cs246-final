@@ -74,6 +74,7 @@ bool Game::playCard(size_t i) {
         }
     }
     else if (card.getType() == CardType::Spell) {
+        if (card.getIsTarget()) return false;
         return useAbilityInHand(i);
     }
     else if (card.getType() == CardType::Ritual) {
@@ -94,6 +95,7 @@ bool Game::playCard(size_t i, bool player1, size_t t) {
     Player &p = getActivePlayer();
     Card &card = p.getHandCard(i);
     if (card.getType() == CardType::Spell) {
+        if (!card.getIsTarget()) return false;
         return useAbilityInHand(i, player1, t);
     }
     return false;
@@ -113,14 +115,14 @@ void Game::playCard(std::shared_ptr<Card> min) {
 
 bool Game::useCard(size_t i) {
     Player &p = getActivePlayer();
-    if (i > p.getActiveCardSize()) return false;
+    if (i > p.getActiveCardSize() || p.getActiveCard(i).getIsTarget()) return false;
 
     return useAbility(i);
 }
 
 bool Game::useCard(size_t i, bool player1, size_t t) {
     Player &p = getActivePlayer();
-    if (i > p.getActiveCardSize()) return false;
+    if (i > p.getActiveCardSize() || !p.getActiveCard(i).getIsTarget()) return false;
 
     return useAbility(i, player1, t);
 }
@@ -198,10 +200,11 @@ bool Game::useAbilityInHand(size_t i, bool player1, size_t j) {
         currTargetPlayer1 = player1;
         if (!card.useAbility(*this)) return false;
         p.incrementMagic(-card.getAbilityCost());
+        p.getHand().removeCard(i);
+        return true;
     } // add else if you want to do something when they can't afford ability
 
-    p.getHand().removeCard(i);
-    return true;
+    return false;
 }
 
 Card &Game::getActiveCard() {

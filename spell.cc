@@ -12,6 +12,7 @@ void Spell::readInfo(std::string name) {
     // INPUT FORMAT:
     // cost
     // ability description
+    // type (target or use)
 
     std::string file{DIRECTORY + name + EXTENSION};
     std::ifstream in{file};
@@ -21,6 +22,10 @@ void Spell::readInfo(std::string name) {
     in.ignore();
     std::getline(in, abilityDesc);
     abilityFunc = am->getAbility(name);
+    std::string temp;
+    in >> temp;
+    if (temp == "target") isTarget = true;
+    else isTarget = false;
 }
 
 CardType Spell::getType() { return CardType::Spell; }

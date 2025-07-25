@@ -4,3 +4,4 @@
 active
 Deal 1 damage to target minion
 1
+target
