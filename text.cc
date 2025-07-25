@@ -167,7 +167,6 @@ void Text::displayBoard() {
     game.getPlayerTwo().getRitual()->getAbilityCost(), game.getPlayerTwo().getRitual()->getAbilityDesc(), game.getPlayerTwo().getRitual()->getDefense());
   }
   playerTwoRow.emplace_back(ritualTwo);
-  playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
   card_template_t playerTwo = display_player_card(2, game.getPlayerTwo().getName(), game.getPlayerTwo().getHealth(), game.getPlayerTwo().getMagic());
   playerTwoRow.emplace_back(playerTwo);
