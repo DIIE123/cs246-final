@@ -59,8 +59,7 @@ bool Game::playCard(size_t i) {
     Player &p = getActivePlayer();
     Card &card = p.getHandCard(i);
 
-    if (card.getType() == CardType::Enchantment) return false;
-    else if (card.getType() == CardType::Minion) {
+    if (card.getType() == CardType::Minion) {
         size_t size = p.getActiveCardSize();
         if (size >= MAX_ACTIVE) return false;
         if (card.getCost() <= p.getMagic()) {
@@ -105,6 +104,7 @@ bool Game::playCard(size_t i, bool player1, size_t t) {
         card.getType() == CardType::Haste || card.getType() == CardType::MagicFatigue || card.getType() == CardType::Silence) {
         victim.useEnchantment(t, card.getType(), getActivePlayer());
         p.getHand().removeCard(i);
+        return true;
     }
     return false;
 }
