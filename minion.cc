@@ -46,6 +46,7 @@ void Minion::readInfo(std::string name) {
         // Read active cost
         in >> abilityCost;
         in >> input;
+        triggerType = TriggerType::Active;
         if (input == "target") isTarget = true;
         else isTarget = false;
     }

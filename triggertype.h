@@ -7,6 +7,7 @@ enum class TriggerType {
     End,
     Enter,
     Leave,
+    Active,
 };
 
 #endif
