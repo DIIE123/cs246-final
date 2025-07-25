@@ -17,6 +17,7 @@ class Game {
     Player p2;
     size_t currCardIndex;
     size_t targetCardIndex;
+    bool currActivePlayer1;
     bool currTargetPlayer1;
     int turnsPassed;
 
@@ -39,7 +40,7 @@ private:
 
     void triggerEnter(size_t i);
 
-    void triggerLeave(bool deadMinP1);
+    void triggerLeave();
 
     void addTrigger(std::shared_ptr<Card> minion);
 

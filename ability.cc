@@ -28,6 +28,7 @@ bool abilityUnsummon(Game &game) {
     minion->setDefense(defense);
 
     // Add to player hand
+    player.getGraveyard().removeTopCard();
     player.getHand().addCard(minion);
 
     return true;
@@ -62,15 +63,17 @@ bool abilityBlizzard(Game &game) {
     ActiveMinions &currentMinions = game.getActivePlayer().getActiveMinions();
     
     for (size_t i = 0; i < currentMinions.getSize(); ++i) {
-        game.attackMinion(currentMinions.getCard(i), 2);
+        currentMinions.getCard(i).setDefense(currentMinions.getCard(i).getDefense() - 2);
     }
+    game.attackMinion(currentMinions.getCard(0), 0);
 
     // enemy player
     ActiveMinions &enemyMinions = game.getOtherPlayer().getActiveMinions();
     
     for (size_t i = 0; i < enemyMinions.getSize(); ++i) {
-        game.attackMinion(enemyMinions.getCard(i), 2);
+        enemyMinions.getCard(i).setDefense(enemyMinions.getCard(i).getDefense() - 2);
     }
+    game.attackMinion(enemyMinions.getCard(0), 0);
 
     return true;
 }

@@ -13,7 +13,7 @@ const int MAX_ACTIVE = 5;
 
 Game::Game(bool isTesting, std::string name1, std::string name2, std::string deck1, std::string deck2): 
     isTesting{isTesting}, currP1{true}, p1{name1, START_HP, START_MAGIC, deck1, isTesting}, p2{name2, START_HP, START_MAGIC, deck2, isTesting}, 
-    currCardIndex{0}, targetCardIndex{0}, currTargetPlayer1{true}, turnsPassed{0} {
+    currCardIndex{0}, targetCardIndex{0}, currActivePlayer1{true}, currTargetPlayer1{true}, turnsPassed{0} {
         startTurn();
     }
 
@@ -145,11 +145,11 @@ void Game::attackMinion(Card &enemy, int dmg) {
     // kill all minions which are dead
     if (getActivePlayer().killMinions()) {
         removeObservers();
-        triggerLeave(currP1);
+        triggerLeave();
     }
     if (getOtherPlayer().killMinions()) {
         removeObservers();
-        triggerLeave(!currP1);
+        triggerLeave();
     }
 }
 
@@ -158,11 +158,11 @@ void Game::attackMinion(size_t i, Player &enemy, size_t j) {
     getActivePlayer().attackMinion(i, enemy, j);
     if (getActivePlayer().killMinions()) {
         removeObservers();
-        triggerLeave(currP1);
+        triggerLeave();
     }
     if (getOtherPlayer().killMinions()) {
         removeObservers();
-        triggerLeave(!currP1);
+        triggerLeave();
     }
     //if (getActivePlayer().getActiveCard(i).isDead()) getActivePlayer().killMinion(i);
     //if (enemy.getActiveCard(i).isDead()) enemy.killMinion(i);
@@ -208,11 +208,19 @@ bool Game::useAbilityInHand(size_t i, bool player1, size_t j) {
 }
 
 Card &Game::getActiveCard() {
-    return getActivePlayer().getActiveCard(currCardIndex);
+    if (currActivePlayer1) {
+        return getPlayerOne().getActiveCard(currCardIndex);
+    } else {
+        return getPlayerTwo().getActiveCard(currCardIndex);
+    }
 }
 
 std::shared_ptr<Card> Game::getActiveCardPtr() {
-    return getActivePlayer().getActiveCardPtr(currCardIndex);
+    if (currActivePlayer1) {
+        return getPlayerOne().getActiveCardPtr(currCardIndex);
+    } else {
+        return getPlayerTwo().getActiveCardPtr(currCardIndex);
+    }
 }
 
 Card &Game::getTargetCard() {
@@ -253,6 +261,7 @@ void Game::startTurn() {
 void Game::endTurn() {
     triggerEnd();
     currP1 = !currP1;
+    currActivePlayer1 = currP1;
     startTurn();
 }
 
@@ -285,20 +294,28 @@ void Game::triggerEnter(size_t i) {
     // APNAP
     if (currP1) {
         enterP1.notifyObservers(*this);
+        currActivePlayer1 = !currActivePlayer1;
         enterP2.notifyObservers(*this);
+        currActivePlayer1 = !currActivePlayer1;
     } else {
         enterP2.notifyObservers(*this);
+        currActivePlayer1 = !currActivePlayer1;
         enterP1.notifyObservers(*this);
+        currActivePlayer1 = !currActivePlayer1;
     }
 }
 
-void Game::triggerLeave(bool deadMinP1) {
-    if (deadMinP1) {
+void Game::triggerLeave() {
+    if (currP1) {
         leaveP1.notifyObservers(*this);
+        currActivePlayer1 = !currActivePlayer1;
         leaveP2.notifyObservers(*this);
+        currActivePlayer1 = !currActivePlayer1;
     } else {
         leaveP2.notifyObservers(*this);
+        currActivePlayer1 = !currActivePlayer1;
         leaveP1.notifyObservers(*this);
+        currActivePlayer1 = !currActivePlayer1;
     }
 }
 
