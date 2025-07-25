@@ -20,8 +20,8 @@ protected:
     std::shared_ptr<Card> minion = nullptr;
 
 public:
-    Enchantment(std::string enchantmentName, int cost, std::string attackString, std::string defenseString, std::shared_ptr<Card> minion);
-    Enchantment(std::string enchantmentName, int cost, std::string enchantmentDesc, std::shared_ptr<Card> minion);
+    Enchantment(std::string enchantmentName, int cost, std::string attackString, std::string defenseString, std::shared_ptr<Card> minion, Player &p);
+    Enchantment(std::string enchantmentName, int cost, std::string enchantmentDesc, std::shared_ptr<Card> minion, Player &p);
     virtual ~Enchantment() = 0;
     int getEnchantmentCost() override;
     std::string getAttackString() override;
@@ -34,7 +34,7 @@ public:
 
 class GiantStrength: public Enchantment {
 public:
-    GiantStrength(std::shared_ptr<Card> minion);
+    GiantStrength(std::shared_ptr<Card> minion, Player& p);
     ~GiantStrength();
     int getAttack();
     int getDefense();
@@ -43,7 +43,7 @@ public:
 
 class Enrage: public Enchantment {
 public:
-    Enrage(std::shared_ptr<Card> minion);
+    Enrage(std::shared_ptr<Card> minion, Player &p);
     ~Enrage();
     int getAttack() override;
     int getDefense() override;
@@ -52,7 +52,7 @@ public:
 
 class Haste: public Enchantment {
 public:
-    Haste(std::shared_ptr<Card> minion);
+    Haste(std::shared_ptr<Card> minion, Player& p);
     ~Haste();
     int getMaxActions() override;
     virtual CardType getType() override;
@@ -60,7 +60,7 @@ public:
 
 class MagicFatigue: public Enchantment {
 public:
-    MagicFatigue(std::shared_ptr<Card> minion);
+    MagicFatigue(std::shared_ptr<Card> minion, Player &p);
     ~MagicFatigue();
     int getAbilityCost() override;
     virtual CardType getType() override;
@@ -68,7 +68,7 @@ public:
 
 class Silence: public Enchantment {
 public:
-    Silence(std::shared_ptr<Card> minion);
+    Silence(std::shared_ptr<Card> minion, Player& p);
     ~Silence();
     virtual CardType getType() override;
     bool getHasAbility();

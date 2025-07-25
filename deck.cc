@@ -39,7 +39,6 @@ void Deck::createDeck(std::string deckfile, Player &player){
       continue;
     }
     
-    
     if (line == "Giant Strength") {
       this->addCard(std::make_shared<GiantStrength>(std::make_shared<Minion>("Air Elemental", player), player));
       continue;
@@ -53,12 +52,15 @@ void Deck::createDeck(std::string deckfile, Player &player){
       continue;
     }
     if (line == "Magic Fatigue") {
-      this->addCard(std::make_shared<MagicFatigue>(std::make_shared<Minion>("Air Elemental")));
+      this->addCard(std::make_shared<MagicFatigue>(std::make_shared<Minion>("Air Elemental", player), player));
       continue;
     } 
     if (line == "Silence") {
       this->addCard(std::make_shared<Silence>(std::make_shared<Minion>("Air Elemental", player), player));
       continue;
+    }
+    if (line == "Dark Ritual" || line == "Aura of Power" || line == "Standstill") {
+      this->addCard(std::make_shared<Ritual>(line, player));
     }
     // this->addCard(std::make_shared<Minion>(line));
   }

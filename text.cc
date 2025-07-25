@@ -96,14 +96,13 @@ void Text::displayBoard() {
   // Print top player
   std::vector<card_template_t> playerOneRow;
   card_template_t ritualOne;
-  // if (game.playerOne.activeRitual) {
-  //   ritual1 = display_ritual(etc)
-  // } else {
-  //   ritual1 = CARD_TEMPLATE_EMPTY;
-  //  }
-  // playerOneRow.emplace_back(ritual1);
-  // temporary!!
-  playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
+  if (!game.getPlayerOne().getRitual()) {
+    ritualOne = CARD_TEMPLATE_BORDER;
+  } else {
+    ritualOne = display_ritual(game.getPlayerOne().getRitual()->getName(), game.getPlayerOne().getRitual()->getCost(), 
+    game.getPlayerOne().getRitual()->getAbilityCost(), game.getPlayerOne().getRitual()->getAbilityDesc(), game.getPlayerOne().getRitual()->getDefense());
+  }
+  playerOneRow.emplace_back(ritualOne);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
   card_template_t playerOne = display_player_card(1, game.getPlayerOne().getName(), game.getPlayerOne().getHealth(), game.getPlayerOne().getMagic());
   playerOneRow.emplace_back(playerOne);
@@ -160,6 +159,14 @@ void Text::displayBoard() {
 
   // Print bottom player
   std::vector<card_template_t> playerTwoRow;
+  card_template_t ritualTwo;
+  if (!game.getPlayerTwo().getRitual()) {
+    ritualTwo = CARD_TEMPLATE_BORDER;
+  } else {
+    ritualTwo = display_ritual(game.getPlayerTwo().getRitual()->getName(), game.getPlayerTwo().getRitual()->getCost(), 
+    game.getPlayerTwo().getRitual()->getAbilityCost(), game.getPlayerTwo().getRitual()->getAbilityDesc(), game.getPlayerTwo().getRitual()->getDefense());
+  }
+  playerTwoRow.emplace_back(ritualTwo);
   playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
   card_template_t playerTwo = display_player_card(2, game.getPlayerTwo().getName(), game.getPlayerTwo().getHealth(), game.getPlayerTwo().getMagic());

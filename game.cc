@@ -102,7 +102,7 @@ bool Game::playCard(size_t i, bool player1, size_t t) {
     }
     if (card.getType() == CardType::GiantStrength || card.getType() == CardType::Enrage || 
         card.getType() == CardType::Haste || card.getType() == CardType::MagicFatigue || card.getType() == CardType::Silence) {
-        victim.useEnchantment(t, card.getType());
+        victim.useEnchantment(t, card.getType(), getActivePlayer());
         p.getHand().removeCard(i);
     }
     return false;

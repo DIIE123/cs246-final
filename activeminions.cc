@@ -12,28 +12,28 @@ std::vector<std::shared_ptr<CardInfo>> ActiveMinions::getInfo() {
   return information;
 }
 
-void ActiveMinions::useEnchantment(size_t i, CardType ct) {
+void ActiveMinions::useEnchantment(size_t i, CardType ct, Player& p) {
   if (i >= cards.size()) {
     return;
   }
   if (ct == CardType::GiantStrength) {
-    cards[i] = std::make_shared<GiantStrength>(cards[i]);
+    cards[i] = std::make_shared<GiantStrength>(cards[i], p);
     return;
   }
   if (ct == CardType::Enrage) {
-    cards[i] = std::make_shared<Enrage>(cards[i]);
+    cards[i] = std::make_shared<Enrage>(cards[i], p);
     return;
   }
   if (ct == CardType::Haste) {
-    cards[i] = std::make_shared<Haste>(cards[i]);
+    cards[i] = std::make_shared<Haste>(cards[i], p);
     return;
   }
   if (ct == CardType::MagicFatigue) {
-    cards[i] = std::make_shared<MagicFatigue>(cards[i]);
+    cards[i] = std::make_shared<MagicFatigue>(cards[i], p);
     return;
   }
   if (ct == CardType::Silence) {
-    cards[i] = std::make_shared<Silence>(cards[i]);
+    cards[i] = std::make_shared<Silence>(cards[i], p);
     return;
   } 
 }
