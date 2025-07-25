@@ -61,6 +61,7 @@ int Card::getAttack() { return attack; }
 int Card::getDefense() { return defense; }
 int Card::getActions() { return actions; }
 int Card::getMaxActions() { return maxActions; }
+std::shared_ptr<Minion> getPointer( return nullptr; )
 
 // Setters
 void Card::setAttack(int attack) { this->attack = attack; }

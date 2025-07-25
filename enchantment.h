@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <algorithm>
 #include "minion.h"
 #include "type.h"
 
@@ -24,6 +25,8 @@ public:
     virtual std::string getAttackString();
     virtual std::string getDefenseString();
     virtual std::string getAbilityDesc();
+    std::shared_ptr<Minion> getPointer() override;
+    
 };
 
 class GiantStrength: public Enchantment {

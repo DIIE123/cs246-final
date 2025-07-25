@@ -12,6 +12,10 @@ CardType Enchantment::getType() {
   return CardType::Enchantment;
 }
 
+std::shared_ptr<Minion> Enchantment::getPointer() {
+  return minion;
+}
+
 Enchantment::~Enchantment() {}
 
 

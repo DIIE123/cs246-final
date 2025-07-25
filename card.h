@@ -55,6 +55,7 @@ public:
     int getActions();
     TriggerType getTriggerType();
     virtual CardType getType() = 0;
+    virtual std::shared_ptr<Minion> getPointer();
 
     // Setters
     void setAttack(int attack);

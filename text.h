@@ -1,5 +1,6 @@
 #ifndef TEXT_H
 #define TEXT_H
+#include <memory>
 #include "display.h"
 #include "minion.h"
 
@@ -14,7 +15,7 @@ public:
   ~Text();
   void displayBoard() override;
   void displayHand() override;
-  void inspect(Minion &m) override;
+  void inspect(std::shared_ptr<Card> minion) override;
 };
 
 #endif

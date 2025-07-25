@@ -13,7 +13,7 @@ struct CardInfo {
   size_t charge;
   std::string description;
   
-  CardInfo(std::string name, size_t cost, size_t damage, size_t health);
+  CardInfo(std::string name, size_t cost, size_t damage, size_t health, std::string description, size_t activationCost);
   CardInfo(std::string name, size_t cost, std::string description);
   CardInfo(std::string name, size_t cost, std::string description, std::string modification);
   CardInfo(std::string name, size_t cost, std::string description, size_t activationCost, size_t charge);
@@ -24,7 +24,7 @@ struct CardInfo {
 
 struct MinionInfo: public CardInfo {
 
-  MinionInfo(std::string name, size_t cost, size_t damage, size_t health);
+  MinionInfo(std::string name, size_t cost, size_t damage, size_t health, std::string description, size_t activationCost);
   ~MinionInfo() = default;
   CardType getType() override;
 };
