@@ -145,8 +145,9 @@ bool abilityAuraOfPower(Game &game) {
         Card &minion = game.getTargetCard();
         minion.setAttack(minion.getAttack() + 1);
         minion.setDefense(minion.getDefense() + 1);
+        return true;
     }
-    return true;
+    return false;
 }
 
 bool abilityStandstill(Game &game) {
