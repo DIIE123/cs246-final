@@ -32,11 +32,14 @@ void Ritual::readInfo(std::string name) {
     triggerType = convertToTriggerType(temp);
 }
 
-void Ritual::useAbility(Game &game) {
+bool Ritual::useAbility(Game &game) {
     if (getDefense() >= getAbilityCost()) {
-        abilityFunc(game);
-        setDefense(getDefense() - getAbilityCost());
+        if(abilityFunc(game)) {
+            setDefense(getDefense() - getAbilityCost());
+            return true;
+        }
     }
+    return false;
 }
 
 CardType Ritual::getType() { return CardType::Ritual; }

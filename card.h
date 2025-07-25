@@ -32,7 +32,7 @@ protected:
 public:
     Card(Player &player);
     virtual ~Card();
-    virtual void useAbility(Game &game);
+    virtual bool useAbility(Game &game);
 
     // Utilities
     void takeDamage(int damage);

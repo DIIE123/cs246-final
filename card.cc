@@ -8,8 +8,8 @@ std::shared_ptr<AbilityManager> Card::am = std::make_shared<AbilityManager>();
 Card::Card(Player &player): player{player} {}
 Card::~Card() {}
 
-void Card::useAbility(Game &game) {
-    abilityFunc(game);
+bool Card::useAbility(Game &game) {
+    return abilityFunc(game);
 }
 
 // Utilities

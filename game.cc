@@ -55,14 +55,13 @@ void Game::drawCard() {
 }
 
 // For normal play
-void Game::playCard(size_t i) {
+bool Game::playCard(size_t i) {
     Player &p = getActivePlayer();
-    size_t size = p.getActiveCardSize();
-    if (size >= MAX_ACTIVE) return;
-
     Card &card = p.getHandCard(i);
 
     if (card.getType() == CardType::Minion) {
+        size_t size = p.getActiveCardSize();
+        if (size >= MAX_ACTIVE) return false;
         if (card.getCost() <= p.getMagic()) {
             p.incrementMagic(-card.getCost());
 
@@ -71,30 +70,33 @@ void Game::playCard(size_t i) {
             p.getActiveMinions().addCard(temp);
             triggerEnter(size); // order matters!
             addTrigger(p.getActiveCardPtr(size));
+            return true;
         }
     }
     else if (card.getType() == CardType::Spell) {
-        useAbilityInHand(i);
+        return useAbilityInHand(i);
     }
     else if (card.getType() == CardType::Ritual) {
        if (card.getCost() <= p.getMagic()) {
             p.incrementMagic(-card.getCost());
 
-
             std::shared_ptr<Card> temp = p.getHand().removeCard(i);
             p.setRitual(temp);
             addTrigger(temp);
+            return true;
         }
     }
+    return false;
 }
 
 // For targeted play
-void Game::playCard(size_t i, bool player1, size_t t) {
+bool Game::playCard(size_t i, bool player1, size_t t) {
     Player &p = getActivePlayer();
     Card &card = p.getHandCard(i);
     if (card.getType() == CardType::Spell) {
-        useAbilityInHand(i, player1, t);
+        return useAbilityInHand(i, player1, t);
     }
+    return false;
 }
 
 // for summoning
@@ -109,18 +111,18 @@ void Game::playCard(std::shared_ptr<Card> min) {
     addTrigger(p.getActiveCardPtr(temp));
 }
 
-void Game::useCard(size_t i) {
+bool Game::useCard(size_t i) {
     Player &p = getActivePlayer();
-    if (i > p.getActiveCardSize()) return;
+    if (i > p.getActiveCardSize()) return false;
 
-    useAbility(i);
+    return useAbility(i);
 }
 
-void Game::useCard(size_t i, bool player1, size_t t) {
+bool Game::useCard(size_t i, bool player1, size_t t) {
     Player &p = getActivePlayer();
-    if (i > p.getActiveCardSize()) return;
+    if (i > p.getActiveCardSize()) return false;
 
-    useAbility(i, player1, t);
+    return useAbility(i, player1, t);
 }
 
 void Game::discard(int i) {
@@ -164,24 +166,29 @@ void Game::attackMinion(size_t i, Player &enemy, size_t j) {
     //if (enemy.getActiveCard(i).isDead()) enemy.killMinion(i);
 }
 
-void Game::useAbility(size_t i, bool player1, size_t j) {
+bool Game::useAbility(size_t i, bool player1, size_t j) {
     Card &card = getActiveCard();
     Player &p = getActivePlayer();
 
     // Check
-    if (card.getAbilityCost() <= 0) return; // just double check to see if its not an active ability
-    if (card.getActions() <= 0) return; // has no more actions
+    if (card.getAbilityCost() <= 0) return false; // just double check to see if its not an active ability
+    if (card.getActions() <= 0) return false; // has no more actions
     if (card.getAbilityCost() <= p.getMagic() || isTesting) {
         currCardIndex = i;
         targetCardIndex = j;
         currTargetPlayer1 = player1;
+
+        if (!card.useAbility(*this)) return false;
+
         p.incrementMagic(-card.getAbilityCost());
-        card.useAbility(*this);
+        
         card.decreaseActions();
+        return true;
     } // add else if you want to do something when they can't afford ability
+    return false;
 }
 
-void Game::useAbilityInHand(size_t i, bool player1, size_t j) {
+bool Game::useAbilityInHand(size_t i, bool player1, size_t j) {
     Player &p = getActivePlayer();
     Card &card = p.getHandCard(i);
 
@@ -189,11 +196,12 @@ void Game::useAbilityInHand(size_t i, bool player1, size_t j) {
     if (card.getAbilityCost() <= getActivePlayer().getMagic() || isTesting) {
         targetCardIndex = j;
         currTargetPlayer1 = player1;
+        if (!card.useAbility(*this)) return false;
         p.incrementMagic(-card.getAbilityCost());
-        card.useAbility(*this);
     } // add else if you want to do something when they can't afford ability
 
     p.getHand().removeCard(i);
+    return true;
 }
 
 Card &Game::getActiveCard() {

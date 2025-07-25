@@ -16,6 +16,8 @@ Card &Graveyard::getTopCard() {
 }
 
 std::shared_ptr<Card> Graveyard::removeTopCard() {
+  if (cards.size() <= 0) return nullptr;
+
   std::shared_ptr<Card> temp = cards.back();
   cards.pop_back();
   return temp;

@@ -9,7 +9,7 @@ class Ritual: public Card {
 
 public:
     Ritual(std::string name, Player &player);
-    void useAbility(Game &game) override;
+    bool useAbility(Game &game) override;
     CardType getType() override;
 };
 

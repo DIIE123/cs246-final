@@ -158,7 +158,7 @@ bool Input::handleCommand(istream &istr) {
         cout << "Board is full." << endl;
         return true;
       }
-      game.playCard(i - 1);
+      if (!game.playCard(i - 1)) cout << "Card cannot be played!" << endl;
       return true;
     }
     if (!(iss >> t)) {
@@ -183,11 +183,11 @@ bool Input::handleCommand(istream &istr) {
       return true;
     }
     if (p == 1) {
-      game.playCard(i - 1, true, t - 1);
+      if (!game.playCard(i - 1, true, t - 1)) cout << "Card cannot be played!" << endl;
       return true;
     }
     // Play with target
-    game.playCard(i - 1, false, t - 1);
+    if (!game.playCard(i - 1, false, t - 1)) cout << "Card cannot be played!" << endl;
     return true;
   }
   if (command == "use") {
@@ -202,7 +202,7 @@ bool Input::handleCommand(istream &istr) {
     if (!(iss >> p)) {
       // Play without target
       if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 && game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
-        game.useCard(i - 1);
+        if (!game.useCard(i - 1)) cout << "Ability cannot be used!" << endl;
         return true;
       }
       if (game.getActivePlayer().getActiveCard(i - 1).getTriggerType() != TriggerType::None) {
@@ -219,7 +219,7 @@ bool Input::handleCommand(istream &istr) {
     // Play with target
     if (p == 1) {
       if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 && game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
-        game.useCard(i - 1, true, t - 1);
+        if (!game.useCard(i - 1, true, t - 1)) cout << "Ability cannot be used!" << endl;
         return true;
       }
       if (game.getActivePlayer().getActiveCard(i - 1).getTriggerType() != TriggerType::None) {
@@ -230,7 +230,7 @@ bool Input::handleCommand(istream &istr) {
     }
     // Play with target
     if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 && game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
-      game.useCard(i - 1, false, t - 1);
+      if (!game.useCard(i - 1, false, t - 1)) cout << "Ability cannot be used!" << endl;
       return true;
     }
     if (game.getActivePlayer().getActiveCard(i - 1).getTriggerType() != TriggerType::None) {

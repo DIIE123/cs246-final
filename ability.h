@@ -3,30 +3,30 @@
 
 class Game;
 
-typedef void (*Ability)(Game &game);
+typedef bool (*Ability)(Game &game);
 
 // Spells
-void abilityBanish(Game &game);
-void abilityUnsummon(Game &game);
-void abilityRecharge(Game &game);
-void abilityDisenchant(Game &game);
-void abilityRaiseDead(Game &game);
-void abilityBlizzard(Game &game);
+bool abilityBanish(Game &game);
+bool abilityUnsummon(Game &game);
+bool abilityRecharge(Game &game);
+bool abilityDisenchant(Game &game);
+bool abilityRaiseDead(Game &game);
+bool abilityBlizzard(Game &game);
 
 // Minions
 // Triggered
-void abilityBoneGolem(Game &game);
-void abilityFireElemental(Game &game);
-void abilityPotionSeller(Game &game);
+bool abilityBoneGolem(Game &game);
+bool abilityFireElemental(Game &game);
+bool abilityPotionSeller(Game &game);
 
 // Activated
-void abilityNovicePyromancer(Game &game);
-void abilityApprenticeSummoner(Game &game);
-void abilityMasterSummoner(Game &game);
+bool abilityNovicePyromancer(Game &game);
+bool abilityApprenticeSummoner(Game &game);
+bool abilityMasterSummoner(Game &game);
 
 // Rituals
-void abilityDarkRitual(Game &game);
-void abilityAuraOfPower(Game &game);
-void abilityStandstill(Game &game);
+bool abilityDarkRitual(Game &game);
+bool abilityAuraOfPower(Game &game);
+bool abilityStandstill(Game &game);
 
 #endif
