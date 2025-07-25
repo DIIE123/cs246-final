@@ -85,6 +85,8 @@ public:
 
     std::string getName();
 
+    bool isDead();
+
     // operator override
     bool operator!=(const Player &other) const; 
 };

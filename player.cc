@@ -6,7 +6,7 @@ const int MAX_HAND = 5;
 const int MAX_ACTIVE = 5;
 
 Player::Player(std::string name, int hp, int mp, std::string deckFile, bool isTesting): 
-    name{name}, health{hp}, magic{mp}, deck{}, hand{}, activeMinions{} {
+    name{name}, health{hp}, magic{mp}, deck{}, hand{}, activeMinions{}, ritual{nullptr} {
         deck.createDeck(deckFile, *this);
         if (!isTesting) deck.shuffle();
     }
@@ -146,6 +146,10 @@ int Player::getMagic() {
 
 std::string Player::getName() {
     return name;
+}
+
+bool Player::isDead() {
+    return getHealth() <= 0;
 }
 
 bool Player::operator!=(const Player &other) const {

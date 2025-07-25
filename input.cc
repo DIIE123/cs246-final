@@ -108,6 +108,10 @@ bool Input::handleCommand(istream &istr) {
       }
       if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0) {
         game.attackPlayer(i - 1, game.getOtherPlayer());
+        if (game.getOtherPlayer().isDead()) {
+          cout << game.getActivePlayer().getName() << " won the game!" << endl;
+          return false;
+        }
         return true;
       }
       cout << "This minion can not attack further for this term." << endl;
