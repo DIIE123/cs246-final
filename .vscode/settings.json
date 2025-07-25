@@ -49,6 +49,9 @@
         "vector": "cpp",
         "iostream": "cpp",
         "map": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "chrono": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp"
     }
 }

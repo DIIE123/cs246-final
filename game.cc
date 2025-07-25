@@ -129,11 +129,23 @@ Card &Game::getActiveCard() {
     return getActivePlayer().getActiveCard(currCardIndex);
 }
 
+std::shared_ptr<Card> Game::getActiveCardPtr() {
+    return getActivePlayer().getActiveCardPtr(currCardIndex);
+}
+
 Card &Game::getTargetCard() {
     if (currTargetPlayer1) {
         return getPlayerOne().getActiveCard(targetCardIndex);
     } else {
         return getPlayerTwo().getActiveCard(targetCardIndex);
+    }
+}
+
+std::shared_ptr<Card> Game::getTargetCardPtr() {
+    if (currTargetPlayer1) {
+        return getPlayerOne().getActiveCardPtr(targetCardIndex);
+    } else {
+        return getPlayerTwo().getActiveCardPtr(targetCardIndex);
     }
 }
 

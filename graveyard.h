@@ -10,6 +10,8 @@ public:
   Graveyard(const Graveyard&) = delete;
   Graveyard& operator=(const Graveyard&) = delete;
   std::shared_ptr<CardInfo> getInfo();
+
+  std::shared_ptr<Card> Graveyard::removeTopCard();
 };
 
 #endif

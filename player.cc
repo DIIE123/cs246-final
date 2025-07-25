@@ -77,8 +77,16 @@ Card &Player::getActiveCard(size_t i) {
     return activeMinions.getMinion(i);
 }
 
+std::shared_ptr<Card> Player::getActiveCardPtr(size_t i) {
+    return activeMinions.getMinionPtr(i);
+}
+
 ActiveMinions &Player::getActiveMinions() {
     return activeMinions;
+}
+
+Graveyard &Player::getGraveyard() {
+    return graveyard;
 }
 
 size_t Player::getActiveCardSize() {

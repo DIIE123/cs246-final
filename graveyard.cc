@@ -9,3 +9,10 @@ std::shared_ptr<CardInfo> Graveyard::getInfo() {
   }
   return std::make_shared<MinionInfo>(cards.back()->getName(), cards.back()->getCost(), cards.back()->getAttack(), cards.back()->getDefense());
 }
+
+std::shared_ptr<Card> Graveyard::removeTopCard() {
+  std::shared_ptr<Card> temp = cards.back();
+  cards.pop_back();
+  return temp;
+}
+

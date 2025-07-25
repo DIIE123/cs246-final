@@ -76,7 +76,11 @@ public:
 
     Card &getActiveCard();
 
+    std::shared_ptr<Card> Game::getActiveCardPtr();
+
     Card &getTargetCard();
+
+    std::shared_ptr<Card> Game::getTargetCardPtr();
 
     void startTurn();
 
