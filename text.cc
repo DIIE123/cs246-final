@@ -216,9 +216,12 @@ void Text::displayHand() {
       }
       card_template_t temp = display_enchantment(information[i]->name, information[i]->cost, information[i]->description);
       currentHand.emplace_back(temp);
+      continue;
     }
-    card_template_t temp = display_ritual(information[i]->name, information[i]->cost, information[i]->activationCost, information[i]->description, information[i]->charge);
-    currentHand.emplace_back(temp);
+    if (type == CardType::Ritual) {
+      card_template_t temp = display_ritual(information[i]->name, information[i]->cost, information[i]->activationCost, information[i]->description, information[i]->charge);
+      currentHand.emplace_back(temp);
+    }
   }
   displayRow(currentHand, false);
 }
@@ -230,7 +233,7 @@ void Text::inspect(std::shared_ptr<Card> minion) {
   while (1) {
     // Print Minion. Exit.
     if (head->getType() == CardType::Minion) {
-      if (head->getAbilityCost() <= 0) {
+      if (!(head->getTriggerType() == TriggerType::None)) {
         card_template_t temp = display_minion_triggered_ability(head->getName(), head->getCost(), 
           minion->getAttack(), minion->getDefense(), head->getAbilityDesc());
         printCard(temp);

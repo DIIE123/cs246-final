@@ -16,12 +16,15 @@ std::vector<std::shared_ptr<CardInfo>> Hand::getInfo() {
     if(it->getType() == CardType::Minion) {
       information.emplace_back(std::make_shared<MinionInfo>(it->getName(), it->getCost(), it->getAttack(), it->getDefense(), it->getAbilityDesc(), it->getAbilityCost(), 
       it->getTriggerType() == TriggerType::None));
+      continue;
     }
     if (it->getType() == CardType::Spell) {
       information.emplace_back(std::make_shared<SpellInfo>(it->getName(), it->getCost(), it->getAbilityDesc()));
+      continue;
     }
     if (it->getType() == CardType::Ritual) {
       information.emplace_back(std::make_shared<RitualInfo>(it->getName(), it->getCost(), it->getAbilityDesc(), it->getAbilityCost(), it->getDefense()));
+      continue;
     }
     information.emplace_back(std::make_shared<EnchantInfo>(it->getEnchantmentName(), it->getEnchantmentCost(), it->getEnchantmentDesc(), it->getAttackString(), it->getDefenseString()));
   }
