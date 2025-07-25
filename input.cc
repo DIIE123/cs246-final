@@ -73,7 +73,7 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "discard") {
-    int i = 0;
+    size_t i = 0;
     if (!(iss >> i) || iss >> command) {
       cout << "'discard' expects [int]. Type 'help' for more details." << endl;
       return true;
@@ -90,8 +90,8 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "attack") {
-    int i = 0;
-    int j = 0;
+    size_t i = 0;
+    size_t j = 0;
     if (!(iss >> i)) {
       cout << "'attack' expects [int] (optional:) [int]. Type 'help' for more details." << endl;
       return true;
@@ -130,9 +130,9 @@ bool Input::handleCommand(istream &istr) {
     return true;
   }
   if (command == "play") {
-    int i = 0;
+    size_t i = 0;
     int p = 0;
-    int t = 0;
+    size_t t = 0;
     if (!(iss >> i)) {
       cout << "'play' expects [int] (optional:) [int] [int]. Type 'help' for more details." << endl;
       return true;
@@ -183,11 +183,11 @@ bool Input::handleCommand(istream &istr) {
       return true;
     }
     if (p == 1) {
-      // game.playCard(i - 1, game.getPlayerOne, t - 1);
+      game.playCard(i - 1, true, t - 1);
       return true;
     }
     // Play with target
-    // game.playCard(i - 1, game.getPlayerTwo, t - 1);
+    game.playCard(i - 1, false, t - 1);
     return true;
   }
   if (command == "use") {
@@ -200,6 +200,7 @@ bool Input::handleCommand(istream &istr) {
     }
     if (!(iss >> p)) {
       // Play without target
+      game.useCard(i - 1);
       return true;
     }
     if (!(iss >> t)) {
@@ -207,10 +208,16 @@ bool Input::handleCommand(istream &istr) {
       return true;
     }
     // Play with target
+    if (p == 1) {
+      game.useCard(i - 1, true, t - 1);
+      return true;
+    }
+    // Play with target
+    game.useCard(i - 1, false, t - 1);
     return true;
   }
   if (command == "inspect") {
-    int i = 0;
+    size_t i = 0;
     if (!(iss >> i) || iss >> command) {
       // Invalid
       cout << "'inspect' expects [int]. Type 'help' for more details." << endl;

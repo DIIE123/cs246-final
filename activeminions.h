@@ -10,8 +10,6 @@ public:
   ~ActiveMinions() override;
   ActiveMinions(const ActiveMinions&) = delete;
   ActiveMinions& operator=(const ActiveMinions&) = delete;
-  Card& getMinion(size_t i);
-  std::shared_ptr<Card> getMinionPtr(size_t i);
   std::vector<std::shared_ptr<CardInfo>> getInfo();
 };
 

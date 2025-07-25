@@ -39,7 +39,11 @@ public:
 
     Card &getActiveCard(size_t i);
 
+    Card &getHandCard(size_t i);
+
     std::shared_ptr<Card> getActiveCardPtr(size_t i);
+
+    std::shared_ptr<Card> getHandCardPtr(size_t i);
 
     ActiveMinions &getActiveMinions();
 

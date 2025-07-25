@@ -25,3 +25,11 @@ std::shared_ptr<Card> Collection::removeCard(size_t index) {
   cards.erase(cards.begin() + index);
   return temp;
 }
+
+Card& Collection::getCard(size_t i) {
+  return *cards[i];
+}
+
+std::shared_ptr<Card> Collection::getCardPtr(size_t i) {
+  return cards[i];
+}

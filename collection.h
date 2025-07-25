@@ -16,6 +16,8 @@ public:
   size_t getSize();
   virtual void addCard(std::shared_ptr<Card> c);
   std::shared_ptr<Card> removeCard(size_t index);
+  Card& getCard(size_t i);
+  std::shared_ptr<Card> getCardPtr(size_t i);
 };
 
 #endif

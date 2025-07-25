@@ -59,32 +59,31 @@ void Game::playCard(size_t i) {
     size_t size = p.getActiveCardSize();
     if (size >= MAX_ACTIVE) return;
 
-    Card &card = p.getActiveCard(i);
+    Card &card = p.getHandCard(i);
 
     if (card.getType() == CardType::Minion) {
-        currTargetPlayer1 = !(p != p1);
-        p.getActiveMinions().addCard(p.getHand().removeCard(i));
-        triggerEnter(size); // order matters!
-        addTrigger(p.getActiveCardPtr(size));
+        if (card.getCost() <= p.getMagic()) {
+            p.incrementMagic(-card.getCost());
+
+            currTargetPlayer1 = currP1;
+            std::shared_ptr<Card> temp = p.getHand().removeCard(i);
+            p.getActiveMinions().addCard(temp);
+            triggerEnter(size); // order matters!
+            addTrigger(p.getActiveCardPtr(size));
+        }
     }
     else if (card.getType() == CardType::Spell) {
-        currCardIndex = i;
-        card.useAbility(*this);
-        p.getHand().removeCard(i);
+        useAbilityInHand(i);
     }
    
 }
 
 // For targeted play
-void Game::playCard(size_t i, Player &enemy, size_t t) {
+void Game::playCard(size_t i, bool player1, size_t t) {
     Player &p = getActivePlayer();
-    Card &card = p.getActiveCard(i);
+    Card &card = p.getHandCard(i);
     if (card.getType() == CardType::Spell) {
-        currCardIndex = i;
-        targetCardIndex = t;
-        currTargetPlayer1 = !(enemy != p1);
-        card.useAbility(*this);
-        p.getHand().removeCard(i);
+        useAbilityInHand(i, player1, t);
     }
 }
 
@@ -93,7 +92,7 @@ void Game::playCard(std::shared_ptr<Card> min) {
     Player &p = getActivePlayer();
     if (p.getActiveCardSize() >= MAX_ACTIVE) return;
 
-    currTargetPlayer1 = !(p != p1);
+    currTargetPlayer1 = currP1;
     size_t temp = p.getActiveCardSize();
     p.placeCard(min);
     triggerEnter(temp); // order matters!
@@ -107,11 +106,11 @@ void Game::useCard(size_t i) {
     useAbility(i);
 }
 
-void Game::useCard(size_t i, Player &enemy, size_t t) {
+void Game::useCard(size_t i, bool player1, size_t t) {
     Player &p = getActivePlayer();
     if (i > p.getActiveCardSize()) return;
 
-    useAbility(i, !(enemy != p1), t);
+    useAbility(i, player1, t);
 }
 
 void Game::discard(int i) {
@@ -158,8 +157,7 @@ void Game::attackMinion(size_t i, Player &enemy, size_t j) {
 void Game::useAbility(size_t i, bool player1, size_t j) {
     currCardIndex = i;
     targetCardIndex = j;
-    if (player1) currTargetPlayer1 = true;
-    else currTargetPlayer1 = false;
+    currTargetPlayer1 = player1;
 
     // Check
     if (getActiveCard().getAbilityCost() <= 0) return; // just double check to see if its not an active ability
@@ -168,6 +166,22 @@ void Game::useAbility(size_t i, bool player1, size_t j) {
         getActivePlayer().incrementMagic(-getActiveCard().getAbilityCost());
         getActiveCard().useAbility(*this);
     } // add else if you want to do something when they can't afford ability
+}
+
+void Game::useAbilityInHand(size_t i, bool player1, size_t j) {
+    targetCardIndex = j;
+    currTargetPlayer1 = player1;
+
+    Player &p = getActivePlayer();
+    Card &card = p.getHandCard(i);
+
+    // Check
+    if (card.getAbilityCost() <= getActivePlayer().getMagic()) {
+        p.incrementMagic(-card.getAbilityCost());
+        card.useAbility(*this);
+    } // add else if you want to do something when they can't afford ability
+
+    p.getHand().removeCard(i);
 }
 
 Card &Game::getActiveCard() {
@@ -233,6 +247,7 @@ void Game::triggerEnd() {
 
 void Game::triggerEnter(size_t i) {
     // std::cout << "enter trigger" << std::endl;
+    currTargetPlayer1 = currP1;
     targetCardIndex = i;
     // std::cout << "entered minion is " << getTargetCard().getName() << std::endl;
 

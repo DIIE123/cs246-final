@@ -39,11 +39,19 @@ void Player::placeCard(std::shared_ptr<Card> min) {
 }
 
 Card &Player::getActiveCard(size_t i) {
-    return activeMinions.getMinion(i);
+    return activeMinions.getCard(i);
+}
+
+Card &Player::getHandCard(size_t i) {
+    return hand.getCard(i);
 }
 
 std::shared_ptr<Card> Player::getActiveCardPtr(size_t i) {
-    return activeMinions.getMinionPtr(i);
+    return activeMinions.getCardPtr(i);
+}
+
+std::shared_ptr<Card> Player::getHandCardPtr(size_t i) {
+    return hand.getCardPtr(i);
 }
 
 ActiveMinions &Player::getActiveMinions() {
@@ -77,7 +85,7 @@ void Player::attackMinion(size_t i, Player &enemy, size_t j) {
 bool Player::killMinions() {
     bool killed = false;
     for (size_t i = 0; i < activeMinions.getSize(); i++) {
-        if (activeMinions.getMinion(i).isDead()) {
+        if (activeMinions.getCard(i).isDead()) {
             graveyard.addCard(std::make_shared<Minion>(activeMinions.removeCard(i)->getName()));
             killed = true;
             --i;

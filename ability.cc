@@ -46,14 +46,14 @@ void abilityBlizzard(Game &game) {
     ActiveMinions &currentMinions = game.getActivePlayer().getActiveMinions();
     
     for (size_t i = 0; i < currentMinions.getSize(); ++i) {
-        game.attackMinion(currentMinions.getMinion(i), 2);
+        game.attackMinion(currentMinions.getCard(i), 2);
     }
 
     // enemy player
     ActiveMinions &enemyMinions = game.getOtherPlayer().getActiveMinions();
     
     for (size_t i = 0; i < currentMinions.getSize(); ++i) {
-        game.attackMinion(enemyMinions.getMinion(i), 2);
+        game.attackMinion(enemyMinions.getCard(i), 2);
     }
 }
 
@@ -75,7 +75,7 @@ void abilityPotionSeller(Game &game) {
     ActiveMinions &activeMinions = game.getActivePlayer().getActiveMinions();
 
     for (size_t i = 0; i < activeMinions.getSize(); ++i) {
-        Card &minion = activeMinions.getMinion(i);
+        Card &minion = activeMinions.getCard(i);
         minion.setDefense(minion.getDefense() + 1);
     }
 }
