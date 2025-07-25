@@ -109,15 +109,11 @@ void Player::attackMinion(size_t i, Player &enemy, size_t j) {
     getActiveCard(i).decreaseActions();
 }
 
-void Player::killMinion(size_t i) {
-    graveyard.addCard(activeMinions.removeCard(i));
-}
-
 bool Player::killMinions() {
     bool killed = false;
     for (size_t i = 0; i < activeMinions.getSize(); i++) {
         if (activeMinions.getMinion(i).isDead()) {
-            activeMinions.removeCard(i);
+            graveyard.addCard(std::make_shared<Minion>(activeMinions.removeCard(i)->getName()));
             killed = true;
             --i;
         }

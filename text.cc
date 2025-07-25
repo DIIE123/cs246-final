@@ -41,23 +41,23 @@ static void printBottomBorder() {
 
 static void displayRow(std::vector<card_template_t> row, bool Withborder) {
   size_t size = row.size();
-  size_t j = 0;
+  size_t offset = 0;
   while (size >= minionMax) {
-    size -= minionMax;
-    j += minionMax;
     for (size_t i = 0; i < rowHeight; i++) {
       std::string line;
       if (Withborder) {
         line += EXTERNAL_BORDER_CHAR_UP_DOWN;
       }
-      for (; j < minionMax; j++) {
-        line += row[j][i];
+      for (size_t j = 0; j < minionMax; j++) {
+        line += row[offset + j][i];
       }
       if (Withborder) {
         line += EXTERNAL_BORDER_CHAR_UP_DOWN;
       }
       std::cout << line << std::endl;
     }
+    size -= minionMax;
+    offset += minionMax;
   }
   if (size == 0) {
     return;
@@ -67,8 +67,8 @@ static void displayRow(std::vector<card_template_t> row, bool Withborder) {
     if (Withborder) {
       line += EXTERNAL_BORDER_CHAR_UP_DOWN;
     }
-    for (; j < size; j++) {
-      line += row[j][i];
+    for (size_t j = 0; j < size; j++) {
+      line += row[offset + j][i];
     }
     if (Withborder) {
       line += EXTERNAL_BORDER_CHAR_UP_DOWN;
@@ -108,7 +108,15 @@ void Text::displayBoard() {
   card_template_t playerOne = display_player_card(1, game.getPlayerOne().getName(), game.getPlayerOne().getHealth(), game.getPlayerOne().getMagic());
   playerOneRow.emplace_back(playerOne);
   playerOneRow.emplace_back(CARD_TEMPLATE_EMPTY);
-  playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
+  // Print graveyard
+  std::shared_ptr<CardInfo> grave1 = game.getPlayerOne().getGraveyard().getInfo();
+  if (!grave1) {
+    playerOneRow.emplace_back(CARD_TEMPLATE_BORDER);
+  } else if (grave1->activationCost <= 0) {
+    playerOneRow.emplace_back(display_minion_triggered_ability(grave1->name, grave1->cost, grave1->damage, grave1->health, grave1->description));
+  } else {
+    playerOneRow.emplace_back(display_minion_activated_ability(grave1->name, grave1->cost, grave1->damage, grave1->health, grave1->activationCost, grave1->description));
+  }
   displayRow(playerOneRow, true);
 
 
@@ -157,7 +165,14 @@ void Text::displayBoard() {
   card_template_t playerTwo = display_player_card(2, game.getPlayerTwo().getName(), game.getPlayerTwo().getHealth(), game.getPlayerTwo().getMagic());
   playerTwoRow.emplace_back(playerTwo);
   playerTwoRow.emplace_back(CARD_TEMPLATE_EMPTY);
-  playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
+  std::shared_ptr<CardInfo> grave2 = game.getPlayerTwo().getGraveyard().getInfo();
+  if (!grave2) {
+    playerTwoRow.emplace_back(CARD_TEMPLATE_BORDER);
+  } else if (grave2->activationCost <= 0) {
+    playerTwoRow.emplace_back(display_minion_triggered_ability(grave2->name, grave2->cost, grave2->damage, grave2->health, grave2->description));
+  } else {
+    playerTwoRow.emplace_back(display_minion_activated_ability(grave2->name, grave2->cost, grave2->damage, grave2->health, grave2->activationCost, grave2->description));
+  }
   displayRow(playerTwoRow, true);
   // Print bottom border
   printBottomBorder();

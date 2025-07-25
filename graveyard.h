@@ -2,6 +2,7 @@
 #ifndef GRAVE_H
 #define GRAVE_H
 #include "collection.h"
+#include <iostream>
 
 class Graveyard: public Collection {
 public:

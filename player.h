@@ -70,8 +70,6 @@ public:
 
     void attackMinion(size_t i, Player &enemy, size_t j);
 
-    void killMinion(size_t i);
-
     bool killMinions();
 
     // Deal with magic
