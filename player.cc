@@ -87,7 +87,8 @@ bool Player::killMinions() {
     for (size_t i = 0; i < activeMinions.getSize(); i++) {
         if (activeMinions.getCard(i).isDead()) {
             std::shared_ptr<Card> temp = activeMinions.getCardPtr(i);
-            graveyard.addCard(temp);
+            std::shared_ptr<Card> copy = std::make_shared<Minion>(temp->getName(), *this);
+            graveyard.addCard(copy);
             activeMinions.removeCard(i);
             killed = true;
             --i;

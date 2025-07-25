@@ -233,7 +233,7 @@ void Text::inspect(std::shared_ptr<Card> minion) {
   while (1) {
     // Print Minion. Exit.
     if (head->getType() == CardType::Minion) {
-      if (head->getTriggerType() == TriggerType::None) {
+      if (head->getTriggerType() == TriggerType::Active) {
         card_template_t temp = display_minion_activated_ability(head->getName(), head->getCost(), 
          minion->getAttack(), minion->getDefense(), head->getAbilityCost(), head->getAbilityDesc());
         printCard(temp);
