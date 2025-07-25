@@ -53,20 +53,22 @@ void Game::drawCard() {
 
 // For normal play
 void Game::playCard(size_t i) {
-    if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
-    if (getActivePlayer().getActiveCard(i).getCost() > getActivePlayer().getMagic()) return;
-    getActivePlayer().playCard(i);
+    Player &p = getActivePlayer();
+    if (p.getActiveCardSize() >= MAX_ACTIVE) return;
+    if (p.getActiveCard(i).getCost() > p.getMagic()) return;
+    p.playCard(i);
     triggerEnter(i); // order matters!
-    //attach(); // check this works later
+    addTrigger(p.getActiveCardPtr(i));
 }
 
 // for summoning
 void Game::playCard(std::shared_ptr<Card> min) {
-    if (getActivePlayer().getActiveCardSize() >= MAX_ACTIVE) return;
-    size_t temp = getActivePlayer().getActiveCardSize();
-    getActivePlayer().placeCard(min);
+    Player &p = getActivePlayer();
+    if (p.getActiveCardSize() >= MAX_ACTIVE) return;
+    size_t temp = p.getActiveCardSize();
+    p.placeCard(min);
     triggerEnter(temp); // order matters!
-    //min->attach(); // check this works later
+    addTrigger(p.getActiveCardPtr(temp));
 }
 
 void Game::discard(int i) {
@@ -149,6 +151,10 @@ std::shared_ptr<Card> Game::getTargetCardPtr() {
     }
 }
 
+void Game::setActiveIndex(size_t i) {
+    currCardIndex = i;
+}
+
 void Game::startTurn() {
     triggerStart();
     getActivePlayer().drawCard(); // draw 1 card at the start of turn
@@ -202,5 +208,20 @@ void Game::triggerLeave(bool deadMinP1) {
     } else {
         leaveP2.notifyObservers(*this);
         leaveP1.notifyObservers(*this);
+    }
+}
+
+void Game::addTrigger(std::shared_ptr<Card> minion) {
+    if (currP1) {
+        if (minion->getTriggerType() == TriggerType::Start) startP1.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::End) endP1.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::Enter) enterP1.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::Leave) leaveP1.attach(minion);
+    }
+    else {
+        if (minion->getTriggerType() == TriggerType::Start) startP2.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::End) endP2.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::Enter) enterP2.attach(minion);
+        else if (minion->getTriggerType() == TriggerType::Leave) leaveP2.attach(minion);
     }
 }

@@ -56,7 +56,7 @@ public:
 
     Card &getActiveCard(size_t i);
 
-    std::shared_ptr<Card> Player::getActiveCardPtr(size_t i);
+    std::shared_ptr<Card> getActiveCardPtr(size_t i);
 
     ActiveMinions &getActiveMinions();
 
