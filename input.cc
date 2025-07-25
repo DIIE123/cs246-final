@@ -196,24 +196,47 @@ bool Input::handleCommand(istream &istr) {
     int t = 0;
     if (!(iss >> i)) {
       // Invalid
+      cout << "'use' expects [int] (optional:) [int] [int]. Type 'help' for more details." << endl;
       return true;
     }
     if (!(iss >> p)) {
       // Play without target
-      game.useCard(i - 1);
+      if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 && game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
+        game.useCard(i - 1);
+        return true;
+      }
+      if (game.getActivePlayer().getActiveCard(i - 1).getTriggerType() != TriggerType::None) {
+        cout << "Minion does not have an activated ability!" << endl;
+      }
+      cout << "This minion can not attack further for this term." << endl;
       return true;
     }
     if (!(iss >> t)) {
       // Invalid
+      cout << "'use' expects [int] (optional:) [int] [int]. Type 'help' for more details." << endl;
       return true;
     }
     // Play with target
     if (p == 1) {
-      game.useCard(i - 1, true, t - 1);
+      if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 && game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
+        game.useCard(i - 1, true, t - 1);
+        return true;
+      }
+      if (game.getActivePlayer().getActiveCard(i - 1).getTriggerType() != TriggerType::None) {
+        cout << "Minion does not have an activated ability!" << endl;
+      }
+      cout << "This minion can not attack further for this term." << endl;
       return true;
     }
     // Play with target
-    game.useCard(i - 1, false, t - 1);
+    if (game.getActivePlayer().getActiveCard(i - 1).getActions() > 0 && game.getActivePlayer().getActiveCard(i - 1).getTriggerType() == TriggerType::None) {
+      game.useCard(i - 1, false, t - 1);
+      return true;
+    }
+    if (game.getActivePlayer().getActiveCard(i - 1).getTriggerType() != TriggerType::None) {
+      cout << "Minion does not have an activated ability!" << endl;
+    }
+    cout << "This minion can not attack further for this term." << endl;
     return true;
   }
   if (command == "inspect") {

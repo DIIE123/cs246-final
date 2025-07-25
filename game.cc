@@ -160,12 +160,16 @@ void Game::useAbility(size_t i, bool player1, size_t j) {
     targetCardIndex = j;
     currTargetPlayer1 = player1;
 
+    Card &card = getActiveCard();
+    Player &p = getActivePlayer();
+
     // Check
-    if (getActiveCard().getAbilityCost() <= 0) return; // just double check to see if its not an active ability
-    if (getActiveCard().getActions() <= 0) return; // has no more actions
-    if (getActiveCard().getAbilityCost() <= getActivePlayer().getMagic()) {
-        getActivePlayer().incrementMagic(-getActiveCard().getAbilityCost());
-        getActiveCard().useAbility(*this);
+    if (card.getAbilityCost() <= 0) return; // just double check to see if its not an active ability
+    if (card.getActions() <= 0) return; // has no more actions
+    if (card.getAbilityCost() <= p.getMagic() || isTesting) {
+        p.incrementMagic(-card.getAbilityCost());
+        card.useAbility(*this);
+        card.decreaseActions();
     } // add else if you want to do something when they can't afford ability
 }
 
@@ -177,7 +181,7 @@ void Game::useAbilityInHand(size_t i, bool player1, size_t j) {
     Card &card = p.getHandCard(i);
 
     // Check
-    if (card.getAbilityCost() <= getActivePlayer().getMagic()) {
+    if (card.getAbilityCost() <= getActivePlayer().getMagic() || isTesting) {
         p.incrementMagic(-card.getAbilityCost());
         card.useAbility(*this);
     } // add else if you want to do something when they can't afford ability
