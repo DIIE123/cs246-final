@@ -65,7 +65,7 @@ bool abilityBlizzard(Game &game) {
     for (size_t i = 0; i < currentMinions.getSize(); ++i) {
         currentMinions.getCard(i).setDefense(currentMinions.getCard(i).getDefense() - 2);
     }
-    game.attackMinion(currentMinions.getCard(0), 0);
+    if (currentMinions.getSize() > 0) game.attackMinion(currentMinions.getCard(0), 0);
 
     // enemy player
     ActiveMinions &enemyMinions = game.getOtherPlayer().getActiveMinions();
@@ -73,7 +73,7 @@ bool abilityBlizzard(Game &game) {
     for (size_t i = 0; i < enemyMinions.getSize(); ++i) {
         enemyMinions.getCard(i).setDefense(enemyMinions.getCard(i).getDefense() - 2);
     }
-    game.attackMinion(enemyMinions.getCard(0), 0);
+    if (enemyMinions.getSize() > 0) game.attackMinion(enemyMinions.getCard(0), 0);
 
     return true;
 }

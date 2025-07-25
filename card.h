@@ -57,6 +57,7 @@ public:
     virtual int getDefense();
     virtual int getEnchantmentCost();
     virtual int getMaxActions();
+    virtual bool getHasAbility();
     virtual std::string getEnchantmentName();
     virtual std::string getAttackString();
     virtual std::string getDefenseString();

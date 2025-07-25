@@ -9,7 +9,8 @@ Card::Card(Player &player): player{player} {}
 Card::~Card() {}
 
 bool Card::useAbility(Game &game) {
-    return abilityFunc(game);
+    if (getHasAbility()) return abilityFunc(game);
+    return false;
 }
 
 // Utilities
@@ -66,6 +67,7 @@ int Card::getAttack() { return attack; }
 int Card::getDefense() { return defense; }
 int Card::getActions() { return actions; }
 int Card::getMaxActions() { return maxActions; }
+bool Card::getHasAbility() { return true || (getType() == CardType::Minion && triggerType != TriggerType::None); }
 int Card::getEnchantmentCost() { return 0; }
 TriggerType Card::getTriggerType() { return triggerType; }
 std::string Card::getAttackString() { return ""; }
