@@ -66,8 +66,8 @@ int Card::getDefense() { return defense; }
 int Card::getActions() { return actions; }
 int Card::getMaxActions() { return maxActions; }
 TriggerType Card::getTriggerType() { return triggerType; }
-std::string Card::getAttackString() {}
-std::string Card::getDefenseString() {}
+std::string Card::getAttackString() { return ""; }
+std::string Card::getDefenseString() { return ""; }
 
 // Setters
 void Card::setAttack(int attack) { this->attack = attack; }
