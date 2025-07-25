@@ -12,7 +12,7 @@ const int MAX_HAND = 5;
 const int MAX_ACTIVE = 5;
 
 Game::Game(bool isTesting, std::string name1, std::string name2, std::string deck1, std::string deck2): 
-    isTesting{isTesting}, currP1{true}, p1{name1, START_HP, START_MAGIC, deck1}, p2{name2, START_HP, START_MAGIC, deck2}, 
+    isTesting{isTesting}, currP1{true}, p1{name1, START_HP, START_MAGIC, deck1, isTesting}, p2{name2, START_HP, START_MAGIC, deck2, isTesting}, 
     currCardIndex{0}, targetCardIndex{0}, currTargetPlayer1{true}, turnsPassed{0} {
         startTurn();
     }
@@ -76,7 +76,16 @@ void Game::playCard(size_t i) {
     else if (card.getType() == CardType::Spell) {
         useAbilityInHand(i);
     }
-   
+    else if (card.getType() == CardType::Ritual) {
+       if (card.getCost() <= p.getMagic()) {
+            p.incrementMagic(-card.getCost());
+
+
+            std::shared_ptr<Card> temp = p.getHand().removeCard(i);
+            p.setRitual(temp);
+            addTrigger(temp);
+        }
+    }
 }
 
 // For targeted play
@@ -156,10 +165,6 @@ void Game::attackMinion(size_t i, Player &enemy, size_t j) {
 }
 
 void Game::useAbility(size_t i, bool player1, size_t j) {
-    currCardIndex = i;
-    targetCardIndex = j;
-    currTargetPlayer1 = player1;
-
     Card &card = getActiveCard();
     Player &p = getActivePlayer();
 
@@ -167,6 +172,9 @@ void Game::useAbility(size_t i, bool player1, size_t j) {
     if (card.getAbilityCost() <= 0) return; // just double check to see if its not an active ability
     if (card.getActions() <= 0) return; // has no more actions
     if (card.getAbilityCost() <= p.getMagic() || isTesting) {
+        currCardIndex = i;
+        targetCardIndex = j;
+        currTargetPlayer1 = player1;
         p.incrementMagic(-card.getAbilityCost());
         card.useAbility(*this);
         card.decreaseActions();
@@ -174,14 +182,13 @@ void Game::useAbility(size_t i, bool player1, size_t j) {
 }
 
 void Game::useAbilityInHand(size_t i, bool player1, size_t j) {
-    targetCardIndex = j;
-    currTargetPlayer1 = player1;
-
     Player &p = getActivePlayer();
     Card &card = p.getHandCard(i);
 
     // Check
     if (card.getAbilityCost() <= getActivePlayer().getMagic() || isTesting) {
+        targetCardIndex = j;
+        currTargetPlayer1 = player1;
         p.incrementMagic(-card.getAbilityCost());
         card.useAbility(*this);
     } // add else if you want to do something when they can't afford ability

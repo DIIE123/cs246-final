@@ -4,7 +4,7 @@
 const std::string DIRECTORY = "./rituals/";
 const std::string EXTENSION = ".txt";
 
-Ritual::Ritual(std::string name) {
+Ritual::Ritual(std::string name, Player &player): Card{player} {
     readInfo(name);
 }
 
@@ -30,6 +30,13 @@ void Ritual::readInfo(std::string name) {
     std::string temp;
     in >> temp;
     triggerType = convertToTriggerType(temp);
+}
+
+void Ritual::useAbility(Game &game) {
+    if (getDefense() >= getAbilityCost()) {
+        abilityFunc(game);
+        setDefense(getDefense() - getAbilityCost());
+    }
 }
 
 CardType Ritual::getType() { return CardType::Ritual; }

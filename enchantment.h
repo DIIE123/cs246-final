@@ -19,8 +19,8 @@ protected:
     std::shared_ptr<Minion> minion = nullptr;
 
 public:
-    Enchantment(std::string enchantmentName, int cost, std::string attackString, std::string defenseString, std::shared_ptr<Minion> minion);
-    Enchantment(std::string enchantmentName, int cost, std::string abilityDesc, std::shared_ptr<Minion> minion);
+    Enchantment(std::string enchantmentName, int cost, std::string attackString, std::string defenseString, std::shared_ptr<Minion> minion, Player &player);
+    Enchantment(std::string enchantmentName, int cost, std::string abilityDesc, std::shared_ptr<Minion> minion, Player &player);
     virtual ~Enchantment() = 0;
     std::string getAttackString() override;
     std::string getDefenseString() override;
@@ -31,7 +31,7 @@ public:
 
 class GiantStrength: public Enchantment {
 public:
-    GiantStrength(std::shared_ptr<Minion> minion);
+    GiantStrength(std::shared_ptr<Minion> minion, Player &player);
     ~GiantStrength();
     int getAttack();
     int getDefense();
@@ -40,7 +40,7 @@ public:
 
 class Enrage: public Enchantment {
 public:
-    Enrage(std::shared_ptr<Minion> minion);
+    Enrage(std::shared_ptr<Minion> minion, Player &player);
     ~Enrage();
     int getAttack() override;
     int getDefense() override;
@@ -49,7 +49,7 @@ public:
 
 class Haste: public Enchantment {
 public:
-    Haste(std::shared_ptr<Minion> minion);
+    Haste(std::shared_ptr<Minion> minion, Player &player);
     ~Haste();
     int getMaxActions() override;
     virtual CardType getType() override;
@@ -57,7 +57,7 @@ public:
 
 class MagicFatigue: public Enchantment {
 public:
-    MagicFatigue(std::shared_ptr<Minion> minion);
+    MagicFatigue(std::shared_ptr<Minion> minion, Player &player);
     ~MagicFatigue();
     int getAbilityCost() override;
     virtual CardType getType() override;
@@ -65,7 +65,7 @@ public:
 
 class Silence: public Enchantment {
 public:
-    Silence(std::shared_ptr<Minion> minion);
+    Silence(std::shared_ptr<Minion> minion, Player &player);
     ~Silence();
     virtual CardType getType() override;
     bool getHasAbility();

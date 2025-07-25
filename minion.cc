@@ -4,7 +4,7 @@
 const std::string DIRECTORY = "./minions/";
 const std::string EXTENSION = ".txt";
 
-Minion::Minion(std::string name) {
+Minion::Minion(std::string name, Player &player): Card{player} {
     readInfo(name);
 }
 

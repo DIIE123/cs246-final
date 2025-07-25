@@ -5,7 +5,7 @@
 
 std::shared_ptr<AbilityManager> Card::am = std::make_shared<AbilityManager>();
 
-Card::Card() {}
+Card::Card(Player &player): player{player} {}
 Card::~Card() {}
 
 void Card::useAbility(Game &game) {
@@ -57,6 +57,7 @@ bool Card::shouldRemove() {
 }
 
 // Getters
+Player &Card::getPlayer() { return player; }
 std::string Card::getName() { return name; }
 int Card::getCost() { return cost; }
 std::string Card::getAbilityDesc() { return abilityDesc; }
@@ -68,7 +69,7 @@ int Card::getMaxActions() { return maxActions; }
 TriggerType Card::getTriggerType() { return triggerType; }
 std::string Card::getAttackString() { return ""; }
 std::string Card::getDefenseString() { return ""; }
-std::shared_ptr<Card> Card::getPointer() {return nullptr; }
+std::shared_ptr<Card> Card::getPointer() { return nullptr; }
 
 // Setters
 void Card::setAttack(int attack) { this->attack = attack; }

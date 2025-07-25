@@ -4,7 +4,7 @@
 const std::string DIRECTORY = "./spells/";
 const std::string EXTENSION = ".txt";
 
-Spell::Spell(std::string name) {
+Spell::Spell(std::string name, Player &player): Card{player} {
     readInfo(name);
 }
 

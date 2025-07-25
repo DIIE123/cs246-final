@@ -25,13 +25,14 @@ protected:
     TriggerType triggerType = TriggerType::None;
     std::string abilityDesc = "";
     Ability abilityFunc = nullptr;
+    Player &player;
     
     virtual void readInfo(std::string name) = 0;
 
 public:
-    Card();
+    Card(Player &player);
     virtual ~Card();
-    void useAbility(Game &game);
+    virtual void useAbility(Game &game);
 
     // Utilities
     void takeDamage(int damage);
@@ -46,6 +47,7 @@ public:
     bool shouldRemove() override;
 
     // Getters
+    Player &getPlayer();
     std::string getName();
     virtual int getCost();
     std::string getAbilityDesc();

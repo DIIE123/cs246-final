@@ -10,7 +10,7 @@ public:
   Deck(const Deck&) = delete;
   Deck& operator=(const Deck&) = delete;
   void shuffle();
-  void createDeck(std::string deckfile);
+  void createDeck(std::string deckfile, Player &player);
 };
 
 

@@ -27,8 +27,9 @@ void abilityUnsummon(Game &game) {
 }
 
 void abilityRecharge(Game &game) {
-    Card &ritual = game.getTargetCard();
-    ritual.setDefense(ritual.getDefense() + 3);
+    auto ritual = game.getActivePlayer().getRitual();
+    if (!ritual) return;
+    ritual->setDefense(ritual->getDefense() + 3);
 }
 
 void abilityDisenchant(Game &game) {}
@@ -38,6 +39,7 @@ void abilityRaiseDead(Game &game) {
     std::shared_ptr<Card> minion = player.getGraveyard().removeTopCard();
 
     // Add to player hand
+    minion->setDefense(1);
     player.getHand().addCard(minion);
 }
 
@@ -66,7 +68,7 @@ void abilityBoneGolem(Game &game) {
 }
 
 void abilityFireElemental(Game &game) {
-    if (game.getActivePlayer() != game.getTargetPlayer()) {
+    if (game.getActivePlayer() != game.getActiveCard().getPlayer()) {
         abilityAttackMinion(game);
     }
 }
@@ -86,7 +88,7 @@ void abilityNovicePyromancer(Game &game) {
 }
 
 void abilityApprenticeSummoner(Game &game) {
-    std::shared_ptr<Card> newMinion = std::make_shared<Minion>("Air Elemental");
+    std::shared_ptr<Card> newMinion = std::make_shared<Minion>("Air Elemental", game.getActivePlayer());
     game.playCard(newMinion);
 }
 
@@ -103,7 +105,7 @@ void abilityDarkRitual(Game &game) {
 }
 
 void abilityAuraOfPower(Game &game) {
-    if (!(game.getActivePlayer() != game.getTargetPlayer())) {
+    if (!(game.getActivePlayer() != game.getActiveCard().getPlayer())) {
         Card &minion = game.getTargetCard();
         minion.setAttack(minion.getAttack() + 1);
         minion.setDefense(minion.getDefense() + 1);

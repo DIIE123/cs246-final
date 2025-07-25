@@ -8,7 +8,8 @@ class Ritual: public Card {
     void readInfo(std::string name) override;
 
 public:
-    Ritual(std::string name);
+    Ritual(std::string name, Player &player);
+    void useAbility(Game &game) override;
     CardType getType() override;
 };
 
