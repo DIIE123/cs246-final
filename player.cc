@@ -77,8 +77,16 @@ Card &Player::getActiveCard(size_t i) {
     return activeMinions.getMinion(i);
 }
 
+std::shared_ptr<Card> Player::getActiveCardPtr(size_t i) {
+    return activeMinions.getMinionPtr(i);
+}
+
 ActiveMinions &Player::getActiveMinions() {
     return activeMinions;
+}
+
+Graveyard &Player::getGraveyard() {
+    return graveyard;
 }
 
 size_t Player::getActiveCardSize() {
@@ -102,7 +110,7 @@ void Player::attackMinion(size_t i, Player &enemy, size_t j) {
 }
 
 void Player::killMinion(size_t i) {
-    activeMinions.removeCard(i);
+    graveyard.addCard(activeMinions.removeCard(i));
 }
 
 bool Player::killMinions() {
@@ -111,6 +119,7 @@ bool Player::killMinions() {
         if (activeMinions.getMinion(i).isDead()) {
             activeMinions.removeCard(i);
             killed = true;
+            --i;
         }
     }
     return killed;

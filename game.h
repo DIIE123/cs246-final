@@ -40,6 +40,10 @@ private:
 
     void triggerLeave(bool deadMinP1);
 
+    void addTrigger(std::shared_ptr<Card> minion);
+
+    void removeObservers();
+
 public:
 
     Game(bool isTesting, std::string name1, std::string name2, std::string deck1, std::string deck2);
@@ -77,7 +81,13 @@ public:
 
     Card &getActiveCard();
 
+    std::shared_ptr<Card> getActiveCardPtr();
+
     Card &getTargetCard();
+
+    std::shared_ptr<Card> getTargetCardPtr();
+
+    void setActiveIndex(size_t i);
 
     void startTurn();
 

@@ -7,7 +7,7 @@
 #include "collection.h"
 #include "deck.h"
 #include "hand.h"
-//#include "graveyard.h"
+#include "graveyard.h"
 #include "card.h"
 #include "minion.h"
 #include "activeminions.h"
@@ -21,6 +21,7 @@ class Player {
     Deck deck;
     Hand hand;
     ActiveMinions activeMinions;
+    Graveyard graveyard;
     std::shared_ptr<Card> ritual;
 public:
 
@@ -55,7 +56,11 @@ public:
 
     Card &getActiveCard(size_t i);
 
+    std::shared_ptr<Card> getActiveCardPtr(size_t i);
+
     ActiveMinions &getActiveMinions();
+
+    Graveyard &getGraveyard();
 
     size_t getActiveCardSize();
 

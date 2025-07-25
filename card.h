@@ -42,7 +42,8 @@ public:
     bool isDead();
 
     TriggerType convertToTriggerType(std::string input);
-    void notify(Game &game);
+    void notify(Game &game) override;
+    bool shouldRemove() override;
 
     // Getters
     std::string getName();
@@ -52,6 +53,8 @@ public:
     virtual int getAttack();
     virtual int getDefense();
     virtual int getMaxActions();
+    virtual std::string getAttackString();
+    virtual std::string getDefenseString();
     int getActions();
     TriggerType getTriggerType();
     virtual CardType getType() = 0;
