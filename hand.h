@@ -4,6 +4,7 @@
 #include "info.h"
 #include <vector>
 #include <string>
+#include <iostream>
 #include <memory>
 
 class Hand: public Collection{
@@ -16,6 +17,7 @@ public:
   Hand& operator=(Hand&&) = default;
   void playCard(size_t index);
   std::vector<std::shared_ptr<CardInfo>> getInfo();
+  int getCardCost(size_t i);
 };
 
 #endif

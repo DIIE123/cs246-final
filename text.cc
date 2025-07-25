@@ -207,6 +207,7 @@ void Text::displayHand() {
 void Text::inspect(std::shared_ptr<Card> minion) {
   std::shared_ptr<Card> head = minion;
   std::vector<card_template_t> information;
+
   while (1) {
     // Print Minion. Exit.
     if (head->getType() == CardType::Minion) {

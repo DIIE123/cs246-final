@@ -22,3 +22,10 @@ std::vector<std::shared_ptr<CardInfo>> Hand::getInfo() {
   }
   return information;
 }
+
+int Hand::getCardCost(size_t i) { 
+  if (i >= cards.size() ) {
+    std::cout << "In getCardCost theres an invalid index" << std::endl << std::endl;
+  }
+  return cards[i]->getCost(); 
+}
