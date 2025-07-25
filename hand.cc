@@ -15,7 +15,7 @@ std::vector<std::shared_ptr<CardInfo>> Hand::getInfo() {
   for (auto& it: cards) {
     if(it->getType() == CardType::Minion) {
       information.emplace_back(std::make_shared<MinionInfo>(it->getName(), it->getCost(), it->getAttack(), it->getDefense(), it->getAbilityDesc(), it->getAbilityCost(), 
-      it->getTriggerType() == TriggerType::None));
+      it->getTriggerType() == TriggerType::Active));
       continue;
     }
     if (it->getType() == CardType::Spell) {

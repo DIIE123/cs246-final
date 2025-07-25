@@ -7,7 +7,7 @@ std::vector<std::shared_ptr<CardInfo>> ActiveMinions::getInfo() {
   std::vector<std::shared_ptr<CardInfo>> information;
   for (auto& it: cards) {
     information.emplace_back(std::make_shared<MinionInfo>(it->getName(), it->getCost(), it->getAttack(), 
-      it->getDefense(), it->getAbilityDesc(), it->getAbilityCost(), it->getTriggerType() == TriggerType::None));
+      it->getDefense(), it->getAbilityDesc(), it->getAbilityCost(), it->getTriggerType() == TriggerType::Active));
   }
   return information;
 }
@@ -36,6 +36,13 @@ void ActiveMinions::useEnchantment(size_t i, CardType ct, Player& p) {
     cards[i] = std::make_shared<Silence>(cards[i], p);
     return;
   } 
+}
+
+void ActiveMinions::removeEnchantment(size_t i) {
+  if (cards[i]->getType() == CardType::Minion) {
+    return;
+  }
+  cards[i] = cards[i]->getPointer();
 }
 
 

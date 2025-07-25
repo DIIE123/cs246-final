@@ -13,6 +13,7 @@ public:
   ActiveMinions& operator=(const ActiveMinions&) = delete;
   std::vector<std::shared_ptr<CardInfo>> getInfo();
   void useEnchantment(size_t i, CardType ct, Player& p);
+  void removeEnchantment(size_t i);
 };
 
 #endif
