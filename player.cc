@@ -8,7 +8,7 @@ const int MAX_ACTIVE = 5;
 Player::Player(std::string name, int hp, int mp, std::string deckFile, bool isTesting): 
     name{name}, health{hp}, magic{mp}, deck{}, hand{}, activeMinions{} {
         deck.createDeck(deckFile, *this);
-        if (isTesting) deck.shuffle();
+        if (!isTesting) deck.shuffle();
     }
 
 bool Player::takeDamage(int dmg) {
