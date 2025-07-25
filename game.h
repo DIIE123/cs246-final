@@ -64,7 +64,13 @@ public:
 
     void playCard(size_t i);
 
+    void playCard(size_t i, Player &enemy, size_t t);
+
     void playCard(std::shared_ptr<Card> min);
+
+    void useCard(size_t i);
+    
+    void useCard(size_t i, Player &enemy, size_t t);
 
     void discard(int i);
 
@@ -76,7 +82,7 @@ public:
 
     void attackMinion(size_t i, Player &enemy, size_t j);
 
-    void useAbility(size_t i, bool player1, size_t j);
+    void useAbility(size_t i, bool player1 = true, size_t j = 0);
 
     Card &getActiveCard();
 

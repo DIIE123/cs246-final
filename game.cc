@@ -1,4 +1,5 @@
 #include "game.h"
+#include "type.h"
 #include <iostream>
 
 // CONSTANTS
@@ -57,19 +58,60 @@ void Game::playCard(size_t i) {
     Player &p = getActivePlayer();
     size_t size = p.getActiveCardSize();
     if (size >= MAX_ACTIVE) return;
-    p.playCard(i);
-    triggerEnter(size); // order matters!
-    addTrigger(p.getActiveCardPtr(size));
+
+    Card &card = p.getActiveCard(i);
+
+    if (card.getType() == CardType::Minion) {
+        currTargetPlayer1 = !(p != p1);
+        p.getActiveMinions().addCard(p.getHand().removeCard(i));
+        triggerEnter(size); // order matters!
+        addTrigger(p.getActiveCardPtr(size));
+    }
+    else if (card.getType() == CardType::Spell) {
+        currCardIndex = i;
+        card.useAbility(*this);
+        p.getHand().removeCard(i);
+    }
+   
+}
+
+// For targeted play
+void Game::playCard(size_t i, Player &enemy, size_t t) {
+    Player &p = getActivePlayer();
+    Card &card = p.getActiveCard(i);
+    if (card.getType() == CardType::Spell) {
+        currCardIndex = i;
+        targetCardIndex = t;
+        currTargetPlayer1 = !(enemy != p1);
+        card.useAbility(*this);
+        p.getHand().removeCard(i);
+    }
 }
 
 // for summoning
 void Game::playCard(std::shared_ptr<Card> min) {
     Player &p = getActivePlayer();
     if (p.getActiveCardSize() >= MAX_ACTIVE) return;
+
+    currTargetPlayer1 = !(p != p1);
     size_t temp = p.getActiveCardSize();
     p.placeCard(min);
     triggerEnter(temp); // order matters!
     addTrigger(p.getActiveCardPtr(temp));
+}
+
+void Game::useCard(size_t i) {
+    Player &p = getActivePlayer();
+    if (i > p.getActiveCardSize()) return;
+
+    useAbility(i);
+}
+
+void Game::useCard(size_t i, Player &enemy, size_t t) {
+    Player &p = getActivePlayer();
+    if (i > p.getActiveCardSize()) return;
+
+    useAbility(i, !(enemy != p1), t);
 }
 
 void Game::discard(int i) {
@@ -125,10 +167,6 @@ void Game::useAbility(size_t i, bool player1, size_t j) {
     if (getActiveCard().getAbilityCost() <= getActivePlayer().getMagic()) {
         getActivePlayer().incrementMagic(-getActiveCard().getAbilityCost());
         getActiveCard().useAbility(*this);
-        // If it is a spell, remove it from hand
-        if (getActiveCard().getType() == CardType::Spell) {
-            getActivePlayer().getHand().removeCard(currCardIndex); // big line!!
-        }
     } // add else if you want to do something when they can't afford ability
 }
 

@@ -21,21 +21,6 @@ bool Player::takeDamage(int dmg) {
 }
 
 // Assumed to be affordable and valid from Game
-bool Player::playCard(size_t i) {
-    std::shared_ptr<Card> temp = hand.removeCard(i);
-    if (temp->getType() == CardType::Minion) {
-        activeMinions.addCard(temp);
-        return true;
-    } else if (temp->getType() == CardType::Spell) {
-        
-    }
-    return false;
-}
-
-bool Player::playCard(size_t i, Player &enemy, size_t t) {
-    // work on this later
-}
-
 void Player::drawCard() {
     if (getHandSize() >= MAX_HAND) {
         
@@ -51,26 +36,6 @@ void Player::drawCard() {
 
 void Player::placeCard(std::shared_ptr<Card> min) {
     activeMinions.addCard(min);
-}
-
-void Player::playMinion(size_t i) {
-    // do this
-}
-
-void Player::playSpell(size_t i) {
-    // do this
-}
-
-void Player::playSpell(size_t i, Player &enemy, size_t j) {
-    // do this
-}
-
-void Player::playEnchant(size_t i, size_t j) {
-
-}
-
-void Player::playRitual(size_t i) {
-    
 }
 
 Card &Player::getActiveCard(size_t i) {
